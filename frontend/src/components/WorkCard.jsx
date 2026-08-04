@@ -5,7 +5,7 @@ import StatusBadge from "./StatusBadge";
 
 export const formatPortfolioDate = (value, precision) => {
   if (!value) return null;
-  if (precision === "year" || /^\d{4}$/.test(value)) return `${value} · exact date not recorded`;
+  if (precision === "year" || /^\d{4}$/.test(value)) return `${value} (year only)`;
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "long",

@@ -11,9 +11,20 @@ export const ContentSection = ({ title, children, className = "" }) => {
   );
 };
 
+const CAVEAT_PREFIX = "Limitation:";
+
 export const Paragraphs = ({ items }) => {
   if (!items?.length) return null;
-  return items.map((item, index) => <p key={`${item.slice(0, 24)}-${index}`}>{item}</p>);
+  return items.map((item, index) => {
+    const isCaveat = item.startsWith(CAVEAT_PREFIX);
+    return (
+      <p key={`${item.slice(0, 24)}-${index}`} className={isCaveat ? "caveat" : undefined}>
+        {isCaveat ? (
+          <><strong>{CAVEAT_PREFIX}</strong>{item.slice(CAVEAT_PREFIX.length)}</>
+        ) : item}
+      </p>
+    );
+  });
 };
 
 export const BulletList = ({ items }) => {

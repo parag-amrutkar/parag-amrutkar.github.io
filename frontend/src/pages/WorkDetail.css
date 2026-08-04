@@ -81,6 +81,9 @@
 .detail-section > p { color: var(--ink-muted); font-size: 1.05rem; line-height: 1.82; }
 .detail-section strong { color: var(--ink); }
 
+.detail-section > p.caveat { color: var(--ink-faint); font-size: 0.95rem; font-style: italic; }
+.detail-section > p.caveat strong { color: var(--analysis); font-style: normal; }
+
 .detail-list { margin: 0; padding: 0; list-style: none; }
 .detail-list li { position: relative; margin-bottom: 18px; padding-left: 27px; color: var(--ink-muted); font-size: 1.02rem; line-height: 1.75; }
 .detail-list li::before { content: ""; position: absolute; left: 0; top: 0.8em; width: 8px; height: 8px; border-radius: 50%; background: var(--product); }

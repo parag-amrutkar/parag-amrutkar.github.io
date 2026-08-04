@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowDownRight, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import ComingSoonCard from "../components/ComingSoonCard";
 import WorkCard from "../components/WorkCard";
 import { analyses, products, profile } from "../data/portfolio";
 import "../components/Work.css";
@@ -40,6 +41,7 @@ const Home = () => {
             </div>
             <div className="work-grid">
               {featuredProducts.map((item) => <WorkCard key={item.slug} item={item} />)}
+              {featuredProducts.length % 2 === 1 && <ComingSoonCard kind="products" />}
             </div>
           </div>
         </section>
@@ -54,6 +56,7 @@ const Home = () => {
             </div>
             <div className="work-grid">
               {featuredAnalyses.map((item) => <WorkCard key={item.slug} item={item} compact />)}
+              {featuredAnalyses.length % 2 === 1 && <ComingSoonCard kind="analysis" compact />}
             </div>
           </div>
         </section>

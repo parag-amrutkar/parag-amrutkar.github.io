@@ -53,9 +53,6 @@
 }
 .section-heading h2 { margin: 0; }
 
-.home .selected-products .work-card:only-child,
-.home .selected-analysis .work-card:only-child { grid-column: span 7; }
-
 .home-introduction { border-top: 1px solid var(--line); }
 .intro-grid { display: grid; grid-template-columns: 0.65fr 1.35fr; gap: 70px; }
 .intro-grid h2 { max-width: 13ch; }
@@ -80,7 +77,5 @@
   .hero-actions .btn { width: 100%; }
   .home-section { padding: 82px 0; }
   .section-heading { align-items: flex-start; flex-direction: column; }
-  .home .selected-products .work-card:only-child,
-  .home .selected-analysis .work-card:only-child { grid-column: 1 / -1; }
   .contact-cta { padding: 84px 0; }
 }

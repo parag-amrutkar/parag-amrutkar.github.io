@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ComingSoonCard from "../components/ComingSoonCard";
 import WorkCard from "../components/WorkCard";
 import { analyses, products } from "../data/portfolio";
 import "../components/Work.css";
@@ -94,6 +95,7 @@ const Work = () => {
             {collection.items.length > 0 ? (
               <div className="work-grid">
                 {collection.items.map((item) => <WorkCard item={item} key={item.slug} />)}
+                {collection.items.length % 2 === 1 && <ComingSoonCard kind={collection.id} />}
               </div>
             ) : (
               <p className="empty-state">No public entries are available in this collection yet.</p>
