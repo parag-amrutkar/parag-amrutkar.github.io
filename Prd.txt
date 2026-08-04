@@ -1,0 +1,60 @@
+1. Overview
+
+The goal of this project is to enhance the visual design (UI) and user experience (UX) of the existing portfolio website for Parag Amrutkar. The updated site should align with current design trends, reflect personal branding, and provide an intuitive, engaging experience for visitors.
+
+2. Objectives
+
+Elevate the portfolio’s aesthetics by introducing a cohesive, modern color palette and refined typography.
+
+Infuse more personal character into the site while maintaining a professional tone suitable for a Technical Product Manager.
+
+Ensure responsiveness and accessibility across devices and assistive technologies.
+
+3. Current Observations
+
+The site has a minimalist design but relies heavily on neutral colors, which may feel generic.
+
+Navigation is straightforward (Home, About, Projects, Contact, Terminal Mode), but the Projects section currently features only one case study.
+
+The About page lists skills and values but lacks personal narrative or storytelling.
+
+“Terminal Mode” is an interesting feature but could be expanded to showcase technical creativity.
+
+4. UI Requirements
+
+Color Palette:
+
+Adopt a warm, tranquil color scheme inspired by 2025 trends (e.g., honeyed neutrals, serene blues/greens, ruby accents).
+
+Apply the 60-30-10 rule: 60 % primary color for backgrounds, 30 % secondary color for content areas, and 10 % accent color for highlights and call‑to‑action buttons.
+
+Ensure sufficient contrast for readability and accessibility (WCAG AA or higher).
+
+Typography:
+
+Choose a modern sans‑serif for headings and a clean serif or neutral sans‑serif for body text.
+
+Ensure font sizes, weights, and line heights support readability on desktop and mobile.
+
+Use consistent heading hierarchy (H1, H2, H3) across pages.
+
+Layout and Spacing:
+
+Increase white space between sections to improve readability and visual flow.
+
+Use a grid system for consistent alignment of images, text, and cards.
+
+Ensure that components such as buttons, links, and icons adhere to a unified style (e.g., rounded corners, hover effects).
+
+Imagery and Media:
+
+Introduce personal photos (professional headshot or candid shots related to work) to humanize the site.
+
+Use high‑quality visuals and diagrams in project case studies to break up text and illustrate problem‑solving.
+
+
+Micro-interactions:
+
+Add subtle animations (e.g., button hover states, fade‑in effects for content) to create a polished feel without detracting from content.
+
+

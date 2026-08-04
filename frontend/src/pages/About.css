@@ -1,11 +1,13 @@
 .about {
   flex: 1;
-  padding: 80px 0;
+  padding: 120px 0;
 }
 
-/* Bio Section */
+/* Bio Section with increased spacing */
 .bio-section {
-  margin-bottom: 120px;
+  margin-bottom: 160px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
 .bio-content {
@@ -15,127 +17,186 @@
 }
 
 .bio-content h1 {
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .bio-text {
-  font-size: 20px;
-  line-height: 1.6;
-  color: #1d1d1f;
-  margin-bottom: 32px;
+  font-size: 22px;
+  line-height: 1.8;
+  color: hsl(var(--foreground));
+  margin-bottom: 40px;
 }
 
 .location {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  color: #86868b;
-  font-size: 15px;
+  gap: 10px;
+  color: hsl(var(--muted-foreground));
+  font-size: 16px;
+  padding: 12px 24px;
+  background: hsl(var(--muted));
+  border-radius: 24px;
+  transition: all 0.3s ease;
+}
+
+.location:hover {
+  background: hsl(var(--primary) / 0.1);
+  color: hsl(var(--primary));
+  transform: translateY(-2px);
 }
 
 /* Skills Section */
 .skills-section {
-  margin-bottom: 120px;
+  margin-bottom: 160px;
 }
 
 .skills-section h2 {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 80px;
 }
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
 }
 
 .skill-category {
-  background: #ffffff;
-  padding: 32px;
-  border-radius: 12px;
-  border: 1px solid #e5e5e7;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  background: hsl(var(--card));
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 4px 12px hsla(var(--foreground), 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.skill-category:nth-child(1) { animation-delay: 0.1s; }
+.skill-category:nth-child(2) { animation-delay: 0.2s; }
+.skill-category:nth-child(3) { animation-delay: 0.3s; }
+.skill-category:nth-child(4) { animation-delay: 0.4s; }
+
+.skill-category:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px hsla(var(--primary), 0.12);
+  border-color: hsl(var(--primary) / 0.3);
 }
 
 .skill-category h3 {
-  font-size: 20px;
-  margin-bottom: 24px;
-  color: #1d1d1f;
+  font-size: 22px;
+  margin-bottom: 28px;
+  color: hsl(var(--foreground));
+  font-family: 'Inter', sans-serif;
 }
 
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
 }
 
 .skill-tag {
   display: inline-block;
-  padding: 8px 16px;
-  background: #f5f5f7;
-  border-radius: 980px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, hsl(var(--muted)) 0%, hsl(var(--primary) / 0.1) 100%);
+  border-radius: 24px;
   font-size: 14px;
-  color: #1d1d1f;
-  transition: all 300ms ease;
+  font-family: 'Inter', sans-serif;
+  color: hsl(var(--foreground));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid hsl(var(--border));
 }
 
 .skill-tag:hover {
-  background: #e5e5e7;
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.15) 0%, hsl(var(--secondary) / 0.15) 100%);
+  border-color: hsl(var(--primary) / 0.4);
+  transform: translateY(-2px);
+  color: hsl(var(--primary));
 }
 
 /* Philosophy Section */
 .philosophy-section {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 0.3s forwards;
 }
 
 .philosophy-card {
-  background: #f5f5f7;
-  padding: 64px;
-  border-radius: 12px;
+  background: linear-gradient(135deg, hsl(var(--muted)) 0%, hsl(var(--card)) 100%);
+  padding: 80px;
+  border-radius: 20px;
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 8px 32px hsla(var(--foreground), 0.08);
 }
 
 .philosophy-card h2 {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: 64px;
 }
 
 .philosophy-content {
   display: grid;
-  gap: 40px;
+  gap: 48px;
+}
+
+.philosophy-item {
+  padding: 32px;
+  background: hsl(var(--card));
+  border-radius: 12px;
+  border: 1px solid hsl(var(--border));
+  transition: all 0.3s ease;
+}
+
+.philosophy-item:hover {
+  transform: translateX(8px);
+  border-color: hsl(var(--primary) / 0.3);
+  box-shadow: 0 4px 16px hsla(var(--primary), 0.1);
 }
 
 .philosophy-item h4 {
-  font-size: 18px;
-  margin-bottom: 12px;
-  color: #1d1d1f;
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: hsl(var(--foreground));
+  font-family: 'Inter', sans-serif;
 }
 
 .philosophy-item p {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.8;
+  color: hsl(var(--muted-foreground));
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .about {
-    padding: 60px 0;
+    padding: 80px 0;
   }
 
   .bio-section,
   .skills-section {
-    margin-bottom: 80px;
+    margin-bottom: 100px;
   }
 
   .bio-text {
-    font-size: 17px;
+    font-size: 19px;
   }
 
   .skills-grid {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
 
   .philosophy-card {
-    padding: 40px 24px;
+    padding: 48px 32px;
+  }
+
+  .philosophy-content {
+    gap: 32px;
+  }
+
+  .philosophy-item {
+    padding: 24px;
   }
 }
