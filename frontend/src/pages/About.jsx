@@ -1,72 +1,71 @@
-import React from 'react';
-import { MapPin } from 'lucide-react';
-import './About.css';
-import { profile, skills } from '../data/mock';
+import React from "react";
+import { ArrowRight, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
+import { profile } from "../data/portfolio";
+import "./About.css";
 
-const About = () => {
-  return (
-    <div className="about">
-      <div className="container">
-        {/* Bio Section */}
-        <section className="bio-section">
-          <div className="bio-content">
-            <h1>About Me</h1>
-            <p className="bio-text">{profile.bio}</p>
-            <div className="location">
-              <MapPin size={16} />
-              <span>{profile.location}</span>
-            </div>
-          </div>
-        </section>
+const capabilities = [
+  {
+    number: "01",
+    title: "Product framing",
+    description: "Turning an open-ended problem into a defined user, proposed workflow, validation plan, and honest product status."
+  },
+  {
+    number: "02",
+    title: "Structured analysis",
+    description: "Separating facts, assumptions, tradeoffs, and recommendations so the reasoning can be inspected."
+  },
+  {
+    number: "03",
+    title: "Technical judgment",
+    description: "Connecting product decisions to data, experimentation, and implementation constraints without overstating what exists."
+  }
+];
 
-        {/* Skills Section */}
-        <section className="skills-section">
-          <h2>Skills & Expertise</h2>
-          <div className="skills-grid">
-            {skills.map((skillCategory, index) => (
-              <div key={index} className="skill-category">
-                <h3>{skillCategory.category}</h3>
-                <div className="skill-tags">
-                  {skillCategory.items.map((skill, skillIndex) => (
-                    <span key={skillIndex} className="skill-tag">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+const About = () => (
+  <div className="about page-shell">
+    <div className="container">
+      <header className="about-hero">
+        <div>
+          <p className="eyebrow">About</p>
+          <h1>Curious about the system behind the surface.</h1>
+        </div>
+        <div className="about-narrative">
+          <p>{profile.positioning}</p>
+          <p>
+            I enjoy work where the problem is still taking shape: clarifying who it is for,
+            what evidence matters, which tradeoffs are real, and what should happen next.
+            This portfolio separates product work from analysis so each can be evaluated on its own terms.
+          </p>
+          <div className="location"><MapPin size={16} aria-hidden="true" /> {profile.location}</div>
+        </div>
+      </header>
 
-        {/* Philosophy Section */}
-        <section className="philosophy-section">
-          <div className="philosophy-card">
-            <h2>Product Philosophy</h2>
-            <div className="philosophy-content">
-              <div className="philosophy-item">
-                <h4>User-Centric Innovation</h4>
-                <p className="text-muted">
-                  Every product decision starts with understanding user needs and pain points. Technology should serve people, not the other way around.
-                </p>
-              </div>
-              <div className="philosophy-item">
-                <h4>Data-Informed Strategy</h4>
-                <p className="text-muted">
-                  Leveraging analytics, A/B testing, and ML insights to validate hypotheses and drive continuous improvement in product experiences.
-                </p>
-              </div>
-              <div className="philosophy-item">
-                <h4>Cross-Functional Collaboration</h4>
-                <p className="text-muted">
-                  Building great products requires seamless collaboration between engineering, design, business, and data teams.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+      <section className="capabilities-section">
+        <div className="section-heading-simple">
+          <p className="eyebrow">How I work</p>
+          <h2>Capabilities shown through the work.</h2>
+        </div>
+        <div className="capabilities-list">
+          {capabilities.map((capability) => (
+            <article key={capability.number} className="capability-row">
+              <span>{capability.number}</span>
+              <h3>{capability.title}</h3>
+              <p>{capability.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="about-next">
+        <div><p className="eyebrow">Next</p><h2>See the reasoning in context.</h2></div>
+        <div className="about-actions">
+          <Link to="/work" className="btn btn-primary">View my work <ArrowRight size={17} /></Link>
+          <Link to="/contact" className="btn btn-secondary">Contact me</Link>
+        </div>
+      </section>
     </div>
-  );
-};
+  </div>
+);
 
 export default About;

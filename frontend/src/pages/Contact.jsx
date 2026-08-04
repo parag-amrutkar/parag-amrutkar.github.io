@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Linkedin, Github, Send } from 'lucide-react';
 import './Contact.css';
-import { profile } from '../data/mock';
+import { profile } from '../data/portfolio';
 import { useToast } from '../hooks/use-toast';
 
 const Contact = () => {
@@ -59,19 +59,20 @@ const Contact = () => {
   };
 
   return (
-    <div className="contact-page">
+    <div className="contact-page page-shell">
       <div className="container">
         <div className="page-header">
-          <h1>Get in Touch</h1>
-          <p className="text-muted">
-            Have a question or want to work together? I'd love to hear from you.
+          <p className="eyebrow">Contact</p>
+          <h1>Let’s talk about the problem.</h1>
+          <p>
+            Have a question about the work, a problem to explore, or a reason to collaborate? Send a note below or email me directly.
           </p>
         </div>
 
         <div className="contact-content">
           <div className="contact-info">
             <div className="contact-card">
-              <h3>Contact Information</h3>
+              <h2>Direct routes</h2>
               <div className="contact-links">
                 <a href={`mailto:${profile.email}`} className="contact-link">
                   <Mail size={20} />
@@ -89,9 +90,9 @@ const Contact = () => {
             </div>
 
             <div className="contact-card">
-              <h3>Let's Collaborate</h3>
-              <p className="text-muted">
-                I'm always interested in hearing about new opportunities, projects, and collaborations in product management, AI/ML strategy, and technical leadership.
+              <h2>A useful first note</h2>
+              <p>
+                A little context about the problem, who it affects, and what you are trying to decide is a helpful place to start.
               </p>
             </div>
           </div>
