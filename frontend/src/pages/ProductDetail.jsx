@@ -7,6 +7,7 @@ import {
   EvidenceBlocks,
   Paragraphs
 } from "../components/DetailBlocks";
+import Figure from "../components/art/Figure";
 import StatusBadge from "../components/StatusBadge";
 import { getProductBySlug } from "../data/portfolio";
 import "../components/Work.css";
@@ -53,8 +54,24 @@ const ProductDetail = () => {
                   {product.decisions.map((item, index) => (
                     <div className="decision-item" key={`${item.decision}-${index}`}>
                       <h3>{item.decision}</h3>
-                      {item.rationale && <p><strong>Why:</strong> {item.rationale}</p>}
-                      {item.tradeoff && <p><strong>Tradeoff:</strong> {item.tradeoff}</p>}
+                      {/* Rendered as a two-column figure rather than three
+                          stacked paragraphs: a decision IS a trade, and the
+                          shape should show what was taken against what was
+                          given up. */}
+                      <div className="decision-trade">
+                        {item.rationale && (
+                          <div className="decision-side decision-chose">
+                            <span className="decision-side-label">Chose</span>
+                            <p>{item.rationale}</p>
+                          </div>
+                        )}
+                        {item.tradeoff && (
+                          <div className="decision-side decision-gave-up">
+                            <span className="decision-side-label">Gave up</span>
+                            <p>{item.tradeoff}</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -82,6 +99,7 @@ const ProductDetail = () => {
 export const WorkNotFound = ({ kind = "work" }) => (
   <div className="not-found page-shell">
     <div className="container narrow-container">
+      <Figure name="not-found" ratio="1 / 1" className="not-found-plate" />
       <p className="eyebrow">404</p>
       <h1>{kind[0].toUpperCase() + kind.slice(1)} not found.</h1>
       <p>The entry may have moved, or the address may be incorrect.</p>

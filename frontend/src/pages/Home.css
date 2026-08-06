@@ -7,23 +7,27 @@
   overflow: hidden;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  width: 560px;
-  height: 560px;
-  right: -170px;
-  top: -230px;
-  border: 1px solid rgba(50, 91, 80, 0.16);
-  border-radius: 50%;
-  box-shadow: 0 0 0 70px rgba(50, 91, 80, 0.035), 0 0 0 140px rgba(50, 91, 80, 0.025);
-}
-
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 90px; align-items: end; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 330px); gap: clamp(48px, 6vw, 80px); align-items: end; }
 .hero-content { max-width: 900px; }
 .hero-title { margin: 0; }
-.hero h1 { font-size: clamp(4.4rem, 10vw, 8.8rem); margin-bottom: 28px; }
-.hero-tagline { max-width: 790px; color: var(--ink-muted); font-size: clamp(1.35rem, 2.7vw, 2rem); line-height: 1.48; }
+
+.hero-aside { display: grid; gap: 22px; justify-items: start; }
+.hero-plate { width: 100%; }
+.hero-note { margin-top: 2px; }
+/* The one place WONK is switched on. Fraunces' canted, splayed alternates
+   only read as intentional at display size -- everywhere else they'd look
+   like a mistake. */
+/* Rebalanced: the name was set up to 8.8rem while the positioning statement
+   -- the line that actually says what he does -- sat at 2rem. The largest
+   element on the page was carrying the least information. */
+.hero h1 {
+  font-size: clamp(3.9rem, 8.2vw, 7.2rem);
+  margin-bottom: 26px;
+  font-weight: 400;
+  letter-spacing: -0.032em;
+  font-variation-settings: "SOFT" 48, "WONK" 1;
+}
+.hero-tagline { max-width: 720px; color: var(--ink-muted); font-size: clamp(1.45rem, 2.9vw, 2.35rem); line-height: 1.42; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
 
 .hero-mark {
@@ -33,9 +37,10 @@
   padding: 26px 0 8px 24px;
   border-left: 1px solid var(--line-strong);
   color: var(--ink-faint);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 .hero-mark svg { color: var(--product); }
@@ -60,22 +65,52 @@
 .intro-grid .text-link { margin-top: 16px; }
 
 .contact-cta { padding: 110px 0; background: var(--ink); color: var(--paper); }
+.contact-cta-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.5fr); gap: 56px; align-items: center; }
 .contact-cta .eyebrow { color: #a9c3ba; }
+/* The one plate drawn on the dark ground rather than cream. */
+.contact-plate { justify-self: end; width: 100%; max-width: 340px; }
+.contact-cta .plate-empty { border-color: rgba(247, 243, 236, 0.22); }
+.contact-cta .plate-number { color: rgba(247, 243, 236, 0.5); }
 .contact-cta h2 { max-width: 780px; color: var(--paper); font-size: clamp(2.6rem, 7vw, 5.6rem); }
 .contact-cta .btn { margin-top: 24px; }
 
+/* The marginalia takes the half-row an odd card count leaves open. It is a
+   grid child so it sits level with the card it points at, not below it. */
+.grid-note {
+  grid-column: span 6;
+  align-self: start;
+  padding-top: 34px;
+  padding-left: 8px;
+}
+
 @media (max-width: 850px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 60px; }
-  .hero-mark { display: none; }
+  .hero-grid { grid-template-columns: 1fr; gap: 52px; }
+  /* The aside used to be display:none here, which left the mobile hero with
+     no visual anchor at all. It now reflows instead of disappearing. */
+  .hero-aside {
+    grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
+    align-items: center;
+    column-gap: 28px;
+  }
+  .hero-plate { grid-row: span 2; }
   .intro-grid { grid-template-columns: 1fr; gap: 20px; }
+  .grid-note { grid-column: 1 / -1; padding-top: 4px; }
 }
 
 @media (max-width: 760px) {
   .hero { min-height: auto; padding: 84px 0 96px; }
-  .hero h1 { font-size: clamp(3.7rem, 20vw, 5.6rem); }
+  .hero h1 { font-size: clamp(3.2rem, 15vw, 5rem); }
+  .hero-tagline { font-size: clamp(1.3rem, 5vw, 1.75rem); }
   .hero-actions { align-items: stretch; flex-direction: column; }
   .hero-actions .btn { width: 100%; }
   .home-section { padding: 82px 0; }
   .section-heading { align-items: flex-start; flex-direction: column; }
   .contact-cta { padding: 84px 0; }
+  .contact-cta-inner { grid-template-columns: 1fr; gap: 44px; }
+  .contact-plate { justify-self: start; max-width: 240px; }
+}
+
+@media (max-width: 560px) {
+  .hero-aside { grid-template-columns: 1fr; row-gap: 20px; }
+  .hero-plate { grid-row: auto; max-width: 240px; }
 }

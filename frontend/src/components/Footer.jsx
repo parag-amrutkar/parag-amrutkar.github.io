@@ -5,7 +5,7 @@ import { profile } from "../data/portfolio";
 import "./Footer.css";
 
 const Footer = () => (
-  <footer className="footer">
+  <footer className="footer band-ruled">
     <div className="container">
       <div className="footer-content">
         <div className="footer-statement">

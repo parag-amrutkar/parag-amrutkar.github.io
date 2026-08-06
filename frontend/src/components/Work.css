@@ -28,19 +28,23 @@
   opacity: 0.55;
 }
 
+/* Washes are deliberately lighter than --product-soft / --analysis-soft.
+   Those flood the full 370px card and turn a grid into a wall of pastel,
+   which competes with the plates. The accent now carries in the top rule,
+   the kind label, and the plate's own ink instead of the fill. */
 .work-card-product {
-  background: var(--product-soft);
+  background: var(--product-wash);
   border-top: 4px solid var(--product);
 }
 
-.work-card-product::after { background: rgba(50, 91, 80, 0.13); }
+.work-card-product::after { background: rgba(50, 91, 80, 0.1); }
 
 .work-card-analysis {
-  background: var(--analysis-soft);
+  background: var(--analysis-wash);
   border-top: 4px solid var(--analysis);
 }
 
-.work-card-analysis::after { background: rgba(160, 91, 49, 0.13); }
+.work-card-analysis::after { background: rgba(160, 91, 49, 0.1); }
 
 .work-card:hover {
   transform: translateY(-3px);
@@ -56,24 +60,34 @@
   gap: 16px;
 }
 
+.work-card-topline { align-items: flex-start; }
+
 .work-kind {
-  font-size: 0.75rem;
-  font-weight: 750;
-  letter-spacing: 0.14em;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .work-card-product .work-kind { color: var(--product); }
 .work-card-analysis .work-kind { color: var(--analysis); }
 
-.work-card-index {
-  font-family: var(--font-display);
-  font-size: 3.25rem;
-  line-height: 0.8;
-  color: rgba(25, 36, 33, 0.12);
+/* The specimen plate: a small figure in the corner of the entry, the way a
+   notebook page carries a numbered sketch beside its notes. Sits above the
+   card's bleeding corner circle but below the whole-card link overlay. */
+.work-card-plate {
+  flex: 0 0 auto;
+  width: 96px;
+  margin: -4px -4px 0 0;
+  position: relative;
+  z-index: 1;
+  opacity: 0.9;
 }
 
-.work-card-body { margin: 42px 0 26px; }
+.work-card-compact .work-card-plate { width: 78px; }
+
+.work-card-body { margin: 26px 0 26px; }
 
 .work-card h3 {
   font-size: clamp(1.65rem, 3vw, 2.2rem);
@@ -91,11 +105,13 @@
   gap: 8px;
   border: 1px solid rgba(50, 91, 80, 0.24);
   border-radius: 99px;
-  padding: 6px 10px;
+  padding: 6px 11px;
   color: var(--product);
   background: rgba(255, 255, 255, 0.6);
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
 }
 
 .status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
@@ -109,8 +125,10 @@
 
 .publication-date {
   color: var(--analysis);
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .tag-list {
@@ -129,8 +147,10 @@
   border: 1px solid rgba(25, 36, 33, 0.1);
   border-radius: 99px;
   color: var(--ink-muted);
-  font-size: 0.75rem;
-  padding: 5px 9px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.01em;
+  padding: 5px 10px;
 }
 
 .card-link {
@@ -140,24 +160,16 @@
   margin-top: 24px;
   width: max-content;
   color: var(--ink);
-  font-weight: 750;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   position: relative;
   z-index: 2;
 }
 
 .work-card-compact { min-height: 325px; }
-.work-card-compact .work-card-body { margin-top: 34px; }
-
-.work-card-ghost {
-  border-style: dashed;
-  border-color: var(--line-strong);
-  background: transparent;
-}
-.work-card-ghost::after { display: none; }
-.work-card-ghost:hover { transform: none; box-shadow: none; }
-.work-card-ghost .work-kind { color: var(--ink-faint); }
-.work-card-ghost h3 { color: var(--ink-muted); font-size: clamp(1.3rem, 2.4vw, 1.7rem); }
-.work-card-ghost p { margin: 0; color: var(--ink-faint); }
+.work-card-compact .work-card-body { margin-top: 20px; }
 
 @media (max-width: 760px) {
   .work-card { grid-column: 1 / -1; min-height: 340px; padding: 24px; }

@@ -1,6 +1,9 @@
 import React from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import Figure from "../components/art/Figure";
+import Marginalia from "../components/art/Marginalia";
+import { marginalia } from "../data/marginalia";
 import { profile } from "../data/portfolio";
 import "./About.css";
 
@@ -41,10 +44,20 @@ const About = () => (
         </div>
       </header>
 
+      <Figure
+        name="about-practice"
+        ratio="3 / 2"
+        className="about-plate"
+        fig={1}
+      />
+
       <section className="capabilities-section">
         <div className="section-heading-simple">
           <p className="eyebrow">How I work</p>
           <h2>Capabilities shown through the work.</h2>
+          <Marginalia side="right" className="capabilities-note">
+            {marginalia.capabilitiesEvidence.text}
+          </Marginalia>
         </div>
         <div className="capabilities-list">
           {capabilities.map((capability) => (

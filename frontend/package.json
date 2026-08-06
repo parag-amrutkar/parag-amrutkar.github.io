@@ -59,7 +59,10 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test"
+    "test": "craco test",
+    "illustrations": "node scripts/generate-illustrations.mjs",
+    "palette-check": "node scripts/palette-check.mjs",
+    "regrade": "node scripts/regrade.mjs"
   },
   "browserslist": {
     "production": [

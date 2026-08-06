@@ -20,21 +20,51 @@
     -->
         <title>Parag Amrutkar — Products &amp; Analysis</title>
 
+        <!--
+      Type system: Fraunces (display, variable opsz/SOFT/WONK), IBM Plex Sans
+      (body), IBM Plex Mono (data/metadata). Plex Sans and Plex Mono are
+      metrically-related siblings, so mixing mono into metadata reads as one
+      system rather than two fonts.
+    -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..800,0..100,0..1&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+        />
+
         <link rel="icon" href="%PUBLIC_URL%/favicon.svg" type="image/svg+xml" />
         <link rel="mask-icon" href="%PUBLIC_URL%/favicon.svg" color="#192421" />
         <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
 
+        <!--
+      Absolute URLs, because link crawlers do not resolve relative paths.
+      These pointed at pa1245.github.io, which now returns 404 with no
+      redirect after the repository was renamed — every social card on the
+      site was resolving to a dead host. The domain is derived from the
+      repository name (parag-amrutkar.github.io), so it changes again only
+      if the repo is renamed or a CNAME is added.
+
+      og-image.jpg is cropped from the og-image plate by scripts/lib/derive.mjs
+      on every generate or regrade, so the card cannot drift from the artwork.
+    -->
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://pa1245.github.io/" />
+        <meta property="og:url" content="https://parag-amrutkar.github.io/" />
         <meta property="og:title" content="Parag Amrutkar — Products &amp; Analysis" />
         <meta property="og:description" content="Parag Amrutkar's portfolio of product concepts and structured analysis." />
-        <meta property="og:image" content="https://pa1245.github.io/og-image.png" />
+        <meta property="og:image" content="https://parag-amrutkar.github.io/og-image.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="A drawn field-notebook plate: a hatched square and a crosshair circle joined by two curving arrows." />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Parag Amrutkar — Products &amp; Analysis" />
         <meta name="twitter:description" content="Parag Amrutkar's portfolio of product concepts and structured analysis." />
-        <meta name="twitter:image" content="https://pa1245.github.io/og-image.png" />
+        <meta name="twitter:image" content="https://parag-amrutkar.github.io/og-image.jpg" />
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
