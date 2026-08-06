@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ComingSoonCard from "../components/ComingSoonCard";
 import WorkCard from "../components/WorkCard";
+import useReveal from "../hooks/useReveal";
 import { analyses, products } from "../data/portfolio";
 import "../components/Work.css";
 import "./WorkIndex.css";
@@ -24,10 +24,15 @@ const Work = () => {
     }
   ];
 
+  // Cards in the inactive tabpanel are `hidden`, so they never intersect and
+  // would stay at their un-revealed opacity. Re-running on tab change picks
+  // up whatever just became visible.
+  useReveal([activeCollection]);
+
   return (
     <div className="work-page page-shell">
       <div className="container">
-        <header className="page-intro work-intro">
+        <header className="page-intro work-intro stagger">
           <p className="eyebrow">Selected work</p>
           <h1>Built things and<br />structured thinking.</h1>
           <p className="page-lede">
@@ -95,7 +100,6 @@ const Work = () => {
             {collection.items.length > 0 ? (
               <div className="work-grid">
                 {collection.items.map((item) => <WorkCard item={item} key={item.slug} />)}
-                {collection.items.length % 2 === 1 && <ComingSoonCard kind={collection.id} />}
               </div>
             ) : (
               <p className="empty-state">No public entries are available in this collection yet.</p>

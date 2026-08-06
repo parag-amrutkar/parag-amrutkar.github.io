@@ -6,8 +6,10 @@
   gap: 8px;
   margin-bottom: 68px;
   color: var(--ink-muted);
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 .detail-header {
@@ -62,8 +64,8 @@
 
 .detail-aside dl { margin: 0; }
 .detail-aside dl > div { padding: 0 0 22px; margin-bottom: 22px; border-bottom: 1px solid var(--line); }
-.detail-aside dt { margin-bottom: 8px; color: var(--ink-faint); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
-.detail-aside dd { margin: 0; color: var(--ink); font-size: 0.9rem; line-height: 1.55; }
+.detail-aside dt { margin-bottom: 8px; color: var(--ink-faint); font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+.detail-aside dd { margin: 0; color: var(--ink); font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.55; }
 
 .interpretation-key {
   padding: 18px;
@@ -72,12 +74,26 @@
 }
 
 .interpretation-key span,
-.section-label { color: var(--analysis); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.section-label { color: var(--analysis); font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; }
 .interpretation-key p { margin: 7px 0 0; color: var(--ink-muted); font-size: 0.8rem; }
 
-.detail-section { margin-bottom: 76px; scroll-margin-top: 120px; }
+/* Plate numbering. A CSS counter rather than a prop, so sections stay
+   correctly numbered no matter which optional ones render. */
+.detail-content { counter-reset: plate; }
+.detail-section { margin-bottom: 76px; scroll-margin-top: 120px; counter-increment: plate; }
 .detail-section:last-child { margin-bottom: 0; }
 .detail-section h2 { margin-bottom: 24px; font-size: clamp(1.65rem, 3vw, 2.25rem); }
+
+.detail-section h2::before {
+  content: counter(plate, decimal-leading-zero);
+  display: block;
+  margin-bottom: 14px;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+}
 .detail-section > p { color: var(--ink-muted); font-size: 1.05rem; line-height: 1.82; }
 .detail-section strong { color: var(--ink); }
 
@@ -91,8 +107,76 @@
 
 .decision-list { display: grid; gap: 14px; }
 .decision-item { padding: 24px; border: 1px solid var(--line); border-radius: var(--radius-md); background: rgba(255, 255, 255, 0.52); }
-.decision-item h3 { font-family: var(--font-body); font-size: 1.05rem; margin-bottom: 16px; }
-.decision-item p { color: var(--ink-muted); font-size: 0.94rem; }
+.decision-item h3 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 600; margin-bottom: 18px; }
+.decision-item p { margin: 0; color: var(--ink-muted); font-size: 0.94rem; }
+
+/* Two columns divided by a rule: the decision reads as a trade at a glance,
+   before any of the prose is read. */
+.decision-trade { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.decision-side { position: relative; padding-left: 15px; border-left: 2px solid var(--line); }
+.decision-chose { border-left-color: var(--product); }
+.decision-gave-up { border-left-color: var(--line-strong); }
+
+.decision-side-label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.decision-chose .decision-side-label { color: var(--product); }
+
+/* Basis strip */
+.basis-strip { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+
+.basis-title {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.basis-levels { display: grid; gap: 11px; margin: 0; padding: 0; list-style: none; }
+
+.basis-level {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  column-gap: 10px;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+}
+
+.basis-mark {
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--ink-muted);
+  border-radius: 2px;
+  background: var(--ink-muted);
+  transform: translateY(-1px);
+}
+
+.basis-label { color: var(--ink); }
+.basis-hint { grid-column: 2; color: var(--ink-faint); font-family: var(--font-body); font-size: 0.78rem; line-height: 1.45; }
+
+/* An absent level is drawn as an empty box, not hidden -- the point is that
+   you can see what this entry does not rest on. */
+.basis-absent .basis-mark { background: transparent; border-style: dashed; }
+.basis-absent .basis-label { color: var(--ink-faint); text-decoration: line-through; text-decoration-thickness: 1px; }
+
+.basis-note { margin: 14px 0 0; color: var(--ink-faint); font-size: 0.78rem; line-height: 1.5; }
+
+.aside-note { margin-top: 20px; }
+
+.not-found-plate { max-width: 220px; margin-bottom: 34px; }
 
 .evidence-list { display: grid; gap: 14px; }
 .evidence-item { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--product-soft); color: var(--product); }
@@ -102,14 +186,15 @@
 
 .source-list { padding-left: 22px; }
 .source-list li { margin-bottom: 18px; }
-.source-list a { display: inline-flex; align-items: center; gap: 5px; font-weight: 700; }
-.source-list span { display: block; color: var(--ink-faint); font-size: 0.8rem; }
+.source-list a { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; }
+.source-list span { display: block; color: var(--ink-faint); font-family: var(--font-mono); font-size: 0.76rem; }
+.source-list li::marker { font-family: var(--font-mono); color: var(--ink-faint); }
 
 .interpretation-section { padding: 32px; border-left: 4px solid var(--analysis); background: var(--analysis-soft); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
 .section-label { margin-bottom: 16px !important; }
 
 .relevant-links { padding: 0; list-style: none; }
-.relevant-links a, .text-link { display: inline-flex; align-items: center; gap: 6px; font-weight: 750; }
+.relevant-links a, .text-link { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; }
 
 .detail-footer {
   display: flex;
@@ -133,6 +218,7 @@
 }
 
 @media (max-width: 560px) {
+  .decision-trade { grid-template-columns: 1fr; gap: 16px; }
   .back-link { margin-bottom: 48px; }
   .detail-header { padding-bottom: 50px; }
   .detail-kicker-row { align-items: flex-start; flex-direction: column; }

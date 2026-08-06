@@ -7,7 +7,10 @@ import {
   Paragraphs,
   SourceList
 } from "../components/DetailBlocks";
+import BasisStrip from "../components/BasisStrip";
+import Marginalia from "../components/art/Marginalia";
 import { formatPortfolioDate } from "../components/WorkCard";
+import { marginalia } from "../data/marginalia";
 import { getAnalysisBySlug } from "../data/portfolio";
 import { DetailFooter, WorkNotFound } from "./ProductDetail";
 import "./WorkDetail.css";
@@ -43,10 +46,14 @@ const AnalysisDetail = () => {
               {analysis.updatedAt && <div><dt>Last updated</dt><dd>{formatPortfolioDate(analysis.updatedAt)}</dd></div>}
               {analysis.tags?.length > 0 && <div><dt>Focus</dt><dd>{analysis.tags.join(" · ")}</dd></div>}
             </dl>
+            <BasisStrip sourceCount={analysis.sources?.length ?? 0} />
             <div className="interpretation-key">
               <span>Interpretation</span>
               <p>Recommendations and implications are Parag's analysis, not company statements.</p>
             </div>
+            <Marginalia side="right" className="aside-note">
+              {marginalia.limitationsKept.text}
+            </Marginalia>
           </aside>
 
           <div className="detail-content analysis-copy">

@@ -11,6 +11,11 @@
 # production
 /build
 
+# Pre-regrade illustration masters. Kept locally so `yarn regrade` can be
+# undone without another API call; the graded plates in public/illustrations
+# are the versioned artifact.
+/.plate-originals
+
 # misc
 .DS_Store
 .env.local

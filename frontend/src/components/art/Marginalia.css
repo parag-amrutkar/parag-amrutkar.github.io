@@ -1,0 +1,34 @@
+.marginalia {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 30ch;
+  color: var(--pencil);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+}
+
+.marginalia-leader {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 38px;
+  opacity: 0.8;
+}
+
+/* The leader is drawn pointing up-and-right from its lower-left origin.
+   Right-side annotations use it as-is and re-order the row; left-side ones
+   mirror it so the arrow still lands on the thing being annotated. */
+.marginalia-right { flex-direction: row-reverse; }
+.marginalia-left .marginalia-leader { transform: scaleX(-1); }
+
+/* Nudges the text down to sit level with the arrowhead rather than the
+   baseline of the curve. */
+.marginalia-text { padding-top: 19px; }
+
+@media (max-width: 760px) {
+  .marginalia { max-width: none; }
+  .marginalia-leader { width: 40px; height: 30px; }
+  .marginalia-text { padding-top: 13px; }
+}

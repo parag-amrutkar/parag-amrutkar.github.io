@@ -10,8 +10,19 @@
   --product-soft: #e6eee9;
   --analysis: #9b5632;
   --analysis-soft: #f2e6dc;
-  --font-display: Georgia, "Times New Roman", serif;
-  --font-body: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Card fills. Lighter than the -soft pair, which stays in use for the
+     denser blocks on detail pages (evidence, interpretation). */
+  --product-wash: #eef1ea;
+  --analysis-wash: #f4ece4;
+  /* Non-semantic drawing colour: marginalia, leader lines, plate frames.
+     Deliberately not product/analysis so annotations never read as a third
+     content category. Darkened from #6d7f97, which measured 3.7:1 on --paper
+     and 3.38:1 on --paper-deep -- marginalia is small text and has to clear
+     WCAG AA 4.5:1 on both bands (brief §12). This value is 4.93 / 4.51. */
+  --pencil: #5a6b80;
+  --font-display: Fraunces, Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 24px;
@@ -28,8 +39,8 @@ body {
   color: var(--ink);
   background: var(--paper);
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: 17px;
+  line-height: 1.62;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -57,8 +68,14 @@ h1, h2, h3, h4 {
   color: var(--ink);
   font-family: var(--font-display);
   font-weight: 500;
-  line-height: 1.02;
-  letter-spacing: -0.04em;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  /* Fraunces: opsz is a registered axis, so the browser tunes contrast to the
+     rendered size. SOFT rounds the terminals; WONK swaps in the splayed,
+     canted alternates. WONK stays 0 here so section headings read sober --
+     only the hero opts in. */
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 24, "WONK" 0;
 }
 
 h1 { font-size: clamp(3.5rem, 8vw, 7.2rem); }
@@ -66,12 +83,16 @@ h2 { font-size: clamp(2.35rem, 5vw, 4.6rem); }
 h3 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
 p { margin: 0 0 18px; }
 
+/* The data voice. Applied to every piece of metadata on the site --
+   eyebrows, statuses, dates, tags, plate numbers, source numbers -- so
+   measurements and labels read differently from prose. */
 .eyebrow {
   margin-bottom: 20px;
   color: var(--product);
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -87,8 +108,9 @@ p { margin: 0 0 18px; }
   padding: 12px 21px;
   border: 1px solid transparent;
   border-radius: 99px;
-  font-size: 0.88rem;
-  font-weight: 800;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   cursor: pointer;
   transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
 }
@@ -101,8 +123,138 @@ p { margin: 0 0 18px; }
 .btn-light { background: var(--paper); color: var(--ink); }
 .btn:disabled { cursor: not-allowed; opacity: 0.6; transform: none; }
 
-.text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-size: 0.88rem; font-weight: 800; }
+.text-link { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.02em; }
 .text-muted { color: var(--ink-muted); }
+
+/* ---------------------------------------------------------------------------
+   Paper substrate
+
+   Three cheap, asset-free effects that give the flat cream some tooth:
+   grain over everything, a ledger grid on the deeper bands, and hairline
+   rules that turn down at the ends like a drawn plate.
+   --------------------------------------------------------------------------- */
+
+/* Fixed so the grain belongs to the paper, not to the content scrolling
+   across it -- a tiled texture that scrolls reads as wallpaper instead. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* Masked so the grid reads as a fragment of ruled paper rather than a
+   full-bleed pattern -- it should feel found, not applied.
+
+   The grid lives on a pseudo-element, not on the band itself: a mask applies
+   to an element's background colour and all its children, so masking the band
+   directly would fade out both the paper-deep fill and the content on top. */
+.band-ruled { position: relative; }
+
+.band-ruled::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at center, rgba(25, 36, 33, 0.14) 1px, transparent 1.2px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 76% 60% at 50% 44%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 76% 60% at 50% 44%, #000 30%, transparent 100%);
+}
+
+.band-ruled > * { position: relative; z-index: 1; }
+
+/* Ticked rules. Full-bleed hairlines separate bands; these separate content
+   blocks inside a container, so the ticks land on the measure rather than the
+   viewport edge. Applied to the existing bordered blocks by name so no markup
+   has to change. */
+.rule-top,
+.rule-bottom,
+.footer-bottom,
+.capabilities-list,
+.about-next,
+.detail-footer,
+.detail-layout,
+.collection-heading { position: relative; }
+
+.rule-top { border-top: 1px solid var(--line); }
+.rule-bottom { border-bottom: 1px solid var(--line); }
+
+.rule-top::before,
+.rule-top::after,
+.rule-bottom::before,
+.rule-bottom::after,
+.footer-bottom::before,
+.footer-bottom::after,
+.capabilities-list::before,
+.capabilities-list::after,
+.about-next::before,
+.about-next::after,
+.detail-footer::before,
+.detail-footer::after,
+.detail-layout::before,
+.detail-layout::after,
+.collection-heading::before,
+.collection-heading::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 7px;
+  background: var(--line-strong);
+}
+
+.rule-top::before,
+.rule-top::after,
+.footer-bottom::before,
+.footer-bottom::after,
+.capabilities-list::before,
+.capabilities-list::after,
+.about-next::before,
+.about-next::after,
+.detail-footer::before,
+.detail-footer::after,
+.detail-layout::before,
+.detail-layout::after { top: -1px; }
+
+.rule-bottom::before,
+.rule-bottom::after,
+.collection-heading::before,
+.collection-heading::after { bottom: -1px; }
+
+.rule-top::before,
+.rule-bottom::before,
+.footer-bottom::before,
+.capabilities-list::before,
+.about-next::before,
+.detail-footer::before,
+.detail-layout::before,
+.collection-heading::before { left: 0; }
+
+.rule-top::after,
+.rule-bottom::after,
+.footer-bottom::after,
+.capabilities-list::after,
+.about-next::after,
+.detail-footer::after,
+.detail-layout::after,
+.collection-heading::after { right: 0; }
+
+/* Plate number: "FIG. 01". The notebook tell, reused on detail sections and
+   on empty illustration slots. */
+.plate-number {
+  display: inline-block;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
 
 .skip-link {
   position: fixed;
@@ -121,7 +273,47 @@ p { margin: 0 0 18px; }
   .page-shell { padding: 76px 0 96px; }
 }
 
+/* ---------------------------------------------------------------------------
+   Motion
+
+   One orchestrated entrance per route, plus a scroll reveal. Both are
+   entrance-only: nothing moves in response to reading or hovering, and
+   nothing loops.
+   --------------------------------------------------------------------------- */
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* `backwards` holds the from-state through the delay, so staggered children
+   do not flash at full opacity before their turn. */
+.stagger > * {
+  animation: rise-in 520ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 40ms; }
+.stagger > *:nth-child(2) { animation-delay: 110ms; }
+.stagger > *:nth-child(3) { animation-delay: 180ms; }
+.stagger > *:nth-child(4) { animation-delay: 250ms; }
+.stagger > *:nth-child(5) { animation-delay: 320ms; }
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+[data-reveal].is-revealed { opacity: 1; transform: none; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+
+  /* The rule above zeroes durations but does not touch the from-state, so an
+     un-revealed element would stay at opacity 0 forever. These reset the
+     resting state outright rather than relying on the observer to arrive. */
+  [data-reveal],
+  [data-reveal].is-revealed { opacity: 1 !important; transform: none !important; }
+  .stagger > * { animation: none !important; }
 }

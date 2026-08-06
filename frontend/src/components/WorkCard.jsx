@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import Figure from "./art/Figure";
 import StatusBadge from "./StatusBadge";
 
 export const formatPortfolioDate = (value, precision) => {
@@ -21,12 +22,17 @@ const WorkCard = ({ item, compact = false }) => {
     : `/work/analysis/${item.slug}`;
 
   return (
-    <article className={`work-card work-card-${item.type} ${compact ? "work-card-compact" : ""}`}>
+    <article
+      className={`work-card work-card-${item.type} ${compact ? "work-card-compact" : ""}`}
+      data-reveal
+    >
       <div className="work-card-topline">
         <span className="work-kind">{isProduct ? "Product" : "Analysis"}</span>
-        <span className="work-card-index" aria-hidden="true">
-          {isProduct ? "P" : "A"}
-        </span>
+        <Figure
+          className="work-card-plate"
+          name={item.plate || (isProduct ? "plate-product" : "plate-analysis")}
+          ratio="1 / 1"
+        />
       </div>
       <div className="work-card-body">
         <h3><Link to={path}>{title}</Link></h3>

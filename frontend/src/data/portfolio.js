@@ -22,6 +22,9 @@ export const products = [
   {
     slug: "etsy-smartlist",
     type: "product",
+    // Basename of the specimen plate in public/illustrations/. Falls back to
+    // plate-product / plate-analysis when absent or when the file is missing.
+    plate: "plate-etsy-smartlist",
     name: "Etsy SmartList",
     summary: "A product concept for helping marketplace sellers draft listing copy and metadata with an AI-assisted workflow.",
     status: "concept",
@@ -64,6 +67,7 @@ export const analyses = [
     slug: "disney-plus-ml",
     legacySlug: "disney-ml",
     type: "analysis",
+    plate: "plate-disney-plus-ml",
     title: "Machine Learning Opportunities for Disney+",
     summary: "An independent case study asking where machine learning could improve discovery, content decisions, and streaming experience.",
     featured: true,
@@ -97,6 +101,7 @@ export const analyses = [
     slug: "basecamp-pricing-strategy",
     legacySlug: "basecamp-pricing",
     type: "analysis",
+    plate: "plate-basecamp-pricing-strategy",
     title: "Basecamp Pricing Strategy",
     summary: "An independent analysis of pricing structures and the tradeoff between revenue options, product simplicity, and customer value.",
     featured: true,
