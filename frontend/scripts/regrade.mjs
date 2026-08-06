@@ -45,10 +45,12 @@ import {
   toHex,
   distance
 } from "./lib/plate-colors.mjs";
+import { derivePlate } from "./lib/derive.mjs";
 
 const run = promisify(execFile);
 const HERE = dirname(fileURLToPath(import.meta.url));
-const OUT_DIR = join(HERE, "..", "public", "illustrations");
+const PUBLIC_DIR = join(HERE, "..", "public");
+const OUT_DIR = join(PUBLIC_DIR, "illustrations");
 
 // Deliberately outside public/. Anything under public/ is copied verbatim
 // into the build, so keeping ~1.3 MB originals beside the plates would ship
@@ -118,23 +120,6 @@ function regradePixels(bmp, corrections) {
   }
 }
 
-/** Rebuild the 1x PNG and both WebPs after the 2x master changes. */
-async function derive(name) {
-  const at2x = join(OUT_DIR, `${name}@2x.png`);
-  const at1x = join(OUT_DIR, `${name}.png`);
-
-  const { stdout } = await run("sips", ["-g", "pixelWidth", at2x]);
-  const width = Number(stdout.match(/pixelWidth:\s*(\d+)/)?.[1]);
-  await run("sips", ["-Z", String(Math.round(width / 2)), at2x, "--out", at1x]);
-
-  for (const [src, dest] of [
-    [at2x, join(OUT_DIR, `${name}@2x.webp`)],
-    [at1x, join(OUT_DIR, `${name}.webp`)]
-  ]) {
-    await run("cwebp", ["-quiet", "-q", "86", src, "-o", dest]);
-  }
-}
-
 async function main() {
   let files;
   try {
@@ -187,7 +172,9 @@ async function main() {
     const tmp = join(tmpdir(), `regrade-${process.pid}.bmp`);
     await writeFile(tmp, bmp.buf);
     await run("sips", ["-s", "format", "png", tmp, "--out", at2x]);
-    await derive(name);
+    // Regrading changes the master's colours, so every derivative -- and the
+    // social card cropped from the og plate -- has to be rebuilt from it.
+    await derivePlate(name, OUT_DIR, PUBLIC_DIR);
     console.log("  written");
   }
 

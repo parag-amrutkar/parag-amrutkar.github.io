@@ -45,10 +45,12 @@ import {
   CONSTRAINTS,
   RECOLOR
 } from "./illustration-prompts.mjs";
+import { derivePlate } from "./lib/derive.mjs";
 
 const run = promisify(execFile);
 const HERE = dirname(fileURLToPath(import.meta.url));
-const OUT_DIR = join(HERE, "..", "public", "illustrations");
+const PUBLIC_DIR = join(HERE, "..", "public");
+const OUT_DIR = join(PUBLIC_DIR, "illustrations");
 
 const API_KEY = process.env.GEMINI_API_KEY;
 const PROJECT = process.env.VERTEX_PROJECT || process.env.GOOGLE_CLOUD_PROJECT;
@@ -203,39 +205,12 @@ async function generate(plate, { referencePng, sourcePng, authHeaders }) {
 }
 
 /**
- * Downscale with sips (ships with macOS), encode WebP with cwebp.
- *
- * sips lists webp as a supported format but reads it only -- it is not
- * marked Writable, and `sips -s format webp` silently produces nothing. cwebp
- * (brew install webp) is the encoder; checkTools() refuses to start without
- * it rather than letting the run finish with half a plate set.
+ * Derivatives live in lib/derive.mjs so regrade produces byte-identical
+ * outputs. sips lists webp as a supported format but reads it only -- it is
+ * not marked Writable, and `sips -s format webp` silently produces nothing.
+ * cwebp (brew install webp) is the encoder; checkTools() refuses to start
+ * without it rather than letting a run finish with half a plate set.
  */
-async function derive(name) {
-  const at2x = join(OUT_DIR, `${name}@2x.png`);
-  const at1x = join(OUT_DIR, `${name}.png`);
-
-  const { stdout } = await run("sips", ["-g", "pixelWidth", at2x]);
-  const width = Number(stdout.match(/pixelWidth:\s*(\d+)/)?.[1]);
-  if (!width) throw new Error(`${name}: could not read width from sips`);
-
-  await run("sips", ["-Z", String(Math.round(width / 2)), at2x, "--out", at1x]);
-
-  // Lossy at high quality: these plates carry paper grain, which lossless
-  // WebP encodes very poorly (it is tuned for flat synthetic colour).
-  for (const [src, dest] of [
-    [at2x, join(OUT_DIR, `${name}@2x.webp`)],
-    [at1x, join(OUT_DIR, `${name}.webp`)]
-  ]) {
-    await run("cwebp", ["-quiet", "-q", "86", src, "-o", dest]);
-  }
-
-  // Figure.jsx emits a <picture> whose WebP <source> wins on every modern
-  // browser. If the .webp were missing the browser would error on the source
-  // rather than falling back to the .png, so the pair must be complete.
-  for (const file of [at1x, at2x, `${at1x.slice(0, -4)}.webp`, `${at2x.slice(0, -4)}.webp`]) {
-    if (!(await exists(file))) throw new Error(`${name}: expected output missing — ${file}`);
-  }
-}
 
 async function checkTools() {
   for (const [bin, hint] of [
@@ -339,7 +314,7 @@ async function main() {
     });
 
     await writeFile(target, png);
-    await derive(plate.name);
+    await derivePlate(plate.name, OUT_DIR, PUBLIC_DIR);
     console.log("done");
 
     if (plate.name === REFERENCE_PLATE) reference = png;
