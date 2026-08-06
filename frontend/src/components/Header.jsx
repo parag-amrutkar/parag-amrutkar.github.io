@@ -1,73 +1,72 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import './Header.css';
+import React, { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import "./Header.css";
+
+const navItems = [
+  { path: "/", label: "Home" },
+  { path: "/work", label: "Work" },
+  { path: "/about", label: "About" },
+  { path: "/contact", label: "Contact" }
+];
 
 const Header = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/projects', label: 'Projects' },
-    { path: '/contact', label: 'Contact' }
-  ];
+  useEffect(() => setMobileMenuOpen(false), [location.pathname]);
+
+  const isActive = (path) => path === "/"
+    ? location.pathname === "/"
+    : location.pathname.startsWith(path);
 
   return (
     <header className="header">
-      <div className="container">
-        <div className="header-content">
-          <Link to="/" className="logo">
-            Parag Amrutkar
-          </Link>
+      <div className="container header-content">
+        <Link to="/" className="logo" aria-label="Parag Amrutkar, home">
+          <span className="logo-mark" aria-hidden="true">PA</span>
+          <span>Parag Amrutkar</span>
+        </Link>
 
-          <nav className="desktop-nav">
-            {navItems.map(item => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={location.pathname === item.path ? 'nav-link active' : 'nav-link'}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Link to="/terminal" className="btn btn-secondary">
-              Terminal Mode
-            </Link>
-          </nav>
-
-          <button
-            className="mobile-menu-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {mobileMenuOpen && (
-          <nav className="mobile-nav">
-            {navItems.map(item => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={location.pathname === item.path ? 'nav-link active' : 'nav-link'}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          {navItems.map((item) => (
             <Link
-              to="/terminal"
-              className="btn btn-secondary"
-              onClick={() => setMobileMenuOpen(false)}
+              key={item.path}
+              to={item.path}
+              className={isActive(item.path) ? "nav-link active" : "nav-link"}
+              aria-current={isActive(item.path) ? "page" : undefined}
             >
-              Terminal Mode
+              {item.label}
             </Link>
-          </nav>
-        )}
+          ))}
+        </nav>
+
+        <button
+          type="button"
+          className="mobile-menu-toggle"
+          onClick={() => setMobileMenuOpen((open) => !open)}
+          aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-navigation"
+        >
+          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
+
+      {mobileMenuOpen && (
+        <nav id="mobile-navigation" className="mobile-nav container" aria-label="Mobile navigation">
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={isActive(item.path) ? "nav-link active" : "nav-link"}
+              aria-current={isActive(item.path) ? "page" : undefined}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      )}
     </header>
   );
 };

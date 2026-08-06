@@ -1,132 +1,31 @@
-.contact-page {
-  flex: 1;
-  padding: 80px 0;
+.contact-page .page-header { max-width: 900px; margin-bottom: 80px; }
+.contact-page .page-header h1 { max-width: 11ch; }
+.contact-page .page-header > p:last-child { max-width: 650px; color: var(--ink-muted); font-size: 1.12rem; }
+
+.contact-content { display: grid; grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr); gap: 72px; align-items: start; }
+.contact-info { display: grid; gap: 18px; }
+.contact-card { padding: 27px 0; border-top: 1px solid var(--line); }
+.contact-card h2 { margin-bottom: 21px; font-family: var(--font-body); font-size: 0.93rem; font-weight: 800; letter-spacing: 0; }
+.contact-card p { color: var(--ink-muted); font-size: 0.92rem; }
+.contact-links { display: grid; gap: 12px; }
+.contact-link { display: inline-flex; align-items: center; gap: 11px; width: fit-content; max-width: 100%; color: var(--ink); font-size: 0.9rem; font-weight: 700; overflow-wrap: anywhere; }
+.contact-link svg { flex: 0 0 auto; color: var(--product); }
+
+.contact-form-wrapper { padding: clamp(24px, 5vw, 48px); border: 1px solid var(--line); border-radius: var(--radius-lg); background: rgba(255, 255, 255, 0.46); box-shadow: 0 16px 44px rgba(25, 36, 33, 0.06); }
+.contact-form { display: grid; gap: 24px; }
+.form-group { display: grid; gap: 8px; }
+.form-group label { color: var(--ink); font-size: 0.82rem; font-weight: 800; }
+.form-group input, .form-group textarea { width: 100%; padding: 13px 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--paper); color: var(--ink); }
+.form-group input::placeholder, .form-group textarea::placeholder { color: #7b8581; opacity: 1; }
+.form-group textarea { min-height: 150px; resize: vertical; }
+.contact-form .btn { justify-self: start; margin-top: 7px; }
+
+@media (max-width: 860px) {
+  .contact-content { grid-template-columns: 1fr; gap: 48px; }
 }
 
-.contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 64px;
-  align-items: start;
-}
-
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.contact-card {
-  background: #f5f5f7;
-  padding: 32px;
-  border-radius: 12px;
-}
-
-.contact-card h3 {
-  font-size: 20px;
-  margin-bottom: 24px;
-}
-
-.contact-card p {
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #1d1d1f;
-  text-decoration: none;
-  transition: color 300ms ease;
-}
-
-.contact-link:hover {
-  color: #0071e3;
-}
-
-.contact-form-wrapper {
-  background: #ffffff;
-  padding: 48px;
-  border-radius: 12px;
-  border: 1px solid #e5e5e7;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.form-group label {
-  font-size: 15px;
-  font-weight: 500;
-  color: #1d1d1f;
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 12px 16px;
-  font-size: 15px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  color: #1d1d1f;
-  background: #ffffff;
-  border: 1px solid #d2d2d7;
-  border-radius: 8px;
-  transition: all 300ms ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #0071e3;
-  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.contact-form .btn {
-  margin-top: 8px;
-}
-
-.contact-form .btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Responsive */
-@media (max-width: 968px) {
-  .contact-content {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-form-wrapper {
-    padding: 32px;
-  }
-}
-
-@media (max-width: 768px) {
-  .contact-page {
-    padding: 60px 0;
-  }
-
-  .contact-form-wrapper {
-    padding: 24px;
-  }
+@media (max-width: 520px) {
+  .contact-page .page-header { margin-bottom: 58px; }
+  .contact-form-wrapper { border-radius: var(--radius-md); }
+  .contact-form .btn { justify-self: stretch; }
 }

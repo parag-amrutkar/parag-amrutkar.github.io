@@ -1,40 +1,35 @@
-import React from 'react';
-import { Linkedin, Github, Mail } from 'lucide-react';
-import './Footer.css';
-import { profile } from '../data/mock';
+import React from "react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
+import { profile } from "../data/portfolio";
+import "./Footer.css";
 
-const Footer = () => {
-  return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-content">
-          <div className="footer-section">
-            <h4>{profile.name}</h4>
-            <p className="text-muted">{profile.title}</p>
-          </div>
-
-          <div className="footer-section">
-            <h4>Connect</h4>
-            <div className="social-links">
-              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <Linkedin size={20} />
-              </a>
-              <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <Github size={20} />
-              </a>
-              <a href={`mailto:${profile.email}`} aria-label="Email">
-                <Mail size={20} />
-              </a>
-            </div>
-          </div>
+const Footer = () => (
+  <footer className="footer">
+    <div className="container">
+      <div className="footer-content">
+        <div className="footer-statement">
+          <Link to="/" className="footer-name">{profile.name}</Link>
+          <p>Products, analysis, and the evidence behind both.</p>
         </div>
-
-        <div className="footer-bottom">
-          <p className="text-muted">© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
+        <nav className="footer-nav" aria-label="Footer navigation">
+          <Link to="/work">Work</Link>
+          <Link to="/about">About</Link>
+          <Link to="/contact">Contact</Link>
+          <Link to="/terminal">Terminal</Link>
+        </nav>
+        <div className="social-links" aria-label="External profiles">
+          <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={19} /></a>
+          <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={19} /></a>
+          <a href={`mailto:${profile.email}`} aria-label={`Email ${profile.name}`}><Mail size={19} /></a>
         </div>
       </div>
-    </footer>
-  );
-};
+      <div className="footer-bottom">
+        <p>© {new Date().getFullYear()} {profile.name}</p>
+        <p>Built with clarity in mind.</p>
+      </div>
+    </div>
+  </footer>
+);
 
 export default Footer;

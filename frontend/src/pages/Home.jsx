@@ -1,95 +1,83 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Code2, Brain, TrendingUp } from 'lucide-react';
-import './Home.css';
-import { profile, projects } from '../data/mock';
+import React from "react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import ComingSoonCard from "../components/ComingSoonCard";
+import WorkCard from "../components/WorkCard";
+import { analyses, products, profile } from "../data/portfolio";
+import "../components/Work.css";
+import "./Home.css";
 
 const Home = () => {
+  const featuredProducts = products.filter((item) => item.featured).slice(0, 3);
+  const featuredAnalyses = analyses.filter((item) => item.featured).slice(0, 5);
+
   return (
     <div className="home">
-      {/* Hero Section */}
       <section className="hero">
-        <div className="container">
+        <div className="container hero-grid">
           <div className="hero-content">
-            <p className="hero-label">{profile.title}</p>
-            <h1 className="hero-title">{profile.name}</h1>
-            <p className="hero-tagline">{profile.tagline}</p>
+            <p className="eyebrow">Product · Strategy · Technology</p>
+            <h1>{profile.name}</h1>
+            <p className="hero-tagline">{profile.positioning}</p>
             <div className="hero-actions">
-              <Link to="/projects" className="btn btn-primary">
-                View Projects <ArrowRight size={16} />
-              </Link>
-              <Link to="/contact" className="btn btn-secondary">
-                Get in Touch
-              </Link>
+              <Link to="/work" className="btn btn-primary">View my work <ArrowRight size={17} /></Link>
+              <Link to="/about" className="btn btn-secondary">About me</Link>
             </div>
+          </div>
+          <div className="hero-mark" aria-hidden="true">
+            <span>Products</span>
+            <ArrowDownRight size={32} />
+            <span>Analysis</span>
           </div>
         </div>
       </section>
 
-      {/* Featured Skills */}
-      <section className="featured-skills">
-        <div className="container">
-          <div className="skills-grid">
-            <div className="skill-card">
-              <div className="skill-icon">
-                <Code2 size={32} />
-              </div>
-              <h3>Product Strategy</h3>
-              <p className="text-muted">
-                Translating complex technical challenges into user-centric product solutions
-              </p>
+      {featuredProducts.length > 0 && (
+        <section className="home-section selected-products">
+          <div className="container">
+            <div className="section-heading">
+              <div><p className="eyebrow">What I make</p><h2>Selected products</h2></div>
+              <Link to="/work" className="text-link">All work <ArrowUpRight size={17} /></Link>
             </div>
-            <div className="skill-card">
-              <div className="skill-icon">
-                <Brain size={32} />
-              </div>
-              <h3>AI/ML Integration</h3>
-              <p className="text-muted">
-                Leveraging machine learning to drive personalization and business growth
-              </p>
+            <div className="work-grid">
+              {featuredProducts.map((item) => <WorkCard key={item.slug} item={item} />)}
+              {featuredProducts.length % 2 === 1 && <ComingSoonCard kind="products" />}
             </div>
-            <div className="skill-card">
-              <div className="skill-icon">
-                <TrendingUp size={32} />
-              </div>
-              <h3>Data-Driven Decisions</h3>
-              <p className="text-muted">
-                Using analytics and testing frameworks to optimize product outcomes
-              </p>
+          </div>
+        </section>
+      )}
+
+      {featuredAnalyses.length > 0 && (
+        <section className="home-section selected-analysis">
+          <div className="container">
+            <div className="section-heading">
+              <div><p className="eyebrow">How I think</p><h2>Selected analysis</h2></div>
+              <Link to="/work" className="text-link">Explore analysis <ArrowUpRight size={17} /></Link>
             </div>
+            <div className="work-grid">
+              {featuredAnalyses.map((item) => <WorkCard key={item.slug} item={item} compact />)}
+              {featuredAnalyses.length % 2 === 1 && <ComingSoonCard kind="analysis" compact />}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="home-section home-introduction">
+        <div className="container intro-grid">
+          <p className="eyebrow">A little context</p>
+          <div>
+            <h2>Clear thinking, made inspectable.</h2>
+            <p>{profile.introduction}</p>
+            <Link to="/about" className="text-link">More about me <ArrowUpRight size={17} /></Link>
           </div>
         </div>
       </section>
 
-      {/* Featured Projects */}
-      <section className="featured-projects">
-        <div className="container">
-          <div className="section-header">
-            <h2>Featured Projects</h2>
-            <Link to="/projects" className="view-all-link">
-              View All <ArrowRight size={16} />
-            </Link>
-          </div>
-          <div className="projects-grid">
-            {projects.slice(0, 3).map(project => (
-              <Link
-                key={project.id}
-                to={`/projects/${project.id}`}
-                className="project-card"
-              >
-                <div className="project-image">
-                  <img src={project.image} alt={project.title} />
-                  <div className="project-overlay">
-                    <span className="project-category">{project.category}</span>
-                  </div>
-                </div>
-                <div className="project-content">
-                  <h3>{project.title}</h3>
-                  <p className="text-muted">{project.subtitle}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+      <section className="contact-cta">
+        <div className="container contact-cta-inner">
+          <p className="eyebrow">Start a conversation</p>
+          <h2>Have a problem worth<br />thinking through?</h2>
+          <Link to="/contact" className="btn btn-light">Get in touch <ArrowRight size={17} /></Link>
         </div>
       </section>
     </div>
