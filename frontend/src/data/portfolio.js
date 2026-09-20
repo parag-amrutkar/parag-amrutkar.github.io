@@ -24,40 +24,59 @@ export const products = [
     type: "product",
     plate: "plate-beacon-box",
     name: "Beacon Box",
-    summary: "An AI-powered, voice-enabled in-store shopping assistant for grocery and retail. It runs on a 9:16 kiosk panel: a shopper asks where something is and is meant to get aisle, rack, and shelf guidance (Ask. Find. Pick.).",
+    summary: "An AI-powered, voice-enabled in-store shopping assistant for grocery and retail. It runs on a 9:16 portrait kiosk: a shopper asks where something is and gets aisle, rack, and shelf guidance. Ask. Find. Pick.",
     status: "prototype",
     featured: true,
     year: "2026",
     affiliationNote: "Independent prototype. No retailer affiliation or endorsement is implied.",
     problem: [
-      "Finding a specific item in a grocery or retail store often means walking the aisles or interrupting an employee. Beacon Box is a walk-up kiosk: the shopper asks out loud, and the panel is supposed to answer with a location."
+      "Finding a specific item in a grocery or retail store often means walking the aisles or interrupting an employee. Beacon Box is a walk-up portrait kiosk: the shopper asks, and the panel answers with a location."
     ],
     solution: [
-      "The public repository is a portrait kiosk app. After sign-in, a tap-to-speak control records a question and transcribes it. The intended next step is inventory search that returns aisle, rack, and shelf.",
-      "Limitation: the README describes a voice-transcription MVP. It captures and transcribes the question; it does not submit the text to inventory search yet."
+      "The public repository is a portrait kiosk app. After sign-in, a shopper can speak or type. Voice input transcribes the question; a shopping-assistant chat path can query the bundled demo inventory for location and stock."
     ],
     role: [
-      "Sole builder and product owner of the public repository: kiosk experience, voice input flow, and the inventory schema used with a simulated demo catalog."
+      "Product owner and builder on the public repository: kiosk experience, voice input, shopping-assistant chat, and the inventory schema used with a simulated demo catalog.",
+      "Project context in AGENTS.md lists the team as Parag, Joaquin, and Andrew. This page does not assign individual file ownership."
     ],
     decisions: [
       {
-        decision: "Ship voice transcription as the first interactive loop, before wiring inventory search.",
-        rationale: "The signed-in store screen is a tap-to-speak question; a reusable voice controller can later be triggered by a presence sensor.",
-        tradeoff: "A shopper can speak a question, but this prototype does not yet return aisle, rack, or shelf from inventory."
+        decision: "Route spoken and typed questions through a shopping-assistant chat that can search inventory, instead of treating transcription as the whole loop.",
+        rationale: "The repository includes a chat panel, wayfinding and product screens, and a plan for read-only search, SKU, and aisle tools against the store catalog.",
+        tradeoff: "The chat path depends on a configured model and database; it is not a hosted public kiosk."
       }
     ],
     evidence: [
       {
         type: "note",
         label: "Public repository",
-        description: "The kiosk prototype and voice-transcription MVP are in the public GitHub repository. Where inventory is mentioned, the bundled demo catalog is simulated and retains demo_simulated provenance. The repository does not link a public live demo."
+        description: "Portrait kiosk prototype with voice input and a shopping-assistant chat path. Inventory in the bundled catalog is labeled demo_simulated. The repository does not link a public live kiosk. The README voice section may still describe transcription as not submitting to inventory."
+      },
+      {
+        type: "link",
+        label: "Shopping chat",
+        description: "components/kiosk/shopping-chat.tsx — shoppers can ask for products, stock, and shelf locations; the CVS tenant discloses demo inventory.",
+        url: "https://github.com/parag-amrutkar/supermarket-info-display/blob/main/components/kiosk/shopping-chat.tsx"
+      },
+      {
+        type: "link",
+        label: "Shopping assistant plan",
+        description: "docs/shopping-agent-plan.md — tool-using assistant with read-only inventory search, SKU detail, and aisle tools against the demo catalog.",
+        url: "https://github.com/parag-amrutkar/supermarket-info-display/blob/main/docs/shopping-agent-plan.md"
+      },
+      {
+        type: "link",
+        label: "Inventory migrations",
+        description: "supabase/migrations — inventory schema used with the simulated demo catalog.",
+        url: "https://github.com/parag-amrutkar/supermarket-info-display/tree/main/supabase/migrations"
       }
     ],
     outcomes: [
-      "Current public status: Prototype. Voice transcription is implemented in the repository; inventory search submission is not wired. Demo inventory is simulated (demo_simulated provenance), not a live store catalog."
+      "Current public status: Prototype. Voice input and a shopping-assistant chat path that can query demo inventory are in the repository."
     ],
     links: [
-      { label: "GitHub repository", url: "https://github.com/parag-amrutkar/supermarket-info-display" }
+      { label: "GitHub repository", url: "https://github.com/parag-amrutkar/supermarket-info-display" },
+      { label: "Shopping assistant plan", url: "https://github.com/parag-amrutkar/supermarket-info-display/blob/main/docs/shopping-agent-plan.md" }
     ],
     tags: ["Product", "AI", "Voice", "Retail kiosk"]
   },
@@ -84,18 +103,30 @@ export const products = [
       {
         decision: "Keep the API key and summarization logic on a separate Node API instead of inside the extension.",
         rationale: "The README places secrets, CORS, rate limiting, and validation on the backend; the extension talks to a configured backend URL.",
-        tradeoff: "The extension is not useful on its own without a running backend, and the repository does not document a Chrome Web Store listing or a public hosted API."
+        tradeoff: "The extension is not useful on its own without a running backend."
       }
     ],
     evidence: [
       {
         type: "note",
         label: "Public repository",
-        description: "The GitHub repository contains the Manifest V3 extension and the Express/TypeScript API. The README documents local setup (load unpacked; backend on localhost) and does not list a Chrome Web Store listing or a public hosted backend."
+        description: "Manifest V3 Chrome extension plus Express/TypeScript API. The README documents local setup (load unpacked; backend on localhost)."
+      },
+      {
+        type: "link",
+        label: "Extension (Manifest V3)",
+        description: "extension/ — content script, popup, and manifest for Amazon, Etsy, eBay, and Shopify storefronts.",
+        url: "https://github.com/parag-amrutkar/ai-shopping-assistant/tree/main/extension"
+      },
+      {
+        type: "link",
+        label: "Summarize API",
+        description: "server/src/routes/api.js — POST /summarize for review pros and cons, plus a health check.",
+        url: "https://github.com/parag-amrutkar/ai-shopping-assistant/blob/main/server/src/routes/api.js"
       }
     ],
     outcomes: [
-      "Current public status: Built. The extension and API code are in the repository. This is not presented as a live store listing or a publicly hosted service."
+      "Current public status: Built. The extension and API code are in the repository. This is not presented as a Chrome Web Store listing or a publicly hosted service."
     ],
     links: [
       { label: "GitHub repository", url: "https://github.com/parag-amrutkar/ai-shopping-assistant" }
@@ -124,18 +155,30 @@ export const products = [
       {
         decision: "Keep secrets and the vector index on a local FastAPI backend, not in the extension.",
         rationale: "The README states that the extension stores no API keys and that LLM and embedding calls happen on the server.",
-        tradeoff: "The flow depends on a locally running backend. Production authentication and a CORS allowlist are noted as requirements, not as shipped features."
+        tradeoff: "The flow depends on a locally running backend."
       }
     ],
     evidence: [
       {
         type: "note",
         label: "Public repository",
-        description: "The GitHub repository contains the Manifest V3 extension and FastAPI backend, including ingest and query endpoints. The README describes it as a working starter for local use."
+        description: "Manifest V3 extension plus FastAPI backend. The README describes it as a working starter for local use."
+      },
+      {
+        type: "link",
+        label: "Extension (Manifest V3)",
+        description: "extension/ — unpacked Chrome extension that captures the current documentation page.",
+        url: "https://github.com/parag-amrutkar/documentation-rag-extension/tree/main/extension"
+      },
+      {
+        type: "link",
+        label: "FastAPI ingest and query",
+        description: "server/app.py — POST /ingest indexes captured blocks with FAISS; POST /query answers from retrieved chunks only.",
+        url: "https://github.com/parag-amrutkar/documentation-rag-extension/blob/main/server/app.py"
       }
     ],
     outcomes: [
-      "Current public status: Built as a locally runnable starter. Capture, index, and grounded question-answering are implemented in the repository. Production deployment with authentication and a CORS allowlist is noted as required, not as a shipped feature."
+      "Current public status: Built as a locally runnable starter. Capture, index, and grounded question-answering are implemented in the repository. Production authentication and a CORS allowlist are noted as required, not as shipped features."
     ],
     links: [
       { label: "GitHub repository", url: "https://github.com/parag-amrutkar/documentation-rag-extension" }
@@ -193,7 +236,7 @@ export const analyses = [
     plate: "plate-disney-plus-ml",
     title: "Machine Learning Opportunities for Disney+",
     summary: "An independent case study asking where machine learning could improve discovery, content decisions, and streaming experience.",
-    featured: true,
+    featured: false,
     publishedAt: "2025",
     publishedPrecision: "year",
     updatedAt: null,
@@ -204,7 +247,8 @@ export const analyses = [
     ],
     method: [
       "The analysis groups opportunities across discovery, content planning, and streaming delivery, then considers the data capabilities each would require.",
-      "Limitation: the original portfolio record does not retain a source list, calculations, or primary research. The proposals below are Parag's interpretation and should not be read as verified Disney plans or results."
+      "Limitation: the original portfolio record does not retain a source list, calculations, or primary research. The proposals below are Parag's interpretation and should not be read as verified Disney plans or results.",
+      "This entry is not featured on the home page until a source list can be restored."
     ],
     analysis: [
       "Candidate use cases include personalized recommendations, thumbnail selection, viewership-informed content planning, and adaptive streaming optimization. A supporting data strategy would need to define what data can be combined, how it is governed, and how each use case is evaluated."
@@ -227,7 +271,7 @@ export const analyses = [
     plate: "plate-basecamp-pricing-strategy",
     title: "Basecamp Pricing Strategy",
     summary: "An independent analysis of pricing structures and the tradeoff between revenue options, product simplicity, and customer value.",
-    featured: true,
+    featured: false,
     publishedAt: "2025",
     publishedPrecision: "year",
     updatedAt: null,
@@ -238,7 +282,8 @@ export const analyses = [
     ],
     method: [
       "The case study compares tiered pricing, feature gating, add-ons, and client-facing features, and considers price-sensitivity and experimentation methods.",
-      "Limitation: the original portfolio record does not include its underlying calculations, customer research, experiment results, or source list. Recommendations are presented as analysis, not as changes implemented by Basecamp."
+      "Limitation: the original portfolio record does not include its underlying calculations, customer research, experiment results, or source list. Recommendations are presented as analysis, not as changes implemented by Basecamp.",
+      "This entry is not featured on the home page until a source list can be restored."
     ],
     analysis: [
       "The central tradeoff is between capturing different willingness to pay and preserving a simple buying experience. More tiers can create clearer segmentation, but they also add comparison work and may weaken a deliberately simple pricing message."

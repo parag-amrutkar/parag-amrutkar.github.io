@@ -40,19 +40,31 @@ export const EvidenceBlocks = ({ items }) => {
   if (!items?.length) return null;
   return (
     <div className="evidence-list">
-      {items.map((item, index) => (
-        <div className="evidence-item" key={`${item.label}-${index}`}>
-          {item.type === "image" && item.url ? (
-            <img src={item.url} alt={item.alt || ""} />
-          ) : (
-            <FileText size={22} aria-hidden="true" />
-          )}
-          <div>
-            <h3>{item.label}</h3>
-            {item.description && <p>{item.description}</p>}
+      {items.map((item, index) => {
+        const isImage = item.type === "image" && item.url;
+        const isLink = Boolean(item.url) && !isImage;
+        return (
+          <div className="evidence-item" key={`${item.label}-${index}`}>
+            {isImage ? (
+              <img src={item.url} alt={item.alt || ""} />
+            ) : (
+              <FileText size={22} aria-hidden="true" />
+            )}
+            <div>
+              {isLink ? (
+                <h3>
+                  <a href={item.url} target="_blank" rel="noreferrer">
+                    {item.label} <ExternalLink size={14} aria-hidden="true" />
+                  </a>
+                </h3>
+              ) : (
+                <h3>{item.label}</h3>
+              )}
+              {item.description && <p>{item.description}</p>}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
