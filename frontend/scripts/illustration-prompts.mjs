@@ -118,6 +118,38 @@ export const PLATES = [
     `
   },
   {
+    name: "plate-beacon-box",
+    aspect: "1:1",
+    ref: true,
+    subject: `
+      A rounded listening box — a compact rounded rectangle (a box, not a tall
+      kiosk tower or hardware pedestal) with a center listening dot and two
+      upward signal arcs, the Ask. A thin connecting line leads to a small
+      aisle-grid cell marked as the find: aisle, then rack, then shelf. Deep
+      teal accents only; terracotta is absent. Compact, centred, plenty of
+      white space. No screens, no UI, no text, no tall tower.
+    `
+  },
+  {
+    name: "plate-ai-shopping-assistant",
+    aspect: "1:1",
+    ref: true,
+    subject: `
+      A blank review-card stack distilled through a funnel into a two-pan
+      balance (pros vs cons). Teal and sienna on the pans. Compact, centred.
+    `
+  },
+  {
+    name: "plate-docnotes-rag",
+    aspect: "1:1",
+    ref: true,
+    subject: `
+      Notebook page frames feeding a small node graph that resolves to a
+      single answer-dot. Teal nodes, restrained sienna on the answer.
+      Compact, centred.
+    `
+  },
+  {
     name: "plate-etsy-smartlist",
     aspect: "1:1",
     ref: true,

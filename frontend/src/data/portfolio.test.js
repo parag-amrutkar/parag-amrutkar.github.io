@@ -1,17 +1,67 @@
+import fs from "fs";
+import path from "path";
 import {
   analyses,
   getLegacyWorkPath,
   products,
-  productStatuses
+  productStatuses,
+  profile
 } from "./portfolio";
 
 describe("portfolio content contracts", () => {
+  test("profile GitHub URL points at the public account", () => {
+    expect(profile.github).toBe("https://github.com/parag-amrutkar");
+  });
+
   test("products use controlled statuses and required public fields", () => {
     products.forEach((product) => {
       expect(product.type).toBe("product");
       expect(product.name).toBeTruthy();
       expect(product.summary).toBeTruthy();
       expect(productStatuses[product.status]).toBeTruthy();
+    });
+  });
+
+  test("featured products are the three public-repo entries", () => {
+    const featured = products.filter((product) => product.featured).map((product) => product.slug);
+    expect(featured).toEqual(["beacon-box", "ai-shopping-assistant", "docnotes-rag"]);
+
+    const etsy = products.find((product) => product.slug === "etsy-smartlist");
+    expect(etsy).toBeTruthy();
+    expect(etsy.featured).toBe(false);
+  });
+
+  test("new products link only to verified GitHub repositories", () => {
+    const expectedLinks = {
+      "beacon-box": "https://github.com/parag-amrutkar/supermarket-info-display",
+      "ai-shopping-assistant": "https://github.com/parag-amrutkar/ai-shopping-assistant",
+      "docnotes-rag": "https://github.com/parag-amrutkar/documentation-rag-extension"
+    };
+
+    Object.entries(expectedLinks).forEach(([slug, url]) => {
+      const product = products.find((item) => item.slug === slug);
+      expect(product).toBeTruthy();
+      expect(product.links.map((link) => link.url)).toContain(url);
+      expect(product.evidence.length).toBeGreaterThan(0);
+    });
+  });
+
+  test("product plates resolve to committed illustration files", () => {
+    const expectedPlates = {
+      "beacon-box": "plate-beacon-box",
+      "ai-shopping-assistant": "plate-ai-shopping-assistant",
+      "docnotes-rag": "plate-docnotes-rag",
+      "etsy-smartlist": "plate-etsy-smartlist"
+    };
+    const dir = path.join(__dirname, "../../public/illustrations");
+
+    Object.entries(expectedPlates).forEach(([slug, plate]) => {
+      const product = products.find((item) => item.slug === slug);
+      expect(product.plate).toBe(plate);
+      ["png", "webp"].forEach((ext) => {
+        expect(fs.existsSync(path.join(dir, `${plate}.${ext}`))).toBe(true);
+        expect(fs.existsSync(path.join(dir, `${plate}@2x.${ext}`))).toBe(true);
+      });
     });
   });
 

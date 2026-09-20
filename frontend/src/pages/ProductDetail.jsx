@@ -32,7 +32,9 @@ const ProductDetail = () => {
           </div>
           <h1>{product.name}</h1>
           <p className="detail-summary">{product.summary}</p>
-          <p className="affiliation-note">{product.affiliationNote}</p>
+          {product.affiliationNote && (
+            <p className="affiliation-note">{product.affiliationNote}</p>
+          )}
         </header>
 
         <div className="detail-layout">
