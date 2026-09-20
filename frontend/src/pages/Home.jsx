@@ -23,6 +23,7 @@ const Home = () => {
           <div className="hero-content stagger">
             <p className="eyebrow">Product · Strategy · Technology</p>
             <h1>{profile.name}</h1>
+            <p className="hero-role">{profile.title}</p>
             <p className="hero-tagline">{profile.positioning}</p>
             <div className="hero-actions">
               <Link to="/work" className="btn btn-primary">View my work <ArrowRight size={17} /></Link>

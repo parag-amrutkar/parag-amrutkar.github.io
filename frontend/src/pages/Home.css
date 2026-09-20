@@ -22,10 +22,19 @@
    element on the page was carrying the least information. */
 .hero h1 {
   font-size: clamp(3.9rem, 8.2vw, 7.2rem);
-  margin-bottom: 26px;
+  margin-bottom: 10px;
   font-weight: 400;
   letter-spacing: -0.032em;
   font-variation-settings: "SOFT" 48, "WONK" 1;
+}
+.hero-role {
+  margin: 0 0 22px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 .hero-tagline { max-width: 720px; color: var(--ink-muted); font-size: clamp(1.45rem, 2.9vw, 2.35rem); line-height: 1.42; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }

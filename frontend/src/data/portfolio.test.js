@@ -11,6 +11,8 @@ import {
 describe("portfolio content contracts", () => {
   test("profile GitHub URL points at the public account", () => {
     expect(profile.github).toBe("https://github.com/parag-amrutkar");
+    expect(profile.title).toBe("Technical Product Manager");
+    expect(profile.linkedin).toBe("https://linkedin.com/in/parag-amrutkar");
   });
 
   test("products use controlled statuses and required public fields", () => {
@@ -31,6 +33,38 @@ describe("portfolio content contracts", () => {
     expect(etsy.featured).toBe(false);
   });
 
+  test("Beacon Box role is not sole-builder and names collaborators from project context", () => {
+    const beacon = products.find((product) => product.slug === "beacon-box");
+    const roleText = beacon.role.join(" ");
+
+    expect(roleText.toLowerCase()).not.toMatch(/\bsole\b/);
+    expect(roleText).toMatch(/product owner/i);
+    expect(roleText).toMatch(/Joaquin/);
+    expect(roleText).toMatch(/Andrew/);
+  });
+
+  test("Beacon Box describes voice input and demo-inventory chat without claiming a live kiosk", () => {
+    const beacon = products.find((product) => product.slug === "beacon-box");
+    const publicText = [
+      beacon.summary,
+      ...beacon.solution,
+      ...beacon.outcomes,
+      ...beacon.evidence.map((item) => item.description)
+    ].join(" ");
+
+    expect(beacon.summary.toLowerCase()).not.toMatch(/is meant to get/);
+    expect(beacon.summary).toMatch(/Ask\. Find\. Pick\./);
+    expect(publicText).toMatch(/shopping-assistant chat/i);
+    expect(publicText).toMatch(/demo_simulated/);
+    expect(publicText.toLowerCase()).toMatch(/does not link a public live kiosk/);
+    expect(beacon.status).toBe("prototype");
+  });
+
+  test("featured analyses stay off the home page until sources are restored", () => {
+    expect(analyses.every((analysis) => analysis.featured === false)).toBe(true);
+    expect(analyses.every((analysis) => analysis.sources.length === 0)).toBe(true);
+  });
+
   test("new products link only to verified GitHub repositories", () => {
     const expectedLinks = {
       "beacon-box": "https://github.com/parag-amrutkar/supermarket-info-display",
@@ -38,11 +72,31 @@ describe("portfolio content contracts", () => {
       "docnotes-rag": "https://github.com/parag-amrutkar/documentation-rag-extension"
     };
 
+    const expectedEvidence = {
+      "beacon-box": [
+        "https://github.com/parag-amrutkar/supermarket-info-display/blob/main/components/kiosk/shopping-chat.tsx",
+        "https://github.com/parag-amrutkar/supermarket-info-display/blob/main/docs/shopping-agent-plan.md",
+        "https://github.com/parag-amrutkar/supermarket-info-display/tree/main/supabase/migrations"
+      ],
+      "ai-shopping-assistant": [
+        "https://github.com/parag-amrutkar/ai-shopping-assistant/tree/main/extension",
+        "https://github.com/parag-amrutkar/ai-shopping-assistant/blob/main/server/src/routes/api.js"
+      ],
+      "docnotes-rag": [
+        "https://github.com/parag-amrutkar/documentation-rag-extension/tree/main/extension",
+        "https://github.com/parag-amrutkar/documentation-rag-extension/blob/main/server/app.py"
+      ]
+    };
+
     Object.entries(expectedLinks).forEach(([slug, url]) => {
       const product = products.find((item) => item.slug === slug);
       expect(product).toBeTruthy();
       expect(product.links.map((link) => link.url)).toContain(url);
       expect(product.evidence.length).toBeGreaterThan(0);
+      expect(product.evidence.every((item) => item.type !== "image")).toBe(true);
+      expectedEvidence[slug].forEach((evidenceUrl) => {
+        expect(product.evidence.map((item) => item.url)).toContain(evidenceUrl);
+      });
     });
   });
 

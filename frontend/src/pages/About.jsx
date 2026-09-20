@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import Figure from "../components/art/Figure";
 import Marginalia from "../components/art/Marginalia";
@@ -40,9 +40,31 @@ const About = () => (
             what evidence matters, which tradeoffs are real, and what should happen next.
             This portfolio separates product work from analysis so each can be evaluated on its own terms.
           </p>
-          <div className="location"><MapPin size={16} aria-hidden="true" /> {profile.location}</div>
         </div>
       </header>
+
+      <section className="about-context" aria-labelledby="about-context-heading">
+        <p className="eyebrow" id="about-context-heading">Professional context</p>
+        <div className="about-context-grid">
+          <div className="about-context-identity">
+            <p className="about-context-title">{profile.title}</p>
+            <div className="location"><MapPin size={16} aria-hidden="true" /> {profile.location}</div>
+          </div>
+          <p className="about-context-focus">
+            The work on this site is product framing, structured analysis, and technical builds:
+            defining who a problem is for, making the reasoning inspectable, and showing what
+            actually exists in a public repository.
+          </p>
+          <nav className="about-context-links" aria-label="Professional profile">
+            <a href={profile.linkedin} target="_blank" rel="noreferrer">
+              LinkedIn <span className="about-link-hint">professional profile</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
+            <Link to="/work">Work</Link>
+            <Link to="/contact">Contact</Link>
+          </nav>
+        </div>
+      </section>
 
       <Figure
         name="about-practice"
