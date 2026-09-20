@@ -122,9 +122,12 @@ export const PLATES = [
     aspect: "1:1",
     ref: true,
     subject: `
-      An upright kiosk or beacon tower with a listening disc and quiet signal
-      arcs. Aisle path ticks at the base. Deep teal accents only; terracotta
-      is absent. Compact, centred, plenty of white space.
+      A rounded listening box — a compact rounded rectangle (a box, not a tall
+      kiosk tower or hardware pedestal) with a center listening dot and two
+      upward signal arcs, the Ask. A thin connecting line leads to a small
+      aisle-grid cell marked as the find: aisle, then rack, then shelf. Deep
+      teal accents only; terracotta is absent. Compact, centred, plenty of
+      white space. No screens, no UI, no text, no tall tower.
     `
   },
   {
