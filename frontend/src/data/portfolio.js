@@ -22,6 +22,7 @@ export const products = [
   {
     slug: "beacon-box",
     type: "product",
+    plate: "plate-beacon-box",
     name: "Beacon Box",
     summary: "An AI-powered, voice-enabled in-store shopping assistant for grocery and retail. It runs on a 9:16 kiosk panel: a shopper asks where something is and is meant to get aisle, rack, and shelf guidance (Ask. Find. Pick.).",
     status: "prototype",
@@ -63,6 +64,7 @@ export const products = [
   {
     slug: "ai-shopping-assistant",
     type: "product",
+    plate: "plate-ai-shopping-assistant",
     name: "AI Shopping Assistant",
     summary: "A Chrome extension with an Express/TypeScript backend that summarizes e-commerce product reviews into pros and cons on Amazon, Etsy, eBay, and Shopify stores.",
     status: "built",
@@ -103,6 +105,7 @@ export const products = [
   {
     slug: "docnotes-rag",
     type: "product",
+    plate: "plate-docnotes-rag",
     name: "DocNotes RAG",
     summary: "A Chrome extension and FastAPI backend that captures documentation pages into a local notebook, indexes them with embeddings (FAISS), and answers grounded questions from those notes.",
     status: "built",

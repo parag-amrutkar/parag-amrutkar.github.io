@@ -118,6 +118,35 @@ export const PLATES = [
     `
   },
   {
+    name: "plate-beacon-box",
+    aspect: "1:1",
+    ref: true,
+    subject: `
+      An upright kiosk or beacon tower with a listening disc and quiet signal
+      arcs. Aisle path ticks at the base. Deep teal accents only; terracotta
+      is absent. Compact, centred, plenty of white space.
+    `
+  },
+  {
+    name: "plate-ai-shopping-assistant",
+    aspect: "1:1",
+    ref: true,
+    subject: `
+      A blank review-card stack distilled through a funnel into a two-pan
+      balance (pros vs cons). Teal and sienna on the pans. Compact, centred.
+    `
+  },
+  {
+    name: "plate-docnotes-rag",
+    aspect: "1:1",
+    ref: true,
+    subject: `
+      Notebook page frames feeding a small node graph that resolves to a
+      single answer-dot. Teal nodes, restrained sienna on the answer.
+      Compact, centred.
+    `
+  },
+  {
     name: "plate-etsy-smartlist",
     aspect: "1:1",
     ref: true,

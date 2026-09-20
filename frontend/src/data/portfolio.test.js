@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import {
   analyses,
   getLegacyWorkPath,
@@ -41,6 +43,25 @@ describe("portfolio content contracts", () => {
       expect(product).toBeTruthy();
       expect(product.links.map((link) => link.url)).toContain(url);
       expect(product.evidence.length).toBeGreaterThan(0);
+    });
+  });
+
+  test("product plates resolve to committed illustration files", () => {
+    const expectedPlates = {
+      "beacon-box": "plate-beacon-box",
+      "ai-shopping-assistant": "plate-ai-shopping-assistant",
+      "docnotes-rag": "plate-docnotes-rag",
+      "etsy-smartlist": "plate-etsy-smartlist"
+    };
+    const dir = path.join(__dirname, "../../public/illustrations");
+
+    Object.entries(expectedPlates).forEach(([slug, plate]) => {
+      const product = products.find((item) => item.slug === slug);
+      expect(product.plate).toBe(plate);
+      ["png", "webp"].forEach((ext) => {
+        expect(fs.existsSync(path.join(dir, `${plate}.${ext}`))).toBe(true);
+        expect(fs.existsSync(path.join(dir, `${plate}@2x.${ext}`))).toBe(true);
+      });
     });
   });
 
