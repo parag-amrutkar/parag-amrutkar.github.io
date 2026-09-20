@@ -56,7 +56,7 @@ describe("portfolio content contracts", () => {
     expect(beacon.summary).toMatch(/Ask\. Find\. Pick\./);
     expect(publicText).toMatch(/shopping-assistant chat/i);
     expect(publicText).toMatch(/demo_simulated/);
-    expect(publicText.toLowerCase()).toMatch(/no public live kiosk/);
+    expect(publicText.toLowerCase()).toMatch(/does not link a public live kiosk/);
     expect(beacon.status).toBe("prototype");
   });
 
