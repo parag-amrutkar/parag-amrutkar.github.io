@@ -1,7 +1,7 @@
 export const profile = {
   name: "Parag Amrutkar",
   title: "Technical Product Manager",
-  positioning: "I build technology products and analyze complex growth, operations, and market problems.",
+  positioning: "I lead humans & AI agents to build products for humans & AI agents.",
   introduction: "My work combines product concepts with structured analysis. I focus on framing the problem, making assumptions visible, and showing the reasoning behind each recommendation.",
   email: "paragamrutkar1103@gmail.com",
   linkedin: "https://linkedin.com/in/parag-amrutkar",

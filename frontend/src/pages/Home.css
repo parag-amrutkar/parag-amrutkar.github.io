@@ -2,7 +2,7 @@
   min-height: min(790px, calc(100vh - 80px));
   display: grid;
   align-items: center;
-  padding: 100px 0;
+  padding: clamp(84px, 9vw, 100px) 0;
   position: relative;
   overflow: hidden;
 }
@@ -11,10 +11,14 @@
 .hero-content { max-width: 900px; }
 .hero-title { margin: 0; }
 
-.hero-aside { display: grid; gap: 22px; justify-items: start; }
-.hero-plate-slot,
-.hero-plate { width: 100%; }
-.hero-note { margin-top: 2px; }
+.hero-aside { display: grid; justify-items: center; align-self: stretch; }
+.hero-portrait {
+  width: 100%;
+  height: 100%;
+  max-height: 620px;
+  object-fit: contain;
+  object-position: center bottom;
+}
 /* The one place WONK is switched on. Fraunces' canted, splayed alternates
    only read as intentional at display size -- everywhere else they'd look
    like a mistake. */
@@ -40,28 +44,13 @@
 .hero-tagline { max-width: 720px; color: var(--ink-muted); font-size: clamp(1.45rem, 2.9vw, 2.35rem); line-height: 1.42; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
 
-.hero-mark {
-  display: grid;
-  gap: 14px;
-  justify-items: start;
-  padding: 26px 0 8px 24px;
-  border-left: 1px solid var(--line-strong);
-  color: var(--ink-faint);
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-.hero-mark svg { color: var(--product); }
-
-.home-section { padding: 120px 0; }
+.home-section { padding: clamp(82px, 10vw, 120px) 0; }
 /* The products band used to close with a full 120px, then the context
    section opened with another 120px — about 240px of empty paper, and the
    widest pause on the page. Keep the other bands at 120 and bring this
    joint down into the same 150–200px rhythm. */
-.selected-products { background: var(--paper-deep); padding-bottom: 72px; }
-.selected-products + .home-introduction { padding-top: 96px; }
+.selected-products { background: var(--paper-deep); padding-bottom: clamp(64px, 7vw, 72px); }
+.selected-products + .home-introduction { padding-top: clamp(82px, 8vw, 96px); }
 .selected-analysis { background: var(--paper); }
 
 .section-heading {
@@ -79,7 +68,7 @@
 .intro-grid > div > p { max-width: 650px; color: var(--ink-muted); font-size: 1.15rem; line-height: 1.75; }
 .intro-grid .text-link { margin-top: 16px; }
 
-.contact-cta { padding: 110px 0; background: var(--ink); color: var(--paper); }
+.contact-cta { padding: clamp(84px, 9vw, 110px) 0; background: var(--ink); color: var(--paper); }
 .contact-cta-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.5fr); gap: 56px; align-items: center; }
 .contact-cta .eyebrow { color: #a9c3ba; }
 /* The one plate drawn on the dark ground rather than cream. */
@@ -92,7 +81,6 @@
 /* The marginalia takes the half-row an odd card count leaves open. It is a
    grid child so it sits level with the card it points at, not below it. */
 .grid-note {
-  grid-column: span 6;
   align-self: center;
   padding-top: 0;
   padding-left: 18px;
@@ -100,16 +88,10 @@
 
 @media (max-width: 850px) {
   .hero-grid { grid-template-columns: 1fr; gap: 52px; }
-  /* The aside used to be display:none here, which left the mobile hero with
-     no visual anchor at all. It now reflows instead of disappearing. */
-  .hero-aside {
-    grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
-    align-items: center;
-    column-gap: 28px;
-  }
-  .hero-plate-slot { grid-row: span 2; }
+  .hero-aside { justify-items: start; }
+  .hero-portrait { width: min(100%, 360px); height: auto; max-height: none; }
   .intro-grid { grid-template-columns: 1fr; gap: 20px; }
-  .grid-note { grid-column: 1 / -1; padding-top: 4px; }
+  .grid-note { padding-top: 4px; }
 }
 
 @media (max-width: 760px) {
@@ -118,14 +100,28 @@
   .hero-tagline { font-size: clamp(1.3rem, 5vw, 1.75rem); }
   .hero-actions { align-items: stretch; flex-direction: column; }
   .hero-actions .btn { width: 100%; }
-  .home-section { padding: 82px 0; }
   .section-heading { align-items: flex-start; flex-direction: column; }
-  .contact-cta { padding: 84px 0; }
   .contact-cta-inner { grid-template-columns: 1fr; gap: 44px; }
   .contact-plate { justify-self: start; max-width: 240px; }
 }
 
 @media (max-width: 560px) {
-  .hero-aside { grid-template-columns: 1fr; row-gap: 20px; }
-  .hero-plate-slot { grid-row: auto; max-width: 240px; }
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) 112px;
+    column-gap: 18px;
+    row-gap: 0;
+    align-items: center;
+  }
+  .hero-content { display: contents; }
+  .hero h1 { grid-column: 1; margin: 0; }
+  .hero-aside {
+    grid-column: 2;
+    grid-row: 1;
+    justify-items: end;
+    align-self: center;
+  }
+  .hero-portrait { width: 112px; height: auto; max-height: 168px; }
+  .hero-role { grid-column: 1 / -1; margin-top: 20px; }
+  .hero-tagline,
+  .hero-actions { grid-column: 1 / -1; }
 }

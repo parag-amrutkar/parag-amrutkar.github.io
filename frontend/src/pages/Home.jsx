@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowDownRight, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Figure from "../components/art/Figure";
 import Marginalia from "../components/art/Marginalia";
@@ -18,7 +18,6 @@ const Home = () => {
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-content">
-            <p className="eyebrow" data-reveal data-reveal-on-mount>Product · Strategy · Technology</p>
             <h1 data-reveal data-reveal-on-mount data-reveal-delay="90">{profile.name}</h1>
             <p className="hero-role" data-reveal data-reveal-on-mount data-reveal-delay="90">{profile.title}</p>
             <p className="hero-tagline" data-reveal data-reveal-on-mount data-reveal-delay="180">{profile.positioning}</p>
@@ -28,25 +27,15 @@ const Home = () => {
             </div>
           </div>
           <div className="hero-aside">
-            <div className="hero-plate-slot" data-reveal="hero-art" data-reveal-on-mount>
-              <Figure
-                name="hero-two-modes"
-                ratio="4 / 3"
-                width={2240}
-                height={1120}
-                priority
-                className="hero-plate"
-                alt="Two modes of the same job: a product interface being assembled, and a chart read under a magnifier, joined by a person at the center."
-              />
-            </div>
-            <div className="hero-mark" data-reveal data-reveal-on-mount data-reveal-delay="360" aria-hidden="true">
-              <span>Products</span>
-              <ArrowDownRight size={28} />
-              <span>Analysis</span>
-            </div>
-            <Marginalia side="left" className="hero-note" data-reveal data-reveal-on-mount data-reveal-delay="360">
-              {marginalia.heroPractice.text}
-            </Marginalia>
+            <img
+              src="/dotted-portrait.webp"
+              width="1086"
+              height="1448"
+              className="hero-portrait"
+              alt="Halftone portrait of Parag Amrutkar in a suit and tie"
+              data-reveal="hero-art"
+              data-reveal-on-mount
+            />
           </div>
         </div>
       </section>
