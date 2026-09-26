@@ -9,11 +9,10 @@ import "./Figure.css";
  * image. The frame occupies exactly the same box as the image would, so
  * dropping art in later causes no layout shift.
  *
- * Paths are absolute on purpose. package.json sets `homepage: "."`, which
- * makes PUBLIC_URL relative -- that resolves correctly at `/` but breaks on
- * nested routes like `/work/products/:slug`, where `./illustrations/x.webp`
- * would be requested from `/work/products/`. This repo deploys to a
- * root-domain user site, so a leading slash is both correct and stable.
+ * Paths are absolute on purpose. This repo deploys to a root-domain user
+ * site (`homepage` is `https://parag-amrutkar.github.io`), so a leading
+ * slash is both correct and stable on nested routes like
+ * `/work/products/:slug`.
  */
 const plateLabel = (fig) =>
   typeof fig === "number" ? `Fig. ${String(fig).padStart(2, "0")}` : fig;
