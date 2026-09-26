@@ -31,6 +31,9 @@
 @media (max-width: 760px) {
   .marginalia-aim-across .marginalia-leader-arc { display: block; }
   .marginalia-aim-across .marginalia-leader-across { display: none; }
+  /* Under a full-width card the rising arc should travel up into that card,
+     not off the left edge. */
+  .grid-note.marginalia-left .marginalia-leader { transform: none; }
 }
 
 /* Nudges the text down to sit level with the arrowhead rather than the
