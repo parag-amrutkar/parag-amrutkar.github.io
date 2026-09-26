@@ -37,7 +37,7 @@ The app lives entirely under `frontend/`. The repository root is the GitHub Page
 
 ## Local development
 
-Requires Node 20+ and Yarn 1.
+Requires Node 24 and Yarn 1.
 
 ```bash
 cd frontend
