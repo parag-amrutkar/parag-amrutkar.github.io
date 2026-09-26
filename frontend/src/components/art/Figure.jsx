@@ -11,7 +11,7 @@ import "./Figure.css";
  *
  * Paths are absolute on purpose. package.json sets `homepage: "."`, which
  * makes PUBLIC_URL relative -- that resolves correctly at `/` but breaks on
- * nested routes like `/work/products/:slug`, where `./illustrations/x.png`
+ * nested routes like `/work/products/:slug`, where `./illustrations/x.webp`
  * would be requested from `/work/products/`. This repo deploys to a
  * root-domain user site, so a leading slash is both correct and stable.
  */
@@ -24,6 +24,8 @@ const Figure = ({
   caption,
   alt = "",
   ratio = "4 / 3",
+  width = 1600,
+  height = 1200,
   priority = false,
   className = ""
 }) => {
@@ -38,23 +40,17 @@ const Figure = ({
           {label && <span className="plate-number">{label}</span>}
         </div>
       ) : (
-        <picture>
-          <source
-            type="image/webp"
-            srcSet={`${base}.webp 1x, ${base}@2x.webp 2x`}
-          />
-          <img
-            src={`${base}.png`}
-            srcSet={`${base}.png 1x, ${base}@2x.png 2x`}
-            alt={alt}
-            width="1600"
-            height="1200"
-            loading={priority ? "eager" : "lazy"}
-            fetchPriority={priority ? "high" : "auto"}
-            decoding="async"
-            onError={() => setFailed(true)}
-          />
-        </picture>
+        <img
+          src={`${base}.webp`}
+          srcSet={`${base}.webp 1x, ${base}@2x.webp 2x`}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          decoding="async"
+          onError={() => setFailed(true)}
+        />
       )}
     </div>
   );

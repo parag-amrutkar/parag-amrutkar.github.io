@@ -82,8 +82,13 @@ const About = () => (
           </Marginalia>
         </div>
         <div className="capabilities-list">
-          {capabilities.map((capability) => (
-            <article key={capability.number} className="capability-row">
+          {capabilities.map((capability, index) => (
+            <article
+              key={capability.number}
+              className="capability-row"
+              data-reveal
+              data-reveal-delay={index * 100}
+            >
               <span>{capability.number}</span>
               <h3>{capability.title}</h3>
               <p>{capability.description}</p>

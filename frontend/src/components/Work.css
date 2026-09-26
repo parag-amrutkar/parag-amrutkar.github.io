@@ -14,7 +14,7 @@
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
 }
 
 .work-card::after {
@@ -47,8 +47,8 @@
 .work-card-analysis::after { background: rgba(160, 91, 49, 0.1); }
 
 .work-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-raised);
+  transform: translateY(-4px);
+  box-shadow: 0 26px 44px rgba(25, 36, 33, 0.18);
   border-color: var(--line-strong);
 }
 

@@ -12,6 +12,7 @@
 .hero-title { margin: 0; }
 
 .hero-aside { display: grid; gap: 22px; justify-items: start; }
+.hero-plate-slot,
 .hero-plate { width: 100%; }
 .hero-note { margin-top: 2px; }
 /* The one place WONK is switched on. Fraunces' canted, splayed alternates
@@ -55,7 +56,12 @@
 .hero-mark svg { color: var(--product); }
 
 .home-section { padding: 120px 0; }
-.selected-products { background: var(--paper-deep); }
+/* The products band used to close with a full 120px, then the context
+   section opened with another 120px — about 240px of empty paper, and the
+   widest pause on the page. Keep the other bands at 120 and bring this
+   joint down into the same 150–200px rhythm. */
+.selected-products { background: var(--paper-deep); padding-bottom: 72px; }
+.selected-products + .home-introduction { padding-top: 96px; }
 .selected-analysis { background: var(--paper); }
 
 .section-heading {
@@ -87,9 +93,9 @@
    grid child so it sits level with the card it points at, not below it. */
 .grid-note {
   grid-column: span 6;
-  align-self: start;
-  padding-top: 34px;
-  padding-left: 8px;
+  align-self: center;
+  padding-top: 0;
+  padding-left: 18px;
 }
 
 @media (max-width: 850px) {
@@ -101,7 +107,7 @@
     align-items: center;
     column-gap: 28px;
   }
-  .hero-plate { grid-row: span 2; }
+  .hero-plate-slot { grid-row: span 2; }
   .intro-grid { grid-template-columns: 1fr; gap: 20px; }
   .grid-note { grid-column: 1 / -1; padding-top: 4px; }
 }
@@ -121,5 +127,5 @@
 
 @media (max-width: 560px) {
   .hero-aside { grid-template-columns: 1fr; row-gap: 20px; }
-  .hero-plate { grid-row: auto; max-width: 240px; }
+  .hero-plate-slot { grid-row: auto; max-width: 240px; }
 }

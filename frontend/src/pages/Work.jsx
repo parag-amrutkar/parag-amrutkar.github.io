@@ -99,7 +99,13 @@ const Work = () => {
 
             {collection.items.length > 0 ? (
               <div className="work-grid">
-                {collection.items.map((item) => <WorkCard item={item} key={item.slug} />)}
+                {collection.items.map((item, index) => (
+                <WorkCard
+                  item={item}
+                  key={item.slug}
+                  revealDelay={item.type === "product" ? index * 120 : 0}
+                />
+              ))}
               </div>
             ) : (
               <p className="empty-state">No public entries are available in this collection yet.</p>

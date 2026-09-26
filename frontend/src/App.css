@@ -304,11 +304,46 @@ body::after {
   transition: opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
+/* Hero plate: fade and a barely-there scale, no travel. */
+[data-reveal="hero-art"] {
+  transform: scale(0.98);
+  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* The contact band is the page's last beat, so it travels a little farther. */
+[data-reveal="cta"] {
+  transform: translateY(24px);
+  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Footer arrives; it does not announce itself. */
+[data-reveal="fade"] {
+  transform: none;
+  transition: opacity 500ms ease;
+}
+
 [data-reveal].is-revealed { opacity: 1; transform: none; }
+
+/* Card lift has to beat the revealed resting transform. The title underline
+   stays on the link's own hover rule. */
+.work-card[data-reveal].is-revealed:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 44px rgba(25, 36, 33, 0.18);
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out, opacity 520ms ease;
+}
+
+@keyframes arch-float {
+  0%, 100% { transform: translateY(-6px); }
+  50% { transform: translateY(6px); }
+}
+
+.contact-plate img {
+  animation: arch-float 6s ease-in-out infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 
   /* The rule above zeroes durations but does not touch the from-state, so an
      un-revealed element would stay at opacity 0 forever. These reset the
@@ -316,4 +351,5 @@ body::after {
   [data-reveal],
   [data-reveal].is-revealed { opacity: 1 !important; transform: none !important; }
   .stagger > * { animation: none !important; }
+  .contact-plate img { animation: none !important; }
 }
