@@ -14,7 +14,7 @@ export const formatPortfolioDate = (value, precision) => {
   }).format(new Date(`${value}T00:00:00`));
 };
 
-const WorkCard = ({ item, compact = false }) => {
+const WorkCard = ({ item, compact = false, revealDelay = 0 }) => {
   const isProduct = item.type === "product";
   const title = isProduct ? item.name : item.title;
   const path = isProduct
@@ -25,6 +25,7 @@ const WorkCard = ({ item, compact = false }) => {
     <article
       className={`work-card work-card-${item.type} ${compact ? "work-card-compact" : ""}`}
       data-reveal
+      data-reveal-delay={isProduct && revealDelay ? revealDelay : undefined}
     >
       <div className="work-card-topline">
         <span className="work-kind">{isProduct ? "Product" : "Analysis"}</span>
@@ -32,6 +33,9 @@ const WorkCard = ({ item, compact = false }) => {
           className="work-card-plate"
           name={item.plate || (isProduct ? "plate-product" : "plate-analysis")}
           ratio="1 / 1"
+          width={1600}
+          height={1600}
+          alt={item.plateAlt || ""}
         />
       </div>
       <div className="work-card-body">

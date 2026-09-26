@@ -23,6 +23,16 @@
 .marginalia-right { flex-direction: row-reverse; }
 .marginalia-left .marginalia-leader { transform: scaleX(-1); }
 
+/* Beside a card, the rising arc points into the gutter above the row.
+   The level leader points at the card itself. On a narrow screen the note
+   drops under the stack, where the rising arc is the one that meets a card. */
+.marginalia-aim-across .marginalia-leader-arc { display: none; }
+
+@media (max-width: 760px) {
+  .marginalia-aim-across .marginalia-leader-arc { display: block; }
+  .marginalia-aim-across .marginalia-leader-across { display: none; }
+}
+
 /* Nudges the text down to sit level with the arrowhead rather than the
    baseline of the curve. */
 .marginalia-text { padding-top: 19px; }

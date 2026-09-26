@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import useReveal from "./hooks/useReveal";
 import About from "./pages/About";
 import AnalysisDetail from "./pages/AnalysisDetail";
 import Contact from "./pages/Contact";
@@ -17,7 +18,11 @@ const LegacyProjectRedirect = () => {
   return <Navigate replace to={getLegacyWorkPath(id)} />;
 };
 
-const SiteLayout = () => (
+const SiteLayout = () => {
+  const location = useLocation();
+  useReveal([location.pathname]);
+
+  return (
   <>
     <a className="skip-link" href="#main-content">Skip to main content</a>
     <Header />
@@ -36,7 +41,8 @@ const SiteLayout = () => (
     </main>
     <Footer />
   </>
-);
+  );
+};
 
 const App = () => (
   <BrowserRouter>

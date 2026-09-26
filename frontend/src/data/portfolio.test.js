@@ -108,15 +108,30 @@ describe("portfolio content contracts", () => {
       "etsy-smartlist": "plate-etsy-smartlist"
     };
     const dir = path.join(__dirname, "../../public/illustrations");
+    const webpOnly = new Set([
+      "plate-beacon-box",
+      "plate-ai-shopping-assistant",
+      "plate-docnotes-rag"
+    ]);
 
     Object.entries(expectedPlates).forEach(([slug, plate]) => {
       const product = products.find((item) => item.slug === slug);
       expect(product.plate).toBe(plate);
-      ["png", "webp"].forEach((ext) => {
-        expect(fs.existsSync(path.join(dir, `${plate}.${ext}`))).toBe(true);
-        expect(fs.existsSync(path.join(dir, `${plate}@2x.${ext}`))).toBe(true);
-      });
+      expect(fs.existsSync(path.join(dir, `${plate}.webp`))).toBe(true);
+      expect(fs.existsSync(path.join(dir, `${plate}@2x.webp`))).toBe(true);
+      if (webpOnly.has(plate)) {
+        expect(product.plateAlt).toBeTruthy();
+        expect(fs.existsSync(path.join(dir, `${plate}.png`))).toBe(false);
+        expect(fs.existsSync(path.join(dir, `${plate}@2x.png`))).toBe(false);
+      } else {
+        expect(fs.existsSync(path.join(dir, `${plate}.png`))).toBe(true);
+        expect(fs.existsSync(path.join(dir, `${plate}@2x.png`))).toBe(true);
+      }
     });
+
+    expect(fs.existsSync(path.join(dir, "hero-two-modes.webp"))).toBe(true);
+    expect(fs.existsSync(path.join(dir, "hero-two-modes.png"))).toBe(false);
+    expect(fs.existsSync(path.join(dir, "hero-two-modes@2x.png"))).toBe(false);
   });
 
   test("analyses have publication dates and analysis-specific fields", () => {
