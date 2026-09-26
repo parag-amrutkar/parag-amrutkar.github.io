@@ -44,6 +44,29 @@
 .hero-tagline { max-width: 720px; color: var(--ink-muted); font-size: clamp(1.45rem, 2.9vw, 2.35rem); line-height: 1.42; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
 
+.hero-clients { margin-top: 36px; container-type: inline-size; width: 100%; }
+.hero-clients .eyebrow { margin-bottom: 14px; }
+.hero-client-list {
+  display: flex;
+  flex-flow: row nowrap;
+  direction: ltr;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(10px, 5cqi, 40px);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hero-client-list li { display: flex; flex: 0 0 auto; align-items: center; margin: 0; }
+.hero-client-list img {
+  display: block;
+  width: auto;
+  /* Shared height, so width follows each mark's aspect. 32px where the row
+     is wide; below that the three shrink together and stay on one line. */
+  height: min(32px, calc((100cqi - 2 * clamp(10px, 5cqi, 40px) - 4px) / 7.78));
+}
+
 .home-section { padding: clamp(82px, 10vw, 120px) 0; }
 /* The products band used to close with a full 120px, then the context
    section opened with another 120px — about 240px of empty paper, and the
@@ -100,6 +123,7 @@
   .hero-tagline { font-size: clamp(1.3rem, 5vw, 1.75rem); }
   .hero-actions { align-items: stretch; flex-direction: column; }
   .hero-actions .btn { width: 100%; }
+  .hero-client-list { justify-content: flex-start; }
   .section-heading { align-items: flex-start; flex-direction: column; }
   .contact-cta-inner { grid-template-columns: 1fr; gap: 44px; }
   .contact-plate { justify-self: start; max-width: 240px; }
@@ -123,5 +147,6 @@
   .hero-portrait { width: 112px; height: auto; max-height: 168px; }
   .hero-role { grid-column: 1 / -1; margin-top: 20px; }
   .hero-tagline,
-  .hero-actions { grid-column: 1 / -1; }
+  .hero-actions,
+  .hero-clients { grid-column: 1 / -1; }
 }
