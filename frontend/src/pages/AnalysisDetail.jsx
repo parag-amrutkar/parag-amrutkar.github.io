@@ -8,6 +8,7 @@ import {
   SourceList
 } from "../components/DetailBlocks";
 import BasisStrip from "../components/BasisStrip";
+import Figure from "../components/art/Figure";
 import Marginalia from "../components/art/Marginalia";
 import { formatPortfolioDate } from "../components/WorkCard";
 import { marginalia } from "../data/marginalia";
@@ -28,12 +29,23 @@ const AnalysisDetail = () => {
       <div className="container detail-container">
         <Link to="/work" className="back-link"><ArrowLeft size={17} /> Back to work</Link>
         <header className="detail-header">
-          <div className="detail-kicker-row">
-            <span className="eyebrow">Analysis · {analysis.topic}</span>
+          <div className="detail-header-copy">
+            <div className="detail-kicker-row">
+              <span className="eyebrow">Analysis · {analysis.topic}</span>
+            </div>
+            <h1>{analysis.title}</h1>
+            <p className="detail-summary">{analysis.summary}</p>
+            <p className="affiliation-note">{analysis.affiliationNote}</p>
           </div>
-          <h1>{analysis.title}</h1>
-          <p className="detail-summary">{analysis.summary}</p>
-          <p className="affiliation-note">{analysis.affiliationNote}</p>
+          <Figure
+            className="detail-header-plate"
+            name={analysis.plate || "plate-analysis"}
+            ratio={analysis.plateRatio || "1 / 1"}
+            width={1600}
+            height={1600}
+            alt={analysis.plateAlt || ""}
+            priority
+          />
         </header>
 
         <div className="detail-layout">

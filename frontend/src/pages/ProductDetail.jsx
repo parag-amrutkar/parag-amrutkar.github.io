@@ -25,8 +25,19 @@ const ProductDetail = () => {
     <article className="detail-page detail-product page-shell">
       <div className="container detail-container">
         <header className="detail-header">
-          <h1>{product.name}</h1>
-          <p className="detail-summary">{product.summary}</p>
+          <div className="detail-header-copy">
+            <h1>{product.name}</h1>
+            <p className="detail-summary">{product.summary}</p>
+          </div>
+          <Figure
+            className="detail-header-plate"
+            name={product.plate || "plate-product"}
+            ratio={product.plateRatio || "1 / 1"}
+            width={1600}
+            height={1600}
+            alt={product.plateAlt || ""}
+            priority
+          />
         </header>
 
         <div className="detail-layout">

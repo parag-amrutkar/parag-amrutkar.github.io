@@ -13,9 +13,16 @@
 }
 
 .detail-header {
-  max-width: 900px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(260px, 40%, 440px);
+  gap: clamp(36px, 4vw, 64px);
+  align-items: center;
   padding-bottom: 72px;
 }
+
+.detail-header-copy { min-width: 0; }
+
+.detail-header-plate { width: 100%; }
 
 .detail-kicker-row {
   display: flex;
@@ -213,6 +220,8 @@
 .not-found .btn { margin-top: 24px; }
 
 @media (max-width: 800px) {
+  .detail-header { grid-template-columns: 1fr; gap: 28px; }
+  .detail-header-plate { max-width: 360px; }
   .detail-layout { grid-template-columns: 1fr; }
   .detail-aside { position: static; display: grid; grid-template-columns: 1fr; }
   .detail-aside dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
