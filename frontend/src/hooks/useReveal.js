@@ -98,8 +98,7 @@ const useReveal = (deps = []) => {
      * outcome than a missed animation.
      */
     let sweepFrame = 0;
-    const sweep = () => {
-      sweepFrame = 0;
+    const revealIfAbove = () => {
       pending.forEach((node) => {
         if (node.getBoundingClientRect().bottom < 0) {
           observer.unobserve(node);
@@ -107,6 +106,11 @@ const useReveal = (deps = []) => {
           reveal(node);
         }
       });
+    };
+
+    const sweep = () => {
+      sweepFrame = 0;
+      revealIfAbove();
       if (!pending.size) stop();
     };
 
@@ -123,6 +127,14 @@ const useReveal = (deps = []) => {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    // A restored back-navigation jumps elements above the viewport before
+    // this listener exists. Sweep once so they are not stuck at opacity 0.
+    // Leave the mount-time frames alone: stop() would cancel them.
+    revealIfAbove();
+    if (!pending.size) {
+      window.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    }
     return stop;
   }, deps);
 };

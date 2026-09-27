@@ -57,7 +57,7 @@ a:hover { text-decoration: underline; }
 }
 
 .App { min-height: 100vh; display: flex; flex-direction: column; }
-.site-main { flex: 1; }
+.site-main { flex: 1; scroll-margin-top: 96px; }
 .container { width: min(100% - clamp(36px, 8vw, 96px), 1200px); margin-inline: auto; }
 .narrow-container { width: min(100% - clamp(36px, 8vw, 96px), 760px); margin-inline: auto; }
 .page-shell { padding: clamp(76px, 9vw, 104px) 0 clamp(96px, 11vw, 128px); }
