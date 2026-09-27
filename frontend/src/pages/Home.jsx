@@ -2,7 +2,6 @@ import React from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Figure from "../components/art/Figure";
-import StatusBadge from "../components/StatusBadge";
 import WorkCard from "../components/WorkCard";
 import { analyses, products, profile } from "../data/portfolio";
 import "../components/Work.css";
@@ -67,14 +66,9 @@ const Home = () => {
                   <div className="work-row-copy">
                     <h3><Link to={`/work/products/${item.slug}`}>{item.name}</Link></h3>
                     <p>{item.summary}</p>
-                    <div className="work-row-labels">
-                      <StatusBadge status={item.status} />
-                      {item.tags?.length > 0 && (
-                        <ul className="tag-list" aria-label={`${item.name} topics`}>
-                          {item.tags.map((tag) => <li key={tag}>{tag}</li>)}
-                        </ul>
-                      )}
-                    </div>
+                    <Link to={`/work/products/${item.slug}`} className="btn btn-secondary">
+                      View project
+                    </Link>
                   </div>
                   <Figure
                     className="work-row-plate"

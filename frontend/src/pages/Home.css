@@ -101,14 +101,7 @@
   font-size: 1.05rem;
   line-height: 1.65;
 }
-.work-row-labels {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-top: 18px;
-}
-.work-row-labels .tag-list { margin: 0; }
+.work-row-copy .btn { margin-top: 18px; }
 .work-row-plate { width: 100%; }
 
 @media (max-width: 850px) {
