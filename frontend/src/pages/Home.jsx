@@ -2,9 +2,8 @@ import React from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Figure from "../components/art/Figure";
-import Marginalia from "../components/art/Marginalia";
+import StatusBadge from "../components/StatusBadge";
 import WorkCard from "../components/WorkCard";
-import { marginalia } from "../data/marginalia";
 import { analyses, products, profile } from "../data/portfolio";
 import "../components/Work.css";
 import "./Home.css";
@@ -53,24 +52,40 @@ const Home = () => {
           <div className="container">
             <div className="section-heading">
               <div data-reveal>
-                <p className="eyebrow">What I make</p>
-                <h2>Selected products</h2>
+                <h2>Recent work</h2>
               </div>
               <Link to="/work" className="text-link">All work <ArrowUpRight size={17} /></Link>
             </div>
-            <div className="work-grid">
+            <div className="work-list">
               {featuredProducts.map((item, index) => (
-                <WorkCard key={item.slug} item={item} revealDelay={index * 120} />
+                <article
+                  key={item.slug}
+                  className="work-row"
+                  data-reveal
+                  data-reveal-delay={index ? index * 120 : undefined}
+                >
+                  <div className="work-row-copy">
+                    <h3><Link to={`/work/products/${item.slug}`}>{item.name}</Link></h3>
+                    <p>{item.summary}</p>
+                    <div className="work-row-labels">
+                      <StatusBadge status={item.status} />
+                      {item.tags?.length > 0 && (
+                        <ul className="tag-list" aria-label={`${item.name} topics`}>
+                          {item.tags.map((tag) => <li key={tag}>{tag}</li>)}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                  <Figure
+                    className="work-row-plate"
+                    name={item.plate || "plate-product"}
+                    ratio="1 / 1"
+                    width={1600}
+                    height={1600}
+                    alt={item.plateAlt || ""}
+                  />
+                </article>
               ))}
-              {/* Occupies the half-row an odd card count leaves behind --
-                  the slot the "More products in progress" ghost card used to
-                  fill. An annotation is a more honest use of the space than a
-                  placeholder for work that does not exist. */}
-              {featuredProducts.length % 2 === 1 && (
-                <Marginalia side="left" aim="across" className="grid-note">
-                  {marginalia.conceptStatus.text}
-                </Marginalia>
-              )}
             </div>
           </div>
         </section>
