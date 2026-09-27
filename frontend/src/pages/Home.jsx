@@ -73,7 +73,7 @@ const Home = () => {
                   <Figure
                     className="work-row-plate"
                     name={item.plate || "plate-product"}
-                    ratio="1 / 1"
+                    ratio={item.plateRatio || "1 / 1"}
                     width={1600}
                     height={1600}
                     alt={item.plateAlt || ""}

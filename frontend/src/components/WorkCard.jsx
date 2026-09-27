@@ -32,7 +32,7 @@ const WorkCard = ({ item, compact = false, revealDelay = 0 }) => {
         <Figure
           className="work-card-plate"
           name={item.plate || (isProduct ? "plate-product" : "plate-analysis")}
-          ratio="1 / 1"
+          ratio={item.plateRatio || "1 / 1"}
           width={1600}
           height={1600}
           alt={item.plateAlt || ""}
