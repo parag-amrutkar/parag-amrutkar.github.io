@@ -103,17 +103,16 @@ describe("portfolio content contracts", () => {
   test("product plates resolve to committed illustration files", () => {
     const expectedPlates = {
       "beacon-box": "plate-beacon-box",
-      "ai-shopping-assistant": "plate-ai-shopping-assistant",
+      "ai-shopping-assistant": "shopping_assistant_transparent",
       "docnotes-rag": "plate-docnotes-rag",
       "etsy-smartlist": "plate-etsy-smartlist"
     };
     const dir = path.join(__dirname, "../../public/illustrations");
     const webpOnly = new Set([
       "plate-beacon-box",
-      "plate-ai-shopping-assistant",
+      "shopping_assistant_transparent",
       "plate-docnotes-rag"
     ]);
-
     Object.entries(expectedPlates).forEach(([slug, plate]) => {
       const product = products.find((item) => item.slug === slug);
       expect(product.plate).toBe(plate);
