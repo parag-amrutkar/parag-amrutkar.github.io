@@ -25,8 +25,8 @@ export const products = [
     plateRatio: "4 / 3",
     plateAlt: "Two shoppers at a Beacon Box grocery kiosk whose screen greets them and offers product search, directions, and deals.",
     name: "Beacon Box",
-    headline: "Beacon Box helps shoppers find a product on the shelf",
-    subheadline: "A voice-enabled kiosk that answers a product question and points to the aisle and shelf.",
+    headline: "Beacon Box helps in-store shoppers find the right product faster",
+    subheadline: "An AI-powered shopping kiosk that helps customers discover, compare, and locate products through natural conversation.",
     summary: "A voice-enabled AI shopping kiosk that makes navigating physical stores as easy as shopping online. It answers product questions, recommends alternatives, and guides shoppers to the exact aisle and shelf, helping customers find what they need with less searching and fewer staff interactions.",
     status: "prototype",
     featured: true,
@@ -87,26 +87,45 @@ export const products = [
         type: "paragraphs",
         title: "The Problem",
         items: [
-          "Finding a specific item in a grocery or retail store often means walking the aisles or stopping an employee. The shopper usually knows the product, not its location. The search takes longer than it should."
+          "Finding a product in a physical store can be frustrating. Shoppers often have to search multiple aisles or find an associate just to locate a product or understand their options."
         ]
       },
       {
         type: "paragraphs",
         title: "The Product",
         items: [
-          "Beacon Box is a walk-up portrait kiosk. The shopper speaks or types a question, and a shopping assistant answers with location and stock from the store catalog. The public prototype queries a simulated demo inventory and is not a hosted live kiosk."
+          "Beacon Box is a voice-enabled AI shopping assistant for physical stores. Shoppers can ask questions, explore relevant products, compare alternatives, and get directions to the exact aisle and shelf."
         ]
       },
       {
         type: "steps",
         title: "How It Works",
-        steps: ["Sign in", "Ask", "Search the catalog", "See the shelf"],
-        body: "After sign-in, the shopper speaks or types. Voice input is transcribed, and the shopping-assistant chat looks up the demo catalog for the product, stock, and shelf location."
+        steps: ["Ask", "Discover", "Compare", "Find"],
+        body: "Shoppers describe what they need, Beacon Box recommends relevant products, helps them compare options, and guides them to the product's location in the store."
       },
       {
         type: "quote",
         title: "The Vision",
-        text: "Ask for a product and know exactly where it is."
+        text: "What if you could just ask the store?",
+        body: "Make discovering products in a physical store as simple as searching for them online."
+      },
+      {
+        type: "list",
+        title: "Impact",
+        items: [
+          {
+            label: "Shoppers",
+            text: "Spend less time searching and make more informed purchase decisions."
+          },
+          {
+            label: "Store associates",
+            text: "Spend less time answering repetitive product-location questions."
+          },
+          {
+            label: "Retailers",
+            text: "Deliver better self-service while helping customers discover products more easily."
+          }
+        ]
       }
     ]
   },

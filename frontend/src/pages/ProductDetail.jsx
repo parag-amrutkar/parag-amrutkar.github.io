@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Github } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { DetailSections } from "../components/DetailBlocks";
 import Figure from "../components/art/Figure";
@@ -15,6 +15,8 @@ const ProductDetail = () => {
     return <WorkNotFound kind="product" />;
   }
 
+  const repository = product.links?.find((link) => link.label === "GitHub repository");
+
   return (
     <article className="detail-page detail-product page-shell">
       <div className="container detail-container">
@@ -25,6 +27,17 @@ const ProductDetail = () => {
             </div>
             <h1>{product.headline}</h1>
             {product.subheadline && <p className="detail-summary">{product.subheadline}</p>}
+            {repository && (
+              <a
+                className="detail-repo-icon"
+                href={repository.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub repository"
+              >
+                <Github size={18} />
+              </a>
+            )}
           </div>
           <Figure
             className="detail-header-plate"
@@ -40,6 +53,16 @@ const ProductDetail = () => {
         <div className="detail-layout">
           <div className="detail-content">
             <DetailSections sections={product.sections} />
+            {repository && (
+              <a
+                className="btn btn-primary detail-repo-cta"
+                href={repository.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Project on Github <ArrowRight size={17} />
+              </a>
+            )}
           </div>
         </div>
       </div>

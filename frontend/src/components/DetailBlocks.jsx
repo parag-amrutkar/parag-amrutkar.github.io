@@ -27,11 +27,22 @@ export const Paragraphs = ({ items }) => {
   });
 };
 
+const listItemKey = (item, index) => {
+  const text = typeof item === "string" ? item : `${item.label} ${item.text}`;
+  return `${text.slice(0, 24)}-${index}`;
+};
+
 export const BulletList = ({ items }) => {
   if (!items?.length) return null;
   return (
     <ul className="detail-list">
-      {items.map((item, index) => <li key={`${item.slice(0, 24)}-${index}`}>{item}</li>)}
+      {items.map((item, index) => (
+        <li key={listItemKey(item, index)}>
+          {typeof item === "string" ? item : (
+            <><strong>{item.label}:</strong> {item.text}</>
+          )}
+        </li>
+      ))}
     </ul>
   );
 };
@@ -140,6 +151,7 @@ const SectionBlock = ({ section }) => {
         <blockquote className="vision-quote">
           <p>{`“${section.text}”`}</p>
         </blockquote>
+        {section.body && <p>{section.body}</p>}
       </ContentSection>
     );
   }

@@ -8,12 +8,16 @@ import {
   profile
 } from "./portfolio";
 
+const sectionItemText = (item) => (
+  typeof item === "string" ? item : `${item.label}: ${item.text}`
+);
+
 const sectionBody = (entry) => (entry.sections || []).flatMap((section) => [
   section.title,
   section.body,
   section.text,
   section.label,
-  ...(section.items || []),
+  ...(section.items || []).map(sectionItemText),
   ...(section.steps || [])
 ].filter(Boolean)).join(" ");
 
@@ -52,7 +56,7 @@ describe("portfolio content contracts", () => {
     expect(roleText).toMatch(/Andrew/);
   });
 
-  test("Beacon Box describes voice input and demo-inventory chat without claiming a live kiosk", () => {
+  test("Beacon Box detail copy describes discovery, comparison, and location", () => {
     const beacon = products.find((product) => product.slug === "beacon-box");
     const sectionText = sectionBody(beacon);
     const publicText = [
@@ -63,11 +67,18 @@ describe("portfolio content contracts", () => {
       ...beacon.evidence.map((item) => item.description)
     ].join(" ");
 
+    expect(beacon.headline).toBe("Beacon Box helps in-store shoppers find the right product faster");
+    expect(beacon.subheadline).toMatch(/discover, compare, and locate products/i);
+    expect(sectionText).toMatch(/Ask/);
+    expect(sectionText).toMatch(/Discover/);
+    expect(sectionText).toMatch(/Compare/);
+    expect(sectionText).toMatch(/Find/);
+    expect(sectionText).toMatch(/What if you could just ask the store/);
+    expect(sectionText).toMatch(/Make discovering products in a physical store as simple as searching for them online/);
+    expect(sectionText).toMatch(/Shoppers: Spend less time searching/);
+    expect(sectionText).toMatch(/Store associates:/);
+    expect(sectionText).toMatch(/Retailers:/);
     expect(beacon.summary.toLowerCase()).not.toMatch(/is meant to get/);
-    expect(sectionText).toMatch(/shopping-assistant chat/i);
-    expect(sectionText).toMatch(/simulated demo inventory/);
-    expect(sectionText).toMatch(/not a hosted live kiosk/);
-    expect(sectionText.toLowerCase()).not.toMatch(/is a hosted live kiosk/);
     expect(publicText).toMatch(/demo_simulated/);
     expect(publicText.toLowerCase()).toMatch(/does not link a public live kiosk/);
     expect(beacon.status).toBe("prototype");
@@ -77,16 +88,18 @@ describe("portfolio content contracts", () => {
     const productTypes = new Set(products.flatMap((product) => product.sections.map((section) => section.type)));
     const analysisTypes = new Set(analyses.flatMap((analysis) => analysis.sections.map((section) => section.type)));
 
+    const baseSections = ["The Problem", "The Product", "How It Works", "The Vision"];
+
     products.forEach((product) => {
       expect(product.headline).toBeTruthy();
       expect(product.subheadline).toBeTruthy();
-      expect(product.sections.map((section) => section.title)).toEqual([
-        "The Problem",
-        "The Product",
-        "How It Works",
-        "The Vision"
-      ]);
-      expect(product.sections.map((section) => section.title)).not.toContain("Impact");
+      const titles = product.sections.map((section) => section.title);
+      if (product.slug === "beacon-box") {
+        expect(titles).toEqual([...baseSections, "Impact"]);
+      } else {
+        expect(titles).toEqual(baseSections);
+        expect(titles).not.toContain("Impact");
+      }
     });
 
     analyses.forEach((analysis) => {
