@@ -8,22 +8,20 @@ import { useLocation, useNavigationType } from "react-router-dom";
  * returns to the top. A hash lands on that element. Browser back/forward
  * restores the position saved for that history entry.
  *
- * `scroll-behavior: smooth` on `html` would animate `behavior: "auto"`
- * from the previous page's offset, so these jumps run with smooth
- * scrolling turned off for the call.
+ * `scroll-behavior: smooth` on `html` would animate a normal `scrollTo`
+ * from the previous page's offset. Assigning `scrollTop` jumps immediately.
  */
-const withoutSmoothScroll = (perform) => {
+const scrollToY = (top) => {
   const root = document.documentElement;
   const previous = root.style.scrollBehavior;
   root.style.scrollBehavior = "auto";
-  perform();
+  root.scrollTop = top;
+  document.body.scrollTop = top;
   root.style.scrollBehavior = previous;
 };
 
 const scrollToTop = () => {
-  withoutSmoothScroll(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  });
+  scrollToY(0);
 };
 
 const hashId = (hash) => {
@@ -43,9 +41,9 @@ const scrollToHash = (hash) => {
     scrollToTop();
     return;
   }
-  withoutSmoothScroll(() => {
-    target.scrollIntoView({ block: "start", behavior: "auto" });
-  });
+  const margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+  const top = window.scrollY + target.getBoundingClientRect().top - margin;
+  scrollToY(Math.max(0, top));
 };
 
 const isPlainLeftClick = (event) => (
@@ -141,9 +139,7 @@ const useRouteScroll = () => {
 
     if (navigationType === "POP") {
       const top = positions.current.get(key) ?? 0;
-      withoutSmoothScroll(() => {
-        window.scrollTo({ top, left: 0, behavior: "auto" });
-      });
+      scrollToY(top);
       latestScroll.current = top;
     } else if (location.hash) {
       scrollToHash(location.hash);
