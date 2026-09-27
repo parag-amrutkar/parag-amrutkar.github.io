@@ -230,10 +230,10 @@ export const products = [
     plate: "plate-docnotes-rag",
     plateRatio: "3 / 2",
     plateAlt: "Diagram of documents and a question flowing into a knowledge network that produces a cited answer.",
-    name: "DocQuery",
-    headline: "DocQuery helps developers get answers from documentation",
-    subheadline: "A browser assistant that captures a docs page and answers questions from that page.",
-    summary: "An AI-powered browser assistant that turns technical documentation into an interactive knowledge base. It lets users capture documentation pages, ask questions in natural language, and get source-grounded answers, helping developers find the information they need without manually searching through lengthy docs.",
+    name: "Docs Query",
+    headline: "Docs Query helps developers find answers in technical documentation faster",
+    subheadline: "A browser extension that turns technical documentation into a searchable knowledge base, letting developers ask questions and get grounded answers with source citations.",
+    summary: "A browser extension that turns technical documentation into a searchable knowledge base, letting developers ask questions and get grounded answers with source citations.",
     status: "built",
     featured: true,
     year: "2025",
@@ -284,26 +284,37 @@ export const products = [
         type: "paragraphs",
         title: "The Problem",
         items: [
-          "Technical documentation is spread across long pages. A reader who has a question still has to search, scroll, and piece an answer together. The information is there, but it is not askable."
+          "Technical documentation can be long and difficult to navigate. Developers often spend time scanning pages, searching keywords, and piecing together information just to answer a specific question."
         ]
       },
       {
         type: "paragraphs",
         title: "The Product",
         items: [
-          "DocQuery is a locally runnable Chrome extension and FastAPI service. The extension captures headings, paragraphs, lists, and code from the current page. The backend chunks, embeds, and indexes that text, then answers using only the retrieved chunks."
+          "Docs Query lets developers capture a documentation page and ask questions about it directly. It indexes the content using embeddings, retrieves the most relevant sections, and generates answers grounded only in the captured documentation with citations back to the source."
         ]
       },
       {
         type: "steps",
         title: "How It Works",
-        steps: ["Open a docs page", "Capture the page", "Ask a question", "Read a grounded answer"],
-        body: "The reader captures the page they are on. The local backend indexes those blocks, and a later question is answered only from the chunks it retrieves."
+        steps: ["Capture", "Index", "Ask", "Verify"],
+        body: "Capture a documentation page, index its content, ask a question in natural language, and receive a grounded answer with the relevant source sections."
       },
       {
         type: "quote",
         title: "The Vision",
-        text: "Ask the documentation, and get an answer that stays on the page."
+        text: "Turn documentation into a conversation you can verify.",
+        body: "Make finding answers in technical documentation as simple as asking a question."
+      },
+      {
+        type: "list",
+        title: "Impact",
+        items: [
+          {
+            label: "Developers",
+            text: "Spend less time searching through documentation, get relevant answers faster, and verify those answers against the original source."
+          }
+        ]
       }
     ]
   },
