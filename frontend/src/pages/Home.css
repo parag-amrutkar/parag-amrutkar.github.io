@@ -131,20 +131,20 @@
 
 @media (max-width: 560px) {
   .hero-grid {
-    grid-template-columns: minmax(0, 1fr) 112px;
-    column-gap: 18px;
+    grid-template-columns: minmax(0, 1fr) clamp(72px, 28vw, 112px);
+    column-gap: clamp(12px, 3vw, 18px);
     row-gap: 0;
     align-items: center;
   }
   .hero-content { display: contents; }
-  .hero h1 { grid-column: 1; margin: 0; }
+  .hero h1 { grid-column: 1; margin: 0; min-width: 0; font-size: clamp(1.85rem, 11vw, 4.2rem); }
   .hero-aside {
     grid-column: 2;
     grid-row: 1;
     justify-items: end;
     align-self: center;
   }
-  .hero-portrait { width: 112px; height: auto; max-height: 168px; }
+  .hero-portrait { width: 100%; height: auto; max-height: clamp(108px, 32vw, 168px); }
   .hero-role { grid-column: 1 / -1; margin-top: 20px; }
   .hero-tagline,
   .hero-actions,

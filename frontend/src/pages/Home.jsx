@@ -28,9 +28,9 @@ const Home = () => {
             <div className="hero-clients" data-reveal data-reveal-on-mount data-reveal-delay="360">
               <p className="eyebrow">Worked with</p>
               <ul className="hero-client-list" aria-label="Companies I have worked with">
-                <li><img src="/logos/deloitte-digital.webp" alt="Deloitte Digital" width="1138" height="390" /></li>
-                <li><img src="/logos/mardamed.webp" alt="Mardamed" width="312" height="116" /></li>
                 <li><img src="/logos/pwron.webp" alt="PwrOn" width="1000" height="461" /></li>
+                <li><img src="/logos/mardamed.webp" alt="Mardamed" width="312" height="116" /></li>
+                <li><img src="/logos/deloitte-digital.webp" alt="Deloitte Digital" width="1138" height="390" /></li>
               </ul>
             </div>
           </div>
