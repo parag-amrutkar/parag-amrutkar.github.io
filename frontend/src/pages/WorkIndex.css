@@ -1,82 +1,16 @@
-.work-intro { max-width: 880px; }
+.work-intro { max-width: none; }
 
-.collection-switcher {
-  width: min(100%, 680px);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  padding: 7px;
-  margin: 72px 0 86px;
-  background: var(--paper-deep);
-  border: 1px solid var(--line);
-  border-radius: 18px;
+.page-intro.work-intro h1 {
+  max-width: 18ch;
+  margin-bottom: 0;
 }
 
-.collection-switcher button {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  min-width: 0;
-  padding: 15px 18px;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-  color: var(--ink-muted);
-  font: inherit;
-  font-family: var(--font-mono);
-  font-size: 0.86rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-}
-
-.collection-switcher button[aria-selected="true"] {
-  color: var(--ink);
-  background: var(--paper);
-  box-shadow: 0 2px 12px rgba(25, 36, 33, 0.07);
-}
-
-.collection-switcher small {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: rgba(25, 36, 33, 0.08);
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-}
-
-.collection-panel { scroll-margin-top: 120px; }
-
-.collection-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
-  column-gap: 48px;
-  margin-bottom: 36px;
-  padding-bottom: 26px;
-  border-bottom: 1px solid var(--line);
-}
-
-.collection-heading .eyebrow { grid-column: 1 / -1; }
-.collection-heading h2 { margin: 0; }
-.collection-heading > p:last-child { color: var(--ink-muted); margin: 4px 0 0; }
+.work-page .work-list { margin-top: clamp(40px, 6vw, 72px); }
 
 .empty-state {
+  margin-top: 48px;
   padding: 36px;
   border: 1px dashed var(--line-strong);
   border-radius: var(--radius-md);
   color: var(--ink-muted);
-}
-
-@media (max-width: 700px) {
-  .collection-switcher { margin: 48px 0 64px; }
-  .collection-heading { grid-template-columns: 1fr; row-gap: 14px; }
-}
-
-@media (max-width: 420px) {
-  .collection-switcher { gap: 6px; padding: 5px; }
-  .collection-switcher button { gap: 6px; padding: 10px 8px; font-size: 0.72rem; }
-  .collection-switcher small { width: 22px; height: 22px; flex: none; }
 }

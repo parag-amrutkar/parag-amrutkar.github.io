@@ -1,8 +1,8 @@
 import React from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import Figure from "../components/art/Figure";
 import WorkCard from "../components/WorkCard";
+import WorkRow from "../components/WorkRow";
 import { analyses, products, profile } from "../data/portfolio";
 import "../components/Work.css";
 import "./Home.css";
@@ -57,28 +57,11 @@ const Home = () => {
             </div>
             <div className="work-list">
               {featuredProducts.map((item, index) => (
-                <article
+                <WorkRow
                   key={item.slug}
-                  className="work-row"
-                  data-reveal
-                  data-reveal-delay={index ? index * 120 : undefined}
-                >
-                  <div className="work-row-copy">
-                    <h3><Link to={`/work/products/${item.slug}`}>{item.name}</Link></h3>
-                    <p>{item.summary}</p>
-                    <Link to={`/work/products/${item.slug}`} className="btn btn-secondary">
-                      View project
-                    </Link>
-                  </div>
-                  <Figure
-                    className="work-row-plate"
-                    name={item.plate || "plate-product"}
-                    ratio={item.plateRatio || "1 / 1"}
-                    width={1600}
-                    height={1600}
-                    alt={item.plateAlt || ""}
-                  />
-                </article>
+                  item={item}
+                  revealDelay={index ? index * 120 : 0}
+                />
               ))}
             </div>
           </div>
