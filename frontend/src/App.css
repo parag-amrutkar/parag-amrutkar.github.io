@@ -176,7 +176,6 @@ body::after {
 .rule-bottom,
 .footer-bottom,
 .capabilities-list,
-.about-next,
 .detail-footer,
 .detail-layout,
 .collection-heading { position: relative; }
@@ -192,8 +191,6 @@ body::after {
 .footer-bottom::after,
 .capabilities-list::before,
 .capabilities-list::after,
-.about-next::before,
-.about-next::after,
 .detail-footer::before,
 .detail-footer::after,
 .detail-layout::before,
@@ -213,8 +210,6 @@ body::after {
 .footer-bottom::after,
 .capabilities-list::before,
 .capabilities-list::after,
-.about-next::before,
-.about-next::after,
 .detail-footer::before,
 .detail-footer::after,
 .detail-layout::before,
@@ -229,7 +224,6 @@ body::after {
 .rule-bottom::before,
 .footer-bottom::before,
 .capabilities-list::before,
-.about-next::before,
 .detail-footer::before,
 .detail-layout::before,
 .collection-heading::before { left: 0; }
@@ -238,7 +232,6 @@ body::after {
 .rule-bottom::after,
 .footer-bottom::after,
 .capabilities-list::after,
-.about-next::after,
 .detail-footer::after,
 .detail-layout::after,
 .collection-heading::after { right: 0; }

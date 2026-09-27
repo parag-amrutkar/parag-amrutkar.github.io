@@ -19,11 +19,10 @@ Pages are driven by structured data in `frontend/src/data/portfolio.js`, not by 
 | `/work` | Work index — both collections |
 | `/work/products/:slug` | Product detail |
 | `/work/analysis/:slug` | Analysis detail |
-| `/about` | About |
 | `/contact` | Contact form (FormKeep) plus email |
 | `/terminal` | Optional terminal-mode UI |
 
-Legacy `/projects` URLs redirect to `/work` or the matching detail page.
+Legacy `/projects` URLs redirect to `/work` or the matching detail page. `/about` redirects home.
 
 ## Stack
 

@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import RouteScroll from "./hooks/useRouteScroll";
 import useReveal from "./hooks/useReveal";
-import About from "./pages/About";
 import AnalysisDetail from "./pages/AnalysisDetail";
 import Contact from "./pages/Contact";
 import Home from "./pages/Home";
@@ -33,7 +32,7 @@ const SiteLayout = () => {
         <Route path="/work" element={<Work />} />
         <Route path="/work/products/:slug" element={<ProductDetail />} />
         <Route path="/work/analysis/:slug" element={<AnalysisDetail />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<Navigate replace to="/" />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/projects" element={<Navigate replace to="/work" />} />
         <Route path="/projects/:id" element={<LegacyProjectRedirect />} />
