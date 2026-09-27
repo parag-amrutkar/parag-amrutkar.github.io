@@ -68,12 +68,7 @@
 }
 
 .home-section { padding: clamp(82px, 10vw, 120px) 0; }
-/* The products band used to close with a full 120px, then the context
-   section opened with another 120px — about 240px of empty paper, and the
-   widest pause on the page. Keep the other bands at 120 and bring this
-   joint down into the same 150–200px rhythm. */
-.selected-products { background: var(--paper-deep); padding-bottom: clamp(64px, 7vw, 72px); }
-.selected-products + .home-introduction { padding-top: clamp(82px, 8vw, 96px); }
+.selected-products { background: var(--paper-deep); }
 .selected-analysis { background: var(--paper); }
 
 .section-heading {
@@ -85,36 +80,10 @@
 }
 .section-heading h2 { margin: 0; }
 
-.home-introduction { border-top: 1px solid var(--line); }
-.intro-grid { display: grid; grid-template-columns: 0.65fr 1.35fr; gap: 70px; }
-.intro-grid h2 { max-width: 13ch; }
-.intro-grid > div > p { max-width: 650px; color: var(--ink-muted); font-size: 1.15rem; line-height: 1.75; }
-.intro-grid .text-link { margin-top: 16px; }
-
-.contact-cta { padding: clamp(84px, 9vw, 110px) 0; background: var(--ink); color: var(--paper); }
-.contact-cta-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.5fr); gap: 56px; align-items: center; }
-.contact-cta .eyebrow { color: #a9c3ba; }
-/* The one plate drawn on the dark ground rather than cream. */
-.contact-plate { justify-self: end; width: 100%; max-width: 340px; }
-.contact-cta .plate-empty { border-color: rgba(247, 243, 236, 0.22); }
-.contact-cta .plate-number { color: rgba(247, 243, 236, 0.5); }
-.contact-cta h2 { max-width: 780px; color: var(--paper); font-size: clamp(2.6rem, 7vw, 5.6rem); }
-.contact-cta .btn { margin-top: 24px; }
-
-/* The marginalia takes the half-row an odd card count leaves open. It is a
-   grid child so it sits level with the card it points at, not below it. */
-.grid-note {
-  align-self: center;
-  padding-top: 0;
-  padding-left: 18px;
-}
-
 @media (max-width: 850px) {
   .hero-grid { grid-template-columns: 1fr; gap: 52px; }
   .hero-aside { justify-items: start; }
   .hero-portrait { width: min(100%, 360px); height: auto; max-height: none; }
-  .intro-grid { grid-template-columns: 1fr; gap: 20px; }
-  .grid-note { padding-top: 4px; }
 }
 
 @media (max-width: 760px) {
@@ -125,8 +94,6 @@
   .hero-actions .btn { width: 100%; }
   .hero-client-list { justify-content: flex-start; }
   .section-heading { align-items: flex-start; flex-direction: column; }
-  .contact-cta-inner { grid-template-columns: 1fr; gap: 44px; }
-  .contact-plate { justify-self: start; max-width: 240px; }
 }
 
 @media (max-width: 560px) {
