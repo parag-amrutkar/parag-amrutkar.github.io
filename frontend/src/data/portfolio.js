@@ -25,6 +25,8 @@ export const products = [
     plateRatio: "4 / 3",
     plateAlt: "Two shoppers at a Beacon Box grocery kiosk whose screen greets them and offers product search, directions, and deals.",
     name: "Beacon Box",
+    headline: "Beacon Box helps shoppers find a product on the shelf",
+    subheadline: "A voice-enabled kiosk that answers a product question and points to the aisle and shelf.",
     summary: "A voice-enabled AI shopping kiosk that makes navigating physical stores as easy as shopping online. It answers product questions, recommends alternatives, and guides shoppers to the exact aisle and shelf, helping customers find what they need with less searching and fewer staff interactions.",
     status: "prototype",
     featured: true,
@@ -79,7 +81,34 @@ export const products = [
       { label: "GitHub repository", url: "https://github.com/parag-amrutkar/supermarket-info-display" },
       { label: "Shopping assistant plan", url: "https://github.com/parag-amrutkar/supermarket-info-display/blob/main/docs/shopping-agent-plan.md" }
     ],
-    tags: ["Product", "AI", "Voice", "Retail kiosk"]
+    tags: ["Product", "AI", "Voice", "Retail kiosk"],
+    sections: [
+      {
+        type: "paragraphs",
+        title: "The Problem",
+        items: [
+          "Finding a specific item in a grocery or retail store often means walking the aisles or stopping an employee. The shopper usually knows the product, not its location. The search takes longer than it should."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "The Product",
+        items: [
+          "Beacon Box is a walk-up portrait kiosk. The shopper speaks or types a question, and a shopping assistant answers with location and stock from the store catalog. The public prototype queries a simulated demo inventory and is not a hosted live kiosk."
+        ]
+      },
+      {
+        type: "steps",
+        title: "How It Works",
+        steps: ["Sign in", "Ask", "Search the catalog", "See the shelf"],
+        body: "After sign-in, the shopper speaks or types. Voice input is transcribed, and the shopping-assistant chat looks up the demo catalog for the product, stock, and shelf location."
+      },
+      {
+        type: "quote",
+        title: "The Vision",
+        text: "Ask for a product and know exactly where it is."
+      }
+    ]
   },
   {
     slug: "ai-shopping-assistant",
@@ -88,6 +117,8 @@ export const products = [
     plateRatio: "4 / 3",
     plateAlt: "AI Shopping Assistant mockup: a store product page beside a shopping-assistant sidebar with reviews, a pros and cons summary, and a comparison.",
     name: "AI Shopping Assistant",
+    headline: "AI Shopping Assistant helps online shoppers decide what to buy",
+    subheadline: "A Chrome extension that turns a product page's reviews into a pros-and-cons summary.",
     summary: "An AI-powered Chrome extension that turns product pages into smarter shopping decisions. It summarizes customer reviews, compares prices across retailers, and recommends alternatives, helping shoppers move from research to purchase with less effort.",
     status: "built",
     featured: true,
@@ -134,7 +165,34 @@ export const products = [
     links: [
       { label: "GitHub repository", url: "https://github.com/parag-amrutkar/ai-shopping-assistant" }
     ],
-    tags: ["Browser extension", "AI", "E-commerce"]
+    tags: ["Browser extension", "AI", "E-commerce"],
+    sections: [
+      {
+        type: "paragraphs",
+        title: "The Problem",
+        items: [
+          "Product pages collect long, uneven review threads. Shoppers still have to read them to learn what is working and what is not. The useful signal is buried in the thread."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "The Product",
+        items: [
+          "AI Shopping Assistant is a Manifest V3 Chrome extension for supported storefronts, including Amazon, Etsy, eBay, and Shopify. It extracts product data from the page and asks a separate API for a pros-and-cons summary of the reviews. The extension and API are built for local use; this is not a Chrome Web Store listing."
+        ]
+      },
+      {
+        type: "steps",
+        title: "How It Works",
+        steps: ["Open the product page", "Extract the product", "Summarize the reviews", "Read the pros and cons"],
+        body: "On a supported product page, the extension pulls the product data and sends it to a local API. The API returns a pros-and-cons summary so the shopper can judge the product without reading the full thread."
+      },
+      {
+        type: "quote",
+        title: "The Vision",
+        text: "Know what reviewers agree on before you read the thread."
+      }
+    ]
   },
   {
     slug: "docnotes-rag",
@@ -143,6 +201,8 @@ export const products = [
     plateRatio: "3 / 2",
     plateAlt: "Diagram of documents and a question flowing into a knowledge network that produces a cited answer.",
     name: "DocQuery",
+    headline: "DocQuery helps developers get answers from documentation",
+    subheadline: "A browser assistant that captures a docs page and answers questions from that page.",
     summary: "An AI-powered browser assistant that turns technical documentation into an interactive knowledge base. It lets users capture documentation pages, ask questions in natural language, and get source-grounded answers, helping developers find the information they need without manually searching through lengthy docs.",
     status: "built",
     featured: true,
@@ -188,7 +248,34 @@ export const products = [
     links: [
       { label: "GitHub repository", url: "https://github.com/parag-amrutkar/documentation-rag-extension" }
     ],
-    tags: ["RAG", "Browser extension", "AI"]
+    tags: ["RAG", "Browser extension", "AI"],
+    sections: [
+      {
+        type: "paragraphs",
+        title: "The Problem",
+        items: [
+          "Technical documentation is spread across long pages. A reader who has a question still has to search, scroll, and piece an answer together. The information is there, but it is not askable."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "The Product",
+        items: [
+          "DocQuery is a locally runnable Chrome extension and FastAPI service. The extension captures headings, paragraphs, lists, and code from the current page. The backend chunks, embeds, and indexes that text, then answers using only the retrieved chunks."
+        ]
+      },
+      {
+        type: "steps",
+        title: "How It Works",
+        steps: ["Open a docs page", "Capture the page", "Ask a question", "Read a grounded answer"],
+        body: "The reader captures the page they are on. The local backend indexes those blocks, and a later question is answered only from the chunks it retrieves."
+      },
+      {
+        type: "quote",
+        title: "The Vision",
+        text: "Ask the documentation, and get an answer that stays on the page."
+      }
+    ]
   },
   {
     slug: "etsy-smartlist",
@@ -197,6 +284,8 @@ export const products = [
     // plate-product / plate-analysis when absent or when the file is missing.
     plate: "plate-etsy-smartlist",
     name: "Etsy SmartList",
+    headline: "Etsy SmartList helps marketplace sellers draft a listing",
+    subheadline: "A product concept for an AI-assisted workflow that drafts listing copy and metadata.",
     summary: "A product concept for helping marketplace sellers draft listing copy and metadata with an AI-assisted workflow.",
     status: "concept",
     featured: false,
@@ -229,7 +318,34 @@ export const products = [
       "Current public status: Concept. Previously stated performance figures are not shown because the repository does not establish that they were measured."
     ],
     links: [],
-    tags: ["Product concept", "AI-assisted workflow", "Validation"]
+    tags: ["Product concept", "AI-assisted workflow", "Validation"],
+    sections: [
+      {
+        type: "paragraphs",
+        title: "The Problem",
+        items: [
+          "Marketplace sellers repeat the same listing work: name, description, metadata, and category. The original concept treats that repetition, and the effect on discoverability, as the problem. The public record does not include seller research, so this remains a problem hypothesis."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "The Product",
+        items: [
+          "Etsy SmartList is a concept for assisting product names, descriptions, metadata, and category selection. It outlines language models, search-trend inputs, and marketplace guidelines as possible inputs. Those are proposed parts of a workflow, not a system that has been built."
+        ]
+      },
+      {
+        type: "steps",
+        title: "How It Works",
+        steps: ["Describe the product", "Draft the listing", "Set metadata and category", "Review before publishing"],
+        body: "A seller would describe the product, receive a draft listing, adjust metadata and category, and review the result before it is published. This flow is proposed; the repository does not contain a prototype."
+      },
+      {
+        type: "quote",
+        title: "The Vision",
+        text: "Start from a draft listing, not a blank form."
+      }
+    ]
   }
 ];
 
@@ -267,7 +383,57 @@ export const analyses = [
       "Treat the data-governance and experimentation plan as part of the product strategy."
     ],
     sources: [],
-    tags: ["Machine learning", "Product strategy", "Personalization"]
+    tags: ["Machine learning", "Product strategy", "Personalization"],
+    sections: [
+      {
+        type: "paragraphs",
+        title: "Question or thesis",
+        items: [
+          "An independent case study asking where machine learning could improve discovery, content decisions, and streaming experience."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "Why it matters",
+        items: [
+          "Streaming products must help viewers find relevant content while maintaining a reliable playback experience. This case study explores where machine learning might support those product goals."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "Method and sources",
+        items: [
+          "The analysis groups opportunities across discovery, content planning, and streaming delivery, then considers the data capabilities each would require.",
+          "Limitation: the original portfolio record does not retain a source list, calculations, or primary research. The proposals below are Parag's interpretation and should not be read as verified Disney plans or results.",
+          "This entry is not featured on the home page until a source list can be restored."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "Analysis",
+        items: [
+          "Candidate use cases include personalized recommendations, thumbnail selection, viewership-informed content planning, and adaptive streaming optimization. A supporting data strategy would need to define what data can be combined, how it is governed, and how each use case is evaluated."
+        ]
+      },
+      {
+        type: "list",
+        title: "Key findings",
+        items: [
+          "The case study identifies multiple candidate applications for machine learning, but it does not establish that any were implemented or that they produced measurable outcomes.",
+          "Data readiness and evaluation criteria are dependencies, not secondary implementation details."
+        ]
+      },
+      {
+        type: "list",
+        title: "Recommendation or implications",
+        label: "Parag's interpretation",
+        className: "interpretation-section",
+        items: [
+          "Prioritize a small number of use cases with explicit user value, available data, and measurable evaluation criteria before expanding the program.",
+          "Treat the data-governance and experimentation plan as part of the product strategy."
+        ]
+      }
+    ]
   },
   {
     slug: "basecamp-pricing-strategy",
@@ -302,7 +468,57 @@ export const analyses = [
       "Evaluate added choice against the cost it creates for product comprehension and brand consistency."
     ],
     sources: [],
-    tags: ["Pricing", "Strategy", "Experimentation"]
+    tags: ["Pricing", "Strategy", "Experimentation"],
+    sections: [
+      {
+        type: "paragraphs",
+        title: "Question or thesis",
+        items: [
+          "An independent analysis of pricing structures and the tradeoff between revenue options, product simplicity, and customer value."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "Why it matters",
+        items: [
+          "Pricing changes affect who a product serves, how customers compare plans, and how the product communicates value. Those effects can conflict with a product's preference for simplicity."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "Method and sources",
+        items: [
+          "The case study compares tiered pricing, feature gating, add-ons, and client-facing features, and considers price-sensitivity and experimentation methods.",
+          "Limitation: the original portfolio record does not include its underlying calculations, customer research, experiment results, or source list. Recommendations are presented as analysis, not as changes implemented by Basecamp.",
+          "This entry is not featured on the home page until a source list can be restored."
+        ]
+      },
+      {
+        type: "paragraphs",
+        title: "Analysis",
+        items: [
+          "The central tradeoff is between capturing different willingness to pay and preserving a simple buying experience. More tiers can create clearer segmentation, but they also add comparison work and may weaken a deliberately simple pricing message."
+        ]
+      },
+      {
+        type: "list",
+        title: "Key findings",
+        items: [
+          "Tiering, feature packaging, and add-ons create different revenue and customer-experience tradeoffs; the repository does not provide evidence that one option was tested or adopted.",
+          "Any pricing recommendation depends on customer research and behavioral validation that are not part of the retained public record."
+        ]
+      },
+      {
+        type: "list",
+        title: "Recommendation or implications",
+        label: "Parag's interpretation",
+        className: "interpretation-section",
+        items: [
+          "Test pricing and packaging hypotheses with explicit success and guardrail metrics before treating them as a revenue plan.",
+          "Evaluate added choice against the cost it creates for product comprehension and brand consistency."
+        ]
+      }
+    ]
   }
 ];
 
@@ -312,10 +528,10 @@ export const getAnalysisBySlug = (slug) => analyses.find((analysis) => analysis.
 
 export const getLegacyWorkPath = (slug) => {
   const product = products.find((item) => item.slug === slug);
-  if (product) return `/work/products/${product.slug}`;
+  if (product) return `/work/project/${product.slug}`;
 
   const analysis = analyses.find((item) => item.slug === slug || item.legacySlug === slug);
-  if (analysis) return `/work/analysis/${analysis.slug}`;
+  if (analysis) return `/work/project/${analysis.slug}`;
 
   return "/work";
 };

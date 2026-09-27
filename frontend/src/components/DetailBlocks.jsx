@@ -84,3 +84,85 @@ export const SourceList = ({ sources }) => {
     </ol>
   );
 };
+
+const sectionHasContent = (section) => {
+  switch (section?.type) {
+    case "paragraphs":
+      return Boolean(section.items?.length || section.sources?.length);
+    case "steps":
+      return Boolean(section.steps?.length || section.body);
+    case "quote":
+      return Boolean(section.text);
+    case "list":
+      return Boolean(section.items?.length);
+    case "sources":
+      return Boolean(section.sources?.length);
+    default:
+      return false;
+  }
+};
+
+const SectionBlock = ({ section }) => {
+  if (!sectionHasContent(section)) return null;
+
+  if (section.type === "paragraphs") {
+    return (
+      <ContentSection title={section.title}>
+        <Paragraphs items={section.items} />
+        <SourceList sources={section.sources} />
+      </ContentSection>
+    );
+  }
+
+  if (section.type === "steps") {
+    return (
+      <ContentSection title={section.title}>
+        {section.steps?.length > 0 && (
+          <ol className="how-steps">
+            {section.steps.map((step, index) => (
+              <li key={`${step}-${index}`}>
+                <span>{step}</span>
+                {index < section.steps.length - 1 && (
+                  <span className="how-step-arrow" aria-hidden="true">→</span>
+                )}
+              </li>
+            ))}
+          </ol>
+        )}
+        {section.body && <p>{section.body}</p>}
+      </ContentSection>
+    );
+  }
+
+  if (section.type === "quote") {
+    return (
+      <ContentSection title={section.title} className="vision-section">
+        <blockquote className="vision-quote">
+          <p>{`“${section.text}”`}</p>
+        </blockquote>
+      </ContentSection>
+    );
+  }
+
+  if (section.type === "list") {
+    return (
+      <ContentSection title={section.title} className={section.className || ""}>
+        {section.label && <p className="section-label">{section.label}</p>}
+        <BulletList items={section.items} />
+      </ContentSection>
+    );
+  }
+
+  return (
+    <ContentSection title={section.title}>
+      <SourceList sources={section.sources} />
+    </ContentSection>
+  );
+};
+
+export const DetailSections = ({ sections }) => {
+  if (!sections?.length) return null;
+  return sections.map((section, index) => (
+    <SectionBlock section={section} key={`${section.type}-${section.title || index}`} />
+  ));
+};

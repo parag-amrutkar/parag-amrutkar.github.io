@@ -8,6 +8,15 @@ import {
   profile
 } from "./portfolio";
 
+const sectionBody = (entry) => (entry.sections || []).flatMap((section) => [
+  section.title,
+  section.body,
+  section.text,
+  section.label,
+  ...(section.items || []),
+  ...(section.steps || [])
+].filter(Boolean)).join(" ");
+
 describe("portfolio content contracts", () => {
   test("profile GitHub URL points at the public account", () => {
     expect(profile.github).toBe("https://github.com/parag-amrutkar");
@@ -45,19 +54,64 @@ describe("portfolio content contracts", () => {
 
   test("Beacon Box describes voice input and demo-inventory chat without claiming a live kiosk", () => {
     const beacon = products.find((product) => product.slug === "beacon-box");
+    const sectionText = sectionBody(beacon);
     const publicText = [
       beacon.summary,
+      sectionText,
       ...beacon.solution,
       ...beacon.outcomes,
       ...beacon.evidence.map((item) => item.description)
     ].join(" ");
 
     expect(beacon.summary.toLowerCase()).not.toMatch(/is meant to get/);
-    expect(beacon.summary).toMatch(/Ask\. Find\. Pick\./);
-    expect(publicText).toMatch(/shopping-assistant chat/i);
+    expect(sectionText).toMatch(/shopping-assistant chat/i);
+    expect(sectionText).toMatch(/simulated demo inventory/);
+    expect(sectionText).toMatch(/not a hosted live kiosk/);
+    expect(sectionText.toLowerCase()).not.toMatch(/is a hosted live kiosk/);
     expect(publicText).toMatch(/demo_simulated/);
     expect(publicText.toLowerCase()).toMatch(/does not link a public live kiosk/);
     expect(beacon.status).toBe("prototype");
+  });
+
+  test("detail bodies are ordered sections and differ between products and analyses", () => {
+    const productTypes = new Set(products.flatMap((product) => product.sections.map((section) => section.type)));
+    const analysisTypes = new Set(analyses.flatMap((analysis) => analysis.sections.map((section) => section.type)));
+
+    products.forEach((product) => {
+      expect(product.headline).toBeTruthy();
+      expect(product.subheadline).toBeTruthy();
+      expect(product.sections.map((section) => section.title)).toEqual([
+        "The Problem",
+        "The Product",
+        "How It Works",
+        "The Vision"
+      ]);
+      expect(product.sections.map((section) => section.title)).not.toContain("Impact");
+    });
+
+    analyses.forEach((analysis) => {
+      const text = sectionBody(analysis);
+      expect(analysis.sections.map((section) => section.title)).toEqual([
+        "Question or thesis",
+        "Why it matters",
+        "Method and sources",
+        "Analysis",
+        "Key findings",
+        "Recommendation or implications"
+      ]);
+      expect(analysis.sections.some((section) => section.type === "steps" || section.type === "quote")).toBe(false);
+      expect(text).toContain(analysis.summary);
+      analysis.whyItMatters.forEach((item) => expect(text).toContain(item));
+      analysis.method.forEach((item) => expect(text).toContain(item));
+      analysis.analysis.forEach((item) => expect(text).toContain(item));
+      analysis.findings.forEach((item) => expect(text).toContain(item));
+      analysis.recommendations.forEach((item) => expect(text).toContain(item));
+    });
+
+    expect(productTypes.has("steps")).toBe(true);
+    expect(productTypes.has("quote")).toBe(true);
+    expect(analysisTypes.has("list")).toBe(true);
+    expect(analysisTypes.has("steps")).toBe(false);
   });
 
   test("featured analyses stay off the home page until sources are restored", () => {
@@ -144,9 +198,9 @@ describe("portfolio content contracts", () => {
   });
 
   test("legacy project slugs resolve intentionally", () => {
-    expect(getLegacyWorkPath("etsy-smartlist")).toBe("/work/products/etsy-smartlist");
-    expect(getLegacyWorkPath("disney-ml")).toBe("/work/analysis/disney-plus-ml");
-    expect(getLegacyWorkPath("basecamp-pricing")).toBe("/work/analysis/basecamp-pricing-strategy");
+    expect(getLegacyWorkPath("etsy-smartlist")).toBe("/work/project/etsy-smartlist");
+    expect(getLegacyWorkPath("disney-ml")).toBe("/work/project/disney-plus-ml");
+    expect(getLegacyWorkPath("basecamp-pricing")).toBe("/work/project/basecamp-pricing-strategy");
     expect(getLegacyWorkPath("missing")).toBe("/work");
   });
 });
