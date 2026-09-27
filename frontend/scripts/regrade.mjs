@@ -172,8 +172,8 @@ async function main() {
     const tmp = join(tmpdir(), `regrade-${process.pid}.bmp`);
     await writeFile(tmp, bmp.buf);
     await run("sips", ["-s", "format", "png", tmp, "--out", at2x]);
-    // Regrading changes the master's colours, so every derivative -- and the
-    // social card cropped from the og plate -- has to be rebuilt from it.
+    // Regrading changes the master's colours, so every derivative has to be
+    // rebuilt from it. The social card is the homepage portrait and is left as is.
     await derivePlate(name, OUT_DIR, PUBLIC_DIR);
     console.log("  written");
   }
