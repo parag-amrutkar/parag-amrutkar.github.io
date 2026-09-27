@@ -24,10 +24,6 @@ export const marginalia = {
     text: "two modes of the same job",
     approved: true
   },
-  conceptStatus: {
-    text: "in the repo, not a live deploy",
-    approved: true
-  },
   limitationsKept: {
     text: "kept, not hidden",
     approved: true

@@ -1,4 +1,23 @@
-.footer { margin-top: auto; padding: 74px 0 28px; border-top: 1px solid var(--line); background: var(--paper-deep); }
+.footer {
+  --ink: #f7f3ec;
+  --ink-muted: rgba(247, 243, 236, 0.72);
+  --ink-faint: rgba(247, 243, 236, 0.55);
+  --line: rgba(247, 243, 236, 0.18);
+  --line-strong: rgba(247, 243, 236, 0.32);
+  margin-top: auto;
+  padding: 74px 0 28px;
+  border-top: 1px solid var(--line);
+  background: #192421;
+  color: var(--ink);
+}
+.footer.band-ruled::before {
+  background-image: radial-gradient(circle at center, rgba(247, 243, 236, 0.16) 1px, transparent 1.2px);
+}
+.footer .social-links a {
+  border-color: var(--line-strong);
+  color: var(--ink);
+  background: transparent;
+}
 .footer-content { display: grid; grid-template-columns: 1.4fr 0.8fr auto; gap: 56px; align-items: start; padding-bottom: 56px; }
 .footer-name { color: var(--ink); font-family: var(--font-display); font-size: 1.55rem; }
 .footer-statement p { max-width: 340px; margin-top: 11px; color: var(--ink-muted); font-size: 0.9rem; }

@@ -11,7 +11,7 @@ import {
 describe("portfolio content contracts", () => {
   test("profile GitHub URL points at the public account", () => {
     expect(profile.github).toBe("https://github.com/parag-amrutkar");
-    expect(profile.title).toBe("Technical Product Manager");
+    expect(profile.title).toBe("Sr. Technical Product Manager");
     expect(profile.linkedin).toBe("https://linkedin.com/in/parag-amrutkar");
   });
 
@@ -103,17 +103,16 @@ describe("portfolio content contracts", () => {
   test("product plates resolve to committed illustration files", () => {
     const expectedPlates = {
       "beacon-box": "plate-beacon-box",
-      "ai-shopping-assistant": "plate-ai-shopping-assistant",
+      "ai-shopping-assistant": "shopping_assistant_transparent",
       "docnotes-rag": "plate-docnotes-rag",
       "etsy-smartlist": "plate-etsy-smartlist"
     };
     const dir = path.join(__dirname, "../../public/illustrations");
     const webpOnly = new Set([
       "plate-beacon-box",
-      "plate-ai-shopping-assistant",
+      "shopping_assistant_transparent",
       "plate-docnotes-rag"
     ]);
-
     Object.entries(expectedPlates).forEach(([slug, plate]) => {
       const product = products.find((item) => item.slug === slug);
       expect(product.plate).toBe(plate);

@@ -17,6 +17,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  min-width: 0;
   padding: 15px 18px;
   border: 0;
   border-radius: 12px;
@@ -75,5 +76,7 @@
 }
 
 @media (max-width: 420px) {
-  .collection-switcher button { padding: 12px; }
+  .collection-switcher { gap: 6px; padding: 5px; }
+  .collection-switcher button { gap: 6px; padding: 10px 8px; font-size: 0.72rem; }
+  .collection-switcher small { width: 22px; height: 22px; flex: none; }
 }

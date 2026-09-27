@@ -1,10 +1,8 @@
 import React from "react";
-import { ArrowDownRight, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import Figure from "../components/art/Figure";
-import Marginalia from "../components/art/Marginalia";
 import WorkCard from "../components/WorkCard";
-import { marginalia } from "../data/marginalia";
 import { analyses, products, profile } from "../data/portfolio";
 import "../components/Work.css";
 import "./Home.css";
@@ -18,7 +16,6 @@ const Home = () => {
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-content">
-            <p className="eyebrow" data-reveal data-reveal-on-mount>Product · Strategy · Technology</p>
             <h1 data-reveal data-reveal-on-mount data-reveal-delay="90">{profile.name}</h1>
             <p className="hero-role" data-reveal data-reveal-on-mount data-reveal-delay="90">{profile.title}</p>
             <p className="hero-tagline" data-reveal data-reveal-on-mount data-reveal-delay="180">{profile.positioning}</p>
@@ -26,27 +23,25 @@ const Home = () => {
               <Link to="/work" className="btn btn-primary">View my work <ArrowRight size={17} /></Link>
               <Link to="/about" className="btn btn-secondary">About me</Link>
             </div>
+            <div className="hero-clients" data-reveal data-reveal-on-mount data-reveal-delay="360">
+              <p className="eyebrow">Worked with</p>
+              <ul className="hero-client-list" aria-label="Companies I have worked with">
+                <li><img src="/logos/pwron.webp" alt="PwrOn" width="1000" height="461" /></li>
+                <li><img src="/logos/mardamed.webp" alt="Mardamed" width="312" height="116" /></li>
+                <li><img src="/logos/deloitte-digital.webp" alt="Deloitte Digital" width="1138" height="390" /></li>
+              </ul>
+            </div>
           </div>
           <div className="hero-aside">
-            <div className="hero-plate-slot" data-reveal="hero-art" data-reveal-on-mount>
-              <Figure
-                name="hero-two-modes"
-                ratio="4 / 3"
-                width={2240}
-                height={1120}
-                priority
-                className="hero-plate"
-                alt="Two modes of the same job: a product interface being assembled, and a chart read under a magnifier, joined by a person at the center."
-              />
-            </div>
-            <div className="hero-mark" data-reveal data-reveal-on-mount data-reveal-delay="360" aria-hidden="true">
-              <span>Products</span>
-              <ArrowDownRight size={28} />
-              <span>Analysis</span>
-            </div>
-            <Marginalia side="left" className="hero-note" data-reveal data-reveal-on-mount data-reveal-delay="360">
-              {marginalia.heroPractice.text}
-            </Marginalia>
+            <img
+              src="/dotted-portrait.webp"
+              width="1086"
+              height="1448"
+              className="hero-portrait"
+              alt="Halftone portrait of Parag Amrutkar in a suit and tie"
+              data-reveal="hero-art"
+              data-reveal-on-mount
+            />
           </div>
         </div>
       </section>
@@ -56,24 +51,35 @@ const Home = () => {
           <div className="container">
             <div className="section-heading">
               <div data-reveal>
-                <p className="eyebrow">What I make</p>
-                <h2>Selected products</h2>
+                <h2>Recent work</h2>
               </div>
               <Link to="/work" className="text-link">All work <ArrowUpRight size={17} /></Link>
             </div>
-            <div className="work-grid">
+            <div className="work-list">
               {featuredProducts.map((item, index) => (
-                <WorkCard key={item.slug} item={item} revealDelay={index * 120} />
+                <article
+                  key={item.slug}
+                  className="work-row"
+                  data-reveal
+                  data-reveal-delay={index ? index * 120 : undefined}
+                >
+                  <div className="work-row-copy">
+                    <h3><Link to={`/work/products/${item.slug}`}>{item.name}</Link></h3>
+                    <p>{item.summary}</p>
+                    <Link to={`/work/products/${item.slug}`} className="btn btn-secondary">
+                      View project
+                    </Link>
+                  </div>
+                  <Figure
+                    className="work-row-plate"
+                    name={item.plate || "plate-product"}
+                    ratio={item.plateRatio || "1 / 1"}
+                    width={1600}
+                    height={1600}
+                    alt={item.plateAlt || ""}
+                  />
+                </article>
               ))}
-              {/* Occupies the half-row an odd card count leaves behind --
-                  the slot the "More products in progress" ghost card used to
-                  fill. An annotation is a more honest use of the space than a
-                  placeholder for work that does not exist. */}
-              {featuredProducts.length % 2 === 1 && (
-                <Marginalia side="left" aim="across" className="grid-note">
-                  {marginalia.conceptStatus.text}
-                </Marginalia>
-              )}
             </div>
           </div>
         </section>
@@ -92,28 +98,6 @@ const Home = () => {
           </div>
         </section>
       )}
-
-      <section className="home-section home-introduction">
-        <div className="container intro-grid" data-reveal>
-          <p className="eyebrow">A little context</p>
-          <div>
-            <h2>Clear thinking, made inspectable.</h2>
-            <p>{profile.introduction}</p>
-            <Link to="/about" className="text-link">More about me <ArrowUpRight size={17} /></Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="contact-cta">
-        <div className="container contact-cta-inner" data-reveal="cta">
-          <div>
-            <p className="eyebrow">Start a conversation</p>
-            <h2>Have a problem worth<br />thinking through?</h2>
-            <Link to="/contact" className="btn btn-light">Get in touch <ArrowRight size={17} /></Link>
-          </div>
-          <Figure name="contact-signal" ratio="3 / 2" className="contact-plate" />
-        </div>
-      </section>
     </div>
   );
 };

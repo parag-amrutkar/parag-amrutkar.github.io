@@ -10,7 +10,7 @@ const Footer = () => (
       <div className="footer-content">
         <div className="footer-statement">
           <Link to="/" className="footer-name">{profile.name}</Link>
-          <p>Products, analysis, and the evidence behind both.</p>
+          <p>Builds products for humans & AI agents.</p>
         </div>
         <nav className="footer-nav" aria-label="Footer navigation">
           <Link to="/work">Work</Link>
@@ -26,7 +26,7 @@ const Footer = () => (
       </div>
       <div className="footer-bottom">
         <p>© {new Date().getFullYear()} {profile.name}</p>
-        <p>Built with clarity in mind.</p>
+        <p>Built with love.</p>
       </div>
     </div>
   </footer>

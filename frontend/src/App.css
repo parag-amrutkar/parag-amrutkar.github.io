@@ -35,7 +35,6 @@ html { scroll-behavior: smooth; background: var(--paper); }
 
 body {
   margin: 0;
-  min-width: 320px;
   color: var(--ink);
   background: var(--paper);
   font-family: var(--font-body);
@@ -59,9 +58,9 @@ a:hover { text-decoration: underline; }
 
 .App { min-height: 100vh; display: flex; flex-direction: column; }
 .site-main { flex: 1; scroll-margin-top: 96px; }
-.container { width: min(100% - 48px, 1200px); margin-inline: auto; }
-.narrow-container { width: min(100% - 48px, 760px); margin-inline: auto; }
-.page-shell { padding: 104px 0 128px; }
+.container { width: min(100% - clamp(36px, 8vw, 96px), 1200px); margin-inline: auto; }
+.narrow-container { width: min(100% - clamp(36px, 8vw, 96px), 760px); margin-inline: auto; }
+.page-shell { padding: clamp(76px, 9vw, 104px) 0 clamp(96px, 11vw, 128px); }
 
 h1, h2, h3, h4 {
   margin: 0 0 24px;
@@ -270,7 +269,6 @@ body::after {
 
 @media (max-width: 760px) {
   .container, .narrow-container { width: min(100% - 36px, 1200px); }
-  .page-shell { padding: 76px 0 96px; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -310,12 +308,6 @@ body::after {
   transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
-/* The contact band is the page's last beat, so it travels a little farther. */
-[data-reveal="cta"] {
-  transform: translateY(24px);
-  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
-}
-
 /* Footer arrives; it does not announce itself. */
 [data-reveal="fade"] {
   transform: none;
@@ -332,15 +324,6 @@ body::after {
   transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out, opacity 520ms ease;
 }
 
-@keyframes arch-float {
-  0%, 100% { transform: translateY(-6px); }
-  50% { transform: translateY(6px); }
-}
-
-.contact-plate img {
-  animation: arch-float 6s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
@@ -351,5 +334,4 @@ body::after {
   [data-reveal],
   [data-reveal].is-revealed { opacity: 1 !important; transform: none !important; }
   .stagger > * { animation: none !important; }
-  .contact-plate img { animation: none !important; }
 }

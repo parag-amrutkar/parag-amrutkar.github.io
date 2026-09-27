@@ -1,11 +1,10 @@
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 24px;
 }
 
 .work-card {
-  grid-column: span 6;
   min-height: 370px;
   padding: 30px;
   border: 1px solid var(--line);
@@ -172,5 +171,5 @@
 .work-card-compact .work-card-body { margin-top: 20px; }
 
 @media (max-width: 760px) {
-  .work-card { grid-column: 1 / -1; min-height: 340px; padding: 24px; }
+  .work-card { min-height: 340px; padding: 24px; }
 }
