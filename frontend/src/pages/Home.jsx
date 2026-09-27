@@ -52,7 +52,6 @@ const Home = () => {
               <div data-reveal>
                 <h2>Recent work</h2>
               </div>
-              <Link to="/work" className="text-link">All work <ArrowUpRight size={17} /></Link>
             </div>
             <div className="work-list">
               {featuredProducts.map((item, index) => (
@@ -63,6 +62,7 @@ const Home = () => {
                 />
               ))}
             </div>
+            <Link to="/work" className="btn btn-primary section-more">Explore More Projects <ArrowRight size={17} /></Link>
           </div>
         </section>
       )}

@@ -79,6 +79,7 @@
   margin-bottom: 44px;
 }
 .section-heading h2 { margin: 0; }
+.section-more { margin-top: 28px; }
 
 @media (max-width: 850px) {
   .hero-grid { grid-template-columns: 1fr; gap: 52px; }
