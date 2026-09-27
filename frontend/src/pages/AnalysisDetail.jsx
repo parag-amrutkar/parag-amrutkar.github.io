@@ -1,12 +1,7 @@
 import React from "react";
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import {
-  BulletList,
-  ContentSection,
-  Paragraphs,
-  SourceList
-} from "../components/DetailBlocks";
+import { DetailSections } from "../components/DetailBlocks";
 import BasisStrip from "../components/BasisStrip";
 import Figure from "../components/art/Figure";
 import Marginalia from "../components/art/Marginalia";
@@ -69,18 +64,7 @@ const AnalysisDetail = () => {
           </aside>
 
           <div className="detail-content analysis-copy">
-            <ContentSection title="Question or thesis"><p>{analysis.summary}</p></ContentSection>
-            <ContentSection title="Why it matters"><Paragraphs items={analysis.whyItMatters} /></ContentSection>
-            <ContentSection title="Method and sources">
-              <Paragraphs items={analysis.method} />
-              <SourceList sources={analysis.sources} />
-            </ContentSection>
-            <ContentSection title="Analysis"><Paragraphs items={analysis.analysis} /></ContentSection>
-            <ContentSection title="Key findings"><BulletList items={analysis.findings} /></ContentSection>
-            <ContentSection title="Recommendation or implications" className="interpretation-section">
-              <p className="section-label">Parag's interpretation</p>
-              <BulletList items={analysis.recommendations} />
-            </ContentSection>
+            <DetailSections sections={analysis.sections} />
           </div>
         </div>
         <DetailFooter />

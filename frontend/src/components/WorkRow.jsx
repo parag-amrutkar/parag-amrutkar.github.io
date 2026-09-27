@@ -5,9 +5,7 @@ import Figure from "./art/Figure";
 const WorkRow = ({ item, revealDelay = 0, to, showKind = false }) => {
   const isProduct = item.type === "product";
   const title = isProduct ? item.name : item.title;
-  const path = to || (isProduct
-    ? `/work/products/${item.slug}`
-    : `/work/analysis/${item.slug}`);
+  const path = to || `/work/project/${item.slug}`;
 
   return (
     <article

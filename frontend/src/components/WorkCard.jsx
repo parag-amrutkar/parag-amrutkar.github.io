@@ -17,9 +17,7 @@ export const formatPortfolioDate = (value, precision) => {
 const WorkCard = ({ item, compact = false, revealDelay = 0 }) => {
   const isProduct = item.type === "product";
   const title = isProduct ? item.name : item.title;
-  const path = isProduct
-    ? `/work/products/${item.slug}`
-    : `/work/analysis/${item.slug}`;
+  const path = `/work/project/${item.slug}`;
 
   return (
     <article

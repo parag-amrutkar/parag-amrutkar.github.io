@@ -1,12 +1,7 @@
 import React from "react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import {
-  BulletList,
-  ContentSection,
-  EvidenceBlocks,
-  Paragraphs
-} from "../components/DetailBlocks";
+import { DetailSections } from "../components/DetailBlocks";
 import Figure from "../components/art/Figure";
 import { getProductBySlug } from "../data/portfolio";
 import "../components/Work.css";
@@ -25,8 +20,11 @@ const ProductDetail = () => {
       <div className="container detail-container">
         <header className="detail-header">
           <div className="detail-header-copy">
-            <h1>{product.name}</h1>
-            <p className="detail-summary">{product.summary}</p>
+            <div className="detail-kicker-row">
+              <span className="eyebrow">{product.name}</span>
+            </div>
+            <h1>{product.headline}</h1>
+            {product.subheadline && <p className="detail-summary">{product.subheadline}</p>}
           </div>
           <Figure
             className="detail-header-plate"
@@ -41,49 +39,7 @@ const ProductDetail = () => {
 
         <div className="detail-layout">
           <div className="detail-content">
-            <ContentSection title="Problem"><Paragraphs items={product.problem} /></ContentSection>
-            <ContentSection title="Solution"><Paragraphs items={product.solution} /></ContentSection>
-            <ContentSection title="My role"><BulletList items={product.role} /></ContentSection>
-            {product.decisions?.length > 0 && (
-              <ContentSection title="Key decisions and tradeoffs">
-                <div className="decision-list">
-                  {product.decisions.map((item, index) => (
-                    <div className="decision-item" key={`${item.decision}-${index}`}>
-                      <h3>{item.decision}</h3>
-                      {/* Rendered as a two-column figure rather than three
-                          stacked paragraphs: a decision IS a trade, and the
-                          shape should show what was taken against what was
-                          given up. */}
-                      <div className="decision-trade">
-                        {item.rationale && (
-                          <div className="decision-side decision-chose">
-                            <span className="decision-side-label">Chose</span>
-                            <p>{item.rationale}</p>
-                          </div>
-                        )}
-                        {item.tradeoff && (
-                          <div className="decision-side decision-gave-up">
-                            <span className="decision-side-label">Gave up</span>
-                            <p>{item.tradeoff}</p>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </ContentSection>
-            )}
-            <ContentSection title="Evidence"><EvidenceBlocks items={product.evidence} /></ContentSection>
-            <ContentSection title="Outcome"><BulletList items={product.outcomes} /></ContentSection>
-            {product.links?.length > 0 && (
-              <ContentSection title="Relevant links">
-                <ul className="relevant-links">
-                  {product.links.map((link) => (
-                    <li key={link.url}><a href={link.url} target="_blank" rel="noreferrer">{link.label} <ArrowUpRight size={15} /></a></li>
-                  ))}
-                </ul>
-              </ContentSection>
-            )}
+            <DetailSections sections={product.sections} />
           </div>
         </div>
       </div>
