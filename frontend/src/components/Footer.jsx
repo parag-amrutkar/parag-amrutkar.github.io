@@ -14,7 +14,6 @@ const Footer = () => (
         </div>
         <nav className="footer-nav" aria-label="Footer navigation">
           <Link to="/work">Work</Link>
-          <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/terminal">Terminal</Link>
         </nav>

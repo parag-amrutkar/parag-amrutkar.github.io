@@ -6,7 +6,6 @@ import "./Header.css";
 const navItems = [
   { path: "/", label: "Home" },
   { path: "/work", label: "Work" },
-  { path: "/about", label: "About" },
   { path: "/contact", label: "Contact" }
 ];
 

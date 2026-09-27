@@ -21,7 +21,6 @@ const Home = () => {
             <p className="hero-tagline" data-reveal data-reveal-on-mount data-reveal-delay="180">{profile.positioning}</p>
             <div className="hero-actions" data-reveal data-reveal-on-mount data-reveal-delay="270">
               <Link to="/work" className="btn btn-primary">View my work <ArrowRight size={17} /></Link>
-              <Link to="/about" className="btn btn-secondary">About me</Link>
             </div>
             <div className="hero-clients" data-reveal data-reveal-on-mount data-reveal-delay="360">
               <p className="eyebrow">Worked with</p>
