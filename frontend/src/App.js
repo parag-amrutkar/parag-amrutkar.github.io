@@ -10,12 +10,19 @@ import Home from "./pages/Home";
 import ProductDetail, { WorkNotFound } from "./pages/ProductDetail";
 import Terminal from "./pages/Terminal";
 import Work from "./pages/Work";
-import { getLegacyWorkPath } from "./data/portfolio";
+import { getAnalysisBySlug, getLegacyWorkPath, getProductBySlug } from "./data/portfolio";
 import "./App.css";
 
 const LegacyProjectRedirect = () => {
   const { id } = useParams();
   return <Navigate replace to={getLegacyWorkPath(id)} />;
+};
+
+const ProjectDetail = () => {
+  const { slug } = useParams();
+  if (getProductBySlug(slug)) return <ProductDetail />;
+  if (getAnalysisBySlug(slug)) return <AnalysisDetail />;
+  return <WorkNotFound kind="project" />;
 };
 
 const SiteLayout = () => {
@@ -30,6 +37,7 @@ const SiteLayout = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/work" element={<Work />} />
+        <Route path="/work/project/:slug" element={<ProjectDetail />} />
         <Route path="/work/products/:slug" element={<ProductDetail />} />
         <Route path="/work/analysis/:slug" element={<AnalysisDetail />} />
         <Route path="/about" element={<Navigate replace to="/" />} />
