@@ -91,7 +91,6 @@
   padding: clamp(28px, 3.5vw, 40px) 0;
   border-top: 1px solid var(--line);
 }
-.work-row:last-child { border-bottom: 1px solid var(--line); }
 .work-row-copy h3 { margin: 0 0 12px; }
 .work-row-copy h3 a { color: var(--ink); }
 .work-row-copy > p {
