@@ -58,7 +58,7 @@ a:hover { text-decoration: underline; }
 }
 
 .App { min-height: 100vh; display: flex; flex-direction: column; }
-.site-main { flex: 1; }
+.site-main { flex: 1; scroll-margin-top: 96px; }
 .container { width: min(100% - 48px, 1200px); margin-inline: auto; }
 .narrow-container { width: min(100% - 48px, 760px); margin-inline: auto; }
 .page-shell { padding: 104px 0 128px; }

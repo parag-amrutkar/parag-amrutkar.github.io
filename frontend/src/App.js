@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import RouteScroll from "./hooks/useRouteScroll";
 import useReveal from "./hooks/useReveal";
 import About from "./pages/About";
 import AnalysisDetail from "./pages/AnalysisDetail";
@@ -46,6 +47,7 @@ const SiteLayout = () => {
 
 const App = () => (
   <BrowserRouter>
+    <RouteScroll />
     <div className="App">
       <Routes>
         <Route path="/terminal" element={<Terminal />} />
