@@ -104,28 +104,6 @@ const Home = () => {
           </div>
         </section>
       )}
-
-      <section className="home-section home-introduction">
-        <div className="container intro-grid" data-reveal>
-          <p className="eyebrow">A little context</p>
-          <div>
-            <h2>Clear thinking, made inspectable.</h2>
-            <p>{profile.introduction}</p>
-            <Link to="/about" className="text-link">More about me <ArrowUpRight size={17} /></Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="contact-cta">
-        <div className="container contact-cta-inner" data-reveal="cta">
-          <div>
-            <p className="eyebrow">Start a conversation</p>
-            <h2>Have a problem worth<br />thinking through?</h2>
-            <Link to="/contact" className="btn btn-light">Get in touch <ArrowRight size={17} /></Link>
-          </div>
-          <Figure name="contact-signal" ratio="3 / 2" className="contact-plate" />
-        </div>
-      </section>
     </div>
   );
 };
