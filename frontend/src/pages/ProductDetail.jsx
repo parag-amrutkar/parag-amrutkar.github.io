@@ -8,7 +8,6 @@ import {
   Paragraphs
 } from "../components/DetailBlocks";
 import Figure from "../components/art/Figure";
-import StatusBadge from "../components/StatusBadge";
 import { getProductBySlug } from "../data/portfolio";
 import "../components/Work.css";
 import "./WorkDetail.css";
@@ -41,14 +40,6 @@ const ProductDetail = () => {
         </header>
 
         <div className="detail-layout">
-          <aside className="detail-aside" aria-label="Product summary">
-            <dl>
-              <div><dt>Status</dt><dd><StatusBadge status={product.status} /></dd></div>
-              {product.year && <div><dt>Year</dt><dd>{product.year}</dd></div>}
-              {product.tags?.length > 0 && <div><dt>Focus</dt><dd>{product.tags.join(" · ")}</dd></div>}
-            </dl>
-          </aside>
-
           <div className="detail-content">
             <ContentSection title="Problem"><Paragraphs items={product.problem} /></ContentSection>
             <ContentSection title="Solution"><Paragraphs items={product.solution} /></ContentSection>
@@ -95,7 +86,6 @@ const ProductDetail = () => {
             )}
           </div>
         </div>
-        <DetailFooter />
       </div>
     </article>
   );

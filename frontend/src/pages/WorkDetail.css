@@ -67,6 +67,10 @@
   border-top: 1px solid var(--line);
 }
 
+.detail-product .detail-layout {
+  grid-template-columns: minmax(0, 680px);
+}
+
 .detail-aside { position: sticky; top: 118px; }
 
 .detail-aside dl { margin: 0; }
