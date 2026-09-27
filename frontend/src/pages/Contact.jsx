@@ -62,17 +62,13 @@ const Contact = () => {
     <div className="contact-page page-shell">
       <div className="container">
         <div className="page-header">
-          <p className="eyebrow">Contact</p>
-          <h1>Let’s talk about the problem.</h1>
-          <p>
-            Have a question about the work, a problem to explore, or a reason to collaborate? Send a note below or email me directly.
-          </p>
+          <h1>Send me a note</h1>
         </div>
 
         <div className="contact-content">
           <div className="contact-info">
             <div className="contact-card">
-              <h2>Direct routes</h2>
+              <h2>Socials</h2>
               <div className="contact-links">
                 <a href={`mailto:${profile.email}`} className="contact-link">
                   <Mail size={20} />
