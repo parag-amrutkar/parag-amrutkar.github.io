@@ -24,12 +24,7 @@ const ProductDetail = () => {
   return (
     <article className="detail-page detail-product page-shell">
       <div className="container detail-container">
-        <Link to="/work" className="back-link"><ArrowLeft size={17} /> Back to work</Link>
         <header className="detail-header">
-          <div className="detail-kicker-row">
-            <span className="eyebrow">Product</span>
-            <StatusBadge status={product.status} />
-          </div>
           <h1>{product.name}</h1>
           <p className="detail-summary">{product.summary}</p>
         </header>
