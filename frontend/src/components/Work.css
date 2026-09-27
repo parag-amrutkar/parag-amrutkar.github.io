@@ -198,6 +198,13 @@
 
 @media (max-width: 760px) {
   .work-card { min-height: 340px; padding: 24px; }
-  .work-row { grid-template-columns: 1fr; gap: 20px; align-items: start; }
-  .work-row-plate { max-width: 420px; }
+  .work-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-start;
+  }
+  .work-row-copy { display: contents; }
+  .work-row-plate { order: 2; max-width: 420px; margin-top: 20px; }
+  .work-row-copy .btn { order: 3; margin-top: 18px; align-self: flex-end; }
 }

@@ -11,7 +11,7 @@ const Work = () => {
     <div className="work-page page-shell">
       <div className="container">
         <header className="page-intro work-intro stagger">
-          <h1>Work Highlights</h1>
+          <h2>Work Highlights</h2>
         </header>
 
         {items.length > 0 ? (

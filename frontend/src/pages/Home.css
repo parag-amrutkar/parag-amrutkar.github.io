@@ -95,6 +95,7 @@
   .hero-actions .btn { width: 100%; }
   .hero-client-list { justify-content: flex-start; }
   .section-heading { align-items: flex-start; flex-direction: column; }
+  .section-more.btn { display: flex; width: fit-content; margin-left: auto; }
 }
 
 @media (max-width: 560px) {

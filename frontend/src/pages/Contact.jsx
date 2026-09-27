@@ -62,7 +62,7 @@ const Contact = () => {
     <div className="contact-page page-shell">
       <div className="container">
         <div className="page-header">
-          <h1>Send me a note</h1>
+          <h2>Send me a note</h2>
         </div>
 
         <div className="contact-content">
