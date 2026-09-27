@@ -1,6 +1,6 @@
 export const profile = {
   name: "Parag Amrutkar",
-  title: "Technical Product Manager",
+  title: "Sr. Technical Product Manager",
   positioning: "I lead humans & AI agents to build products for humans & AI agents.",
   email: "paragamrutkar1103@gmail.com",
   linkedin: "https://linkedin.com/in/parag-amrutkar",

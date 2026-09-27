@@ -11,7 +11,7 @@ import {
 describe("portfolio content contracts", () => {
   test("profile GitHub URL points at the public account", () => {
     expect(profile.github).toBe("https://github.com/parag-amrutkar");
-    expect(profile.title).toBe("Technical Product Manager");
+    expect(profile.title).toBe("Sr. Technical Product Manager");
     expect(profile.linkedin).toBe("https://linkedin.com/in/parag-amrutkar");
   });
 
