@@ -136,9 +136,9 @@ export const products = [
     plateRatio: "4 / 3",
     plateAlt: "AI Shopping Assistant mockup: a store product page beside a shopping-assistant sidebar with reviews, a pros and cons summary, and a comparison.",
     name: "AI Shopping Assistant",
-    headline: "AI Shopping Assistant helps online shoppers decide what to buy",
-    subheadline: "A Chrome extension that turns a product page's reviews into a pros-and-cons summary.",
-    summary: "An AI-powered Chrome extension that turns product pages into smarter shopping decisions. It summarizes customer reviews, compares prices across retailers, and recommends alternatives, helping shoppers move from research to purchase with less effort.",
+    headline: "AI Shopping Assistant helps online shoppers understand product reviews faster",
+    subheadline: "A browser extension that uses AI to turn product reviews into concise pros and cons, helping shoppers make more informed purchase decisions.",
+    summary: "A browser extension that uses AI to turn product reviews into concise pros and cons, helping shoppers make more informed purchase decisions.",
     status: "built",
     featured: true,
     year: "2025",
@@ -190,26 +190,37 @@ export const products = [
         type: "paragraphs",
         title: "The Problem",
         items: [
-          "Product pages collect long, uneven review threads. Shoppers still have to read them to learn what is working and what is not. The useful signal is buried in the thread."
+          "Product reviews contain valuable information, but shoppers often have to read through dozens of repetitive or conflicting reviews to understand whether a product is right for them."
         ]
       },
       {
         type: "paragraphs",
         title: "The Product",
         items: [
-          "AI Shopping Assistant is a Manifest V3 Chrome extension for supported storefronts, including Amazon, Etsy, eBay, and Shopify. It extracts product data from the page and asks a separate API for a pros-and-cons summary of the reviews. The extension and API are built for local use; this is not a Chrome Web Store listing."
+          "AI Shopping Assistant analyzes reviews directly on product pages and summarizes recurring feedback into clear pros and cons. It works across Amazon, Etsy, eBay, and Shopify stores without requiring shoppers to leave the product page."
         ]
       },
       {
         type: "steps",
         title: "How It Works",
-        steps: ["Open the product page", "Extract the product", "Summarize the reviews", "Read the pros and cons"],
-        body: "On a supported product page, the extension pulls the product data and sends it to a local API. The API returns a pros-and-cons summary so the shopper can judge the product without reading the full thread."
+        steps: ["Browse", "Summarize", "Analyze", "Decide"],
+        body: "Open a product page and ask the extension to summarize it. The assistant extracts available reviews, analyzes them with AI, and surfaces the most relevant positive and negative themes."
       },
       {
         type: "quote",
         title: "The Vision",
-        text: "Know what reviewers agree on before you read the thread."
+        text: "Turn hundreds of reviews into the few insights that matter.",
+        body: "Make researching products as effortless as browsing them."
+      },
+      {
+        type: "list",
+        title: "Impact",
+        items: [
+          {
+            label: "Shoppers",
+            text: "Spend less time reading repetitive reviews, understand product tradeoffs faster, and make purchase decisions with greater confidence."
+          }
+        ]
       }
     ]
   },

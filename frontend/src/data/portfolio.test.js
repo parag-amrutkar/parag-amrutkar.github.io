@@ -94,7 +94,7 @@ describe("portfolio content contracts", () => {
       expect(product.headline).toBeTruthy();
       expect(product.subheadline).toBeTruthy();
       const titles = product.sections.map((section) => section.title);
-      if (product.slug === "beacon-box") {
+      if (product.slug === "beacon-box" || product.slug === "ai-shopping-assistant") {
         expect(titles).toEqual([...baseSections, "Impact"]);
       } else {
         expect(titles).toEqual(baseSections);
