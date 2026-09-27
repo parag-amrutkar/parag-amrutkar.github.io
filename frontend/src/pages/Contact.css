@@ -5,7 +5,6 @@
 .contact-info { display: grid; gap: 18px; }
 .contact-card { padding: 27px 0; border-top: 1px solid var(--line); }
 .contact-card h2 { margin-bottom: 21px; font-family: var(--font-mono); font-size: 0.76rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
-.contact-card p { color: var(--ink-muted); font-size: 0.92rem; }
 .contact-links { display: grid; gap: 12px; }
 .contact-link { display: inline-flex; align-items: center; gap: 11px; width: fit-content; max-width: 100%; color: var(--ink); font-family: var(--font-mono); font-size: 0.84rem; font-weight: 500; overflow-wrap: anywhere; }
 .contact-link svg { flex: 0 0 auto; color: var(--product); }
@@ -21,6 +20,7 @@
 
 @media (max-width: 860px) {
   .contact-content { grid-template-columns: 1fr; gap: 48px; }
+  .contact-form-wrapper { order: -1; }
 }
 
 @media (max-width: 520px) {

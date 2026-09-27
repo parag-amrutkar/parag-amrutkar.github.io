@@ -84,13 +84,6 @@ const Contact = () => {
                 </a>
               </div>
             </div>
-
-            <div className="contact-card">
-              <h2>A useful first note</h2>
-              <p>
-                A little context about the problem, who it affects, and what you are trying to decide is a helpful place to start.
-              </p>
-            </div>
           </div>
 
           <div className="contact-form-wrapper">
