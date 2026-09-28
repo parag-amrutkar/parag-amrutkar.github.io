@@ -11,6 +11,18 @@
 # production
 /build
 
+# Agent-readable copies of the portfolio. Regenerated from src/data/portfolio.js
+# by scripts/agent-docs.mjs (prestart / prebuild). Do not edit by hand.
+/public/llms.txt
+/public/llms-full.txt
+/public/robots.txt
+/public/sitemap.xml
+/public/index.md
+/public/work.md
+/public/contact.md
+/public/work/products/*.md
+/public/work/analysis/*.md
+
 # Pre-regrade illustration masters. Kept locally so `yarn regrade` can be
 # undone without another API call; the graded plates in public/illustrations
 # are the versioned artifact.

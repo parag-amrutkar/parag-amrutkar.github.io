@@ -60,6 +60,8 @@
     "zod": "^3.24.4"
   },
   "scripts": {
+    "prestart": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/agent-docs.mjs",
+    "prebuild": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/agent-docs.mjs",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",

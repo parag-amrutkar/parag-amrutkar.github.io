@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { renderAgentFiles, SITE_URL } from "./agentDocs";
 import {
   analyses,
   getLegacyWorkPath,
@@ -207,6 +208,52 @@ describe("portfolio content contracts", () => {
       expect(analysis.publishedAt).toBeTruthy();
       expect(analysis.method.length).toBeGreaterThan(0);
       expect(analysis.findings.length).toBeGreaterThan(0);
+    });
+  });
+
+  test("llms.txt links every work item and the full text", () => {
+    const llms = renderAgentFiles(SITE_URL)["llms.txt"];
+    expect(llms).toContain(`${SITE_URL}/llms-full.txt`);
+    products.forEach((product) => {
+      expect(llms).toContain(`${SITE_URL}/work/products/${product.slug}.md`);
+    });
+    analyses.forEach((analysis) => {
+      expect(llms).toContain(`${SITE_URL}/work/analysis/${analysis.slug}.md`);
+    });
+  });
+
+  test("Beacon Box markdown keeps status, affiliation, evidence, and repository", () => {
+    const markdown = renderAgentFiles(SITE_URL)["work/products/beacon-box.md"];
+    const beacon = products.find((product) => product.slug === "beacon-box");
+
+    expect(markdown.startsWith(`${SITE_URL}/work/products/beacon-box\n`)).toBe(true);
+    expect(markdown).toContain("Status: Prototype");
+    expect(markdown).toContain(beacon.affiliationNote);
+    expect(markdown).toContain("https://github.com/parag-amrutkar/supermarket-info-display");
+    expect(markdown).toContain(beacon.evidence[0].description);
+  });
+
+  test("analysis markdown keeps affiliation and interpretation label", () => {
+    const markdown = renderAgentFiles(SITE_URL)["work/analysis/disney-plus-ml.md"];
+    const analysis = analyses.find((item) => item.slug === "disney-plus-ml");
+
+    expect(markdown).toContain(analysis.affiliationNote);
+    expect(markdown).toContain("Parag's interpretation");
+  });
+
+  test("sitemap lists HTML work URLs and omits markdown", () => {
+    const sitemap = renderAgentFiles(SITE_URL)["sitemap.xml"];
+
+    expect(sitemap).not.toContain(".md");
+    expect(sitemap).not.toContain("/terminal");
+    expect(sitemap).toContain(`<loc>${SITE_URL}/</loc>`);
+    expect(sitemap).toContain(`<loc>${SITE_URL}/work</loc>`);
+    expect(sitemap).toContain(`<loc>${SITE_URL}/contact</loc>`);
+    products.forEach((product) => {
+      expect(sitemap).toContain(`<loc>${SITE_URL}/work/products/${product.slug}</loc>`);
+    });
+    analyses.forEach((analysis) => {
+      expect(sitemap).toContain(`<loc>${SITE_URL}/work/analysis/${analysis.slug}</loc>`);
     });
   });
 
