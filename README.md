@@ -69,6 +69,8 @@ If you replace an old `/projects/:id` slug, add `legacySlug` (analyses) or keep 
 
 The tests in `portfolio.test.js` check those required fields. Run `yarn test` after content edits.
 
+Agent-readable copies (`llms.txt`, `llms-full.txt`, per-page markdown, `robots.txt`, and `sitemap.xml`) are generated from `portfolio.js` by [`frontend/scripts/agent-docs.mjs`](frontend/scripts/agent-docs.mjs). `yarn start` and `yarn build` regenerate them. Do not edit the generated files by hand.
+
 The longer implementation contract, including content-integrity rules, is in [`WEBSITE_IMPLEMENTATION_BRIEF.md`](WEBSITE_IMPLEMENTATION_BRIEF.md).
 
 ## Illustrations
