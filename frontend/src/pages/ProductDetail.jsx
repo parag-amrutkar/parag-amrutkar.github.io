@@ -1,7 +1,7 @@
 import React from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Github } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import { DetailSections } from "../components/DetailBlocks";
+import { ContentSection, DetailSections, EvidenceBlocks } from "../components/DetailBlocks";
 import Figure from "../components/art/Figure";
 import { getProductBySlug } from "../data/portfolio";
 import "../components/Work.css";
@@ -53,6 +53,11 @@ const ProductDetail = () => {
         <div className="detail-layout">
           <div className="detail-content">
             <DetailSections sections={product.sections} />
+            {product.evidence?.length > 0 && (
+              <ContentSection title="Evidence">
+                <EvidenceBlocks items={product.evidence} />
+              </ContentSection>
+            )}
             {repository && (
               <a
                 className="btn btn-primary detail-repo-cta"

@@ -51,7 +51,7 @@ yarn test     # content-contract tests in src/data/portfolio.test.js
 yarn build    # production bundle in frontend/build
 ```
 
-`yarn build` is the same command GitHub Actions runs. The workflow also copies `index.html` to `404.html` so client-side routes resolve on GitHub Pages.
+`yarn build` is the same command GitHub Actions runs. The build writes an `index.html` for every real route, with that page's title and description, so GitHub Pages returns 200. `404.html` stays in place for addresses that are not routes.
 
 ## Editing content
 

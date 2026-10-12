@@ -1,26 +1,19 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 /**
- * Adds `is-revealed` to every [data-reveal] element as it scrolls into view.
+ * Marks [data-reveal] elements as they enter the viewport.
  *
- * An IntersectionObserver rather than a motion library: the brief (§13) asks
- * that dependencies not be added for behaviour the current stack handles.
- *
- * The reduced-motion branch marks everything revealed immediately rather than
- * skipping setup, because the resting state is opacity 0 -- bailing out early
- * would leave the page blank for exactly the users least able to tolerate it.
+ * The resting state in CSS is visible. This hook only opts into motion when
+ * the visitor has not asked for reduced motion, and it marks anything already
+ * on screen before the browser paints. A hidden default would blank the first
+ * paint, and it would stay blank with JavaScript off.
  */
-const applyDelay = (node, reduced) => {
+const applyDelay = (node) => {
   const delay = node.getAttribute("data-reveal-delay");
-  if (!delay || reduced) return;
+  if (!delay) return;
   node.style.transitionDelay = `${Number(delay)}ms`;
 };
 
-/**
- * The delay has to be on the element while the reveal transition runs, and
- * gone afterwards. Leaving it inline would also postpone hover transitions
- * on the same node (a card with a 240ms cascade would hesitate before it lifts).
- */
 const reveal = (node) => {
   node.classList.add("is-revealed");
   if (!node.style.transitionDelay) return;
@@ -32,48 +25,35 @@ const reveal = (node) => {
   node.addEventListener("transitionend", clearDelay);
 };
 
+const inFirstPaint = (node) => {
+  const rect = node.getBoundingClientRect();
+  return rect.bottom > 0 && rect.top < window.innerHeight;
+};
+
 const useReveal = (deps = []) => {
-  useEffect(() => {
-    const pending = new Set(
-      document.querySelectorAll("[data-reveal]:not(.is-revealed)")
-    );
-    if (!pending.size) return undefined;
+  useLayoutEffect(() => {
+    const nodes = [...document.querySelectorAll("[data-reveal]:not(.is-revealed)")];
+    if (!nodes.length) return undefined;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    pending.forEach((node) => applyDelay(node, reduced));
-
     if (reduced || typeof IntersectionObserver === "undefined") {
-      pending.forEach(reveal);
+      nodes.forEach(reveal);
       return undefined;
     }
 
-    // Above-the-fold hero copy never reliably intersects: the root is shrunk
-    // by the bottom margin, and a mount-time reveal is what the entrance
-    // needs anyway. Drive those from the next frames so the hidden state
-    // paints before `.is-revealed` starts the transition.
-    const mounted = [];
-    pending.forEach((node) => {
-      if (!node.hasAttribute("data-reveal-on-mount")) return;
-      mounted.push(node);
-      pending.delete(node);
+    const pending = new Set();
+    nodes.forEach((node) => {
+      if (inFirstPaint(node)) {
+        reveal(node);
+        return;
+      }
+      applyDelay(node);
+      pending.add(node);
     });
 
-    let frame = 0;
-    let second = 0;
-    if (mounted.length) {
-      frame = requestAnimationFrame(() => {
-        second = requestAnimationFrame(() => {
-          mounted.forEach(reveal);
-        });
-      });
-    }
+    if (!pending.size) return undefined;
 
-    if (!pending.size) {
-      return () => {
-        if (frame) cancelAnimationFrame(frame);
-        if (second) cancelAnimationFrame(second);
-      };
-    }
+    document.documentElement.classList.add("reveal-pending");
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -89,14 +69,6 @@ const useReveal = (deps = []) => {
 
     pending.forEach((node) => observer.observe(node));
 
-    /**
-     * Safety net for instant scroll jumps -- an in-page anchor, browser scroll
-     * restoration on back-navigation, or the End key. Those move an element
-     * from below the viewport to above it inside a single frame, so
-     * `isIntersecting` never becomes true and the observer never fires. The
-     * element would then stay at opacity 0 permanently, which is a far worse
-     * outcome than a missed animation.
-     */
     let sweepFrame = 0;
     const revealIfAbove = () => {
       pending.forEach((node) => {
@@ -120,20 +92,18 @@ const useReveal = (deps = []) => {
 
     const stop = () => {
       window.removeEventListener("scroll", onScroll);
-      if (frame) cancelAnimationFrame(frame);
-      if (second) cancelAnimationFrame(second);
       if (sweepFrame) cancelAnimationFrame(sweepFrame);
       observer.disconnect();
+      document.documentElement.classList.remove("reveal-pending");
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    // A restored back-navigation jumps elements above the viewport before
-    // this listener exists. Sweep once so they are not stuck at opacity 0.
-    // Leave the mount-time frames alone: stop() would cancel them.
     revealIfAbove();
     if (!pending.size) {
       window.removeEventListener("scroll", onScroll);
       observer.disconnect();
+      document.documentElement.classList.remove("reveal-pending");
+      return undefined;
     }
     return stop;
   }, deps);

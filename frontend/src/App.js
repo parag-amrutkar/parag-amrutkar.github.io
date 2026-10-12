@@ -11,6 +11,7 @@ import ProductDetail, { WorkNotFound } from "./pages/ProductDetail";
 import Terminal from "./pages/Terminal";
 import Work from "./pages/Work";
 import { getAnalysisBySlug, getLegacyWorkPath, getProductBySlug } from "./data/portfolio";
+import { listStaticRoutes } from "./data/staticRoutes";
 import "./App.css";
 
 const LegacyProjectRedirect = () => {
@@ -52,9 +53,22 @@ const SiteLayout = () => {
   );
 };
 
+const RouteMeta = () => {
+  const { pathname } = useLocation();
+  const match = listStaticRoutes().find((entry) => entry.path === pathname);
+  const title = match ? match.title : "Page not found — Parag Amrutkar";
+
+  React.useEffect(() => {
+    document.title = title;
+  }, [title]);
+
+  return null;
+};
+
 const App = () => (
   <BrowserRouter>
     <RouteScroll />
+    <RouteMeta />
     <div className="App">
       <Routes>
         <Route path="/terminal" element={<Terminal />} />
