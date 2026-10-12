@@ -62,6 +62,7 @@
   "scripts": {
     "prestart": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/agent-docs.mjs",
     "prebuild": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/agent-docs.mjs",
+    "postbuild": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/emit-routes.mjs",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",

@@ -53,7 +53,35 @@ export const products = [
       {
         type: "note",
         label: "Public repository",
-        description: "Portrait kiosk prototype with voice input and a shopping-assistant chat path. Inventory in the bundled catalog is labeled demo_simulated. The repository does not link a public live kiosk. The README voice section may still describe transcription as not submitting to inventory."
+        description: "Portrait kiosk prototype with voice input and a shopping-assistant chat path. Inventory in the bundled catalog is labeled demo_simulated. The repository does not link a public live kiosk. A transcribed question and the tappable answer to “what cold medicine do you have?” were not captured: those screens call a model API, and this build had no API key."
+      },
+      {
+        type: "image",
+        label: "Signed-in home screen",
+        url: "/evidence/beacon-box/home-ask.webp",
+        alt: "CVS-branded Beacon Box home screen with a microphone and the prompt Tap to ask where something is.",
+        description: "Local production build, after the demo PIN sign-in. This is the resting screen for a spoken question. No transcription key was configured, so the frame does not show a transcribed question."
+      },
+      {
+        type: "image",
+        label: "Ask from a product screen",
+        url: "/evidence/beacon-box/product-ask.webp",
+        alt: "NyQuil SEVERE product screen with a microphone labeled Tap to ask about this product, a price of $13.49, and an Aisle 7 direction.",
+        description: "Local production build of /product/nyquil-severe. Price, stock, and aisle come from the bundled CSV row CVS-9100001, labeled demo_simulated, served through a local inventory stand-in with no cloud credentials. The star rating is authored mock data in the repository, not inventory."
+      },
+      {
+        type: "image",
+        label: "Wayfinding for Lumify",
+        url: "/evidence/beacon-box/wayfinding-lumify.webp",
+        alt: "Wayfinding screen for Lumify with a card reading Demo inventory location, Aisle 18, Rack 1, Shelf 1, over a store-map animation.",
+        description: "Local production build of /map/lumify. The card quotes the bundled demo_simulated location for SKU CVS-9100002. The animation is a pre-rendered NyQuil route, which is why the screen says it may not match this product."
+      },
+      {
+        type: "image",
+        label: "Wayfinding for NyQuil SEVERE",
+        url: "/evidence/beacon-box/wayfinding-nyquil.webp",
+        alt: "Wayfinding screen at /map/nyquil-severe showing a pre-rendered aisle map labeled Aisle 7, Bay 3, and a Back button.",
+        description: "Local production build of /map/nyquil-severe. The bundled demo location matches the pre-rendered animation (Aisle 7, Rack 3, Shelf 4), so the screen withholds the correction card. Prices drawn inside the animation are part of that render, not a live inventory readout."
       },
       {
         type: "link",
@@ -396,72 +424,101 @@ export const analyses = [
     legacySlug: "disney-ml",
     type: "analysis",
     plate: "plate-disney-plus-ml",
-    title: "Machine Learning Opportunities for Disney+",
-    summary: "An independent case study asking where machine learning could improve discovery, content decisions, and streaming experience.",
-    featured: false,
+    title: "Disney+ discovery and playback, from public sources",
+    summary: "An independent reading of what Disney has published about Disney+ personalization and playback quality. It stops where those pages stop.",
+    featured: true,
     publishedAt: "2025",
     publishedPrecision: "year",
-    updatedAt: null,
-    topic: "Machine learning strategy",
+    updatedAt: "2026-10-12",
+    topic: "Streaming product",
     affiliationNote: "Independent analysis. No Disney affiliation, commission, or endorsement is implied.",
     whyItMatters: [
-      "Streaming products must help viewers find relevant content while maintaining a reliable playback experience. This case study explores where machine learning might support those product goals."
+      "Disney's own pages describe two behaviors a streaming home screen has to get right: helping a subscriber find something to watch, and adjusting the picture to the connection they have."
     ],
     method: [
-      "The analysis groups opportunities across discovery, content planning, and streaming delivery, then considers the data capabilities each would require.",
-      "Limitation: the original portfolio record does not retain a source list, calculations, or primary research. The proposals below are Parag's interpretation and should not be read as verified Disney plans or results.",
-      "This entry is not featured on the home page until a source list can be restored."
+      "Read two primary pages and kept only what they state: Disney's 11 April 2019 investor-day post, and Disney+'s product article revised 9 January 2026. Accessed 12 October 2026.",
+      "Limitation: those pages describe personalized recommendations and bandwidth-based playback. They do not call either one a machine-learning program, and they do not describe thumbnail selection, viewership-based commissioning, or measured results. Earlier claims on those points are removed."
     ],
     analysis: [
-      "Candidate use cases include personalized recommendations, thumbnail selection, viewership-informed content planning, and adaptive streaming optimization. A supporting data strategy would need to define what data can be combined, how it is governed, and how each use case is evaluated."
+      "The 2019 investor-day post says Disney+ subscribers would get custom profiles, each with a personalized experience drawn from past behavior and preferred content, and that playback would adjust toward the best high-definition picture the subscriber's bandwidth could support, including 4K HDR.",
+      "Disney+'s January 2026 article describes a For You tab that recommends titles from what that profile has already watched, says the suggestions improve as the person streams more, and tells viewers to use their own profile so the suggestions follow that profile."
     ],
     findings: [
-      "The case study identifies multiple candidate applications for machine learning, but it does not establish that any were implemented or that they produced measurable outcomes.",
-      "Data readiness and evaluation criteria are dependencies, not secondary implementation details."
+      "Personalized, profile-specific recommendations are described as product behavior in Disney's own January 2026 article, not only as a proposal.",
+      "Bandwidth-adaptive high-definition playback is described in the 2019 investor-day post. That post does not publish quality metrics.",
+      "Thumbnail selection and viewership-informed content planning are not in the sources reviewed, so they are not claimed here."
     ],
     recommendations: [
-      "Prioritize a small number of use cases with explicit user value, available data, and measurable evaluation criteria before expanding the program.",
-      "Treat the data-governance and experimentation plan as part of the product strategy."
+      "The open question is how Disney evaluates the behaviors these pages already describe. The pages do not provide that evaluation.",
+      "Artwork selection, content greenlights, or a named model stay outside this entry until a primary source describes them."
     ],
-    sources: [],
-    tags: ["Machine learning", "Product strategy", "Personalization"],
+    sources: [
+      {
+        title: "Disney Spotlights Comprehensive Direct-to-Consumer Strategy at 2019 Investor Day",
+        publisher: "The Walt Disney Company",
+        url: "https://thewaltdisneycompany.com/news/disney-spotlights-comprehensive-direct-to-consumer-strategy-at-2019-investor-day",
+        accessedAt: "2026-10-12"
+      },
+      {
+        title: "The Disney+ App Just Got an Update, Here’s What You Need to Know",
+        publisher: "Disney+",
+        url: "https://www.disneyplus.com/explore/articles/disney-plus-app-redesign-new-features",
+        accessedAt: "2026-10-12"
+      }
+    ],
+    tags: ["Personalization", "Playback", "Product strategy"],
     sections: [
       {
         type: "paragraphs",
         title: "Question or thesis",
         items: [
-          "An independent case study asking where machine learning could improve discovery, content decisions, and streaming experience."
+          "An independent reading of what Disney has published about Disney+ personalization and playback quality. It stops where those pages stop."
         ]
       },
       {
         type: "paragraphs",
         title: "Why it matters",
         items: [
-          "Streaming products must help viewers find relevant content while maintaining a reliable playback experience. This case study explores where machine learning might support those product goals."
+          "Disney's own pages describe two behaviors a streaming home screen has to get right: helping a subscriber find something to watch, and adjusting the picture to the connection they have."
         ]
       },
       {
         type: "paragraphs",
         title: "Method and sources",
         items: [
-          "The analysis groups opportunities across discovery, content planning, and streaming delivery, then considers the data capabilities each would require.",
-          "Limitation: the original portfolio record does not retain a source list, calculations, or primary research. The proposals below are Parag's interpretation and should not be read as verified Disney plans or results.",
-          "This entry is not featured on the home page until a source list can be restored."
+          "Read two primary pages and kept only what they state: Disney's 11 April 2019 investor-day post, and Disney+'s product article revised 9 January 2026. Accessed 12 October 2026.",
+          "Limitation: those pages describe personalized recommendations and bandwidth-based playback. They do not call either one a machine-learning program, and they do not describe thumbnail selection, viewership-based commissioning, or measured results. Earlier claims on those points are removed."
+        ],
+        sources: [
+          {
+            title: "Disney Spotlights Comprehensive Direct-to-Consumer Strategy at 2019 Investor Day",
+            publisher: "The Walt Disney Company",
+            url: "https://thewaltdisneycompany.com/news/disney-spotlights-comprehensive-direct-to-consumer-strategy-at-2019-investor-day",
+            accessedAt: "2026-10-12"
+          },
+          {
+            title: "The Disney+ App Just Got an Update, Here’s What You Need to Know",
+            publisher: "Disney+",
+            url: "https://www.disneyplus.com/explore/articles/disney-plus-app-redesign-new-features",
+            accessedAt: "2026-10-12"
+          }
         ]
       },
       {
         type: "paragraphs",
         title: "Analysis",
         items: [
-          "Candidate use cases include personalized recommendations, thumbnail selection, viewership-informed content planning, and adaptive streaming optimization. A supporting data strategy would need to define what data can be combined, how it is governed, and how each use case is evaluated."
+          "The 2019 investor-day post says Disney+ subscribers would get custom profiles, each with a personalized experience drawn from past behavior and preferred content, and that playback would adjust toward the best high-definition picture the subscriber's bandwidth could support, including 4K HDR.",
+          "Disney+'s January 2026 article describes a For You tab that recommends titles from what that profile has already watched, says the suggestions improve as the person streams more, and tells viewers to use their own profile so the suggestions follow that profile."
         ]
       },
       {
         type: "list",
         title: "Key findings",
         items: [
-          "The case study identifies multiple candidate applications for machine learning, but it does not establish that any were implemented or that they produced measurable outcomes.",
-          "Data readiness and evaluation criteria are dependencies, not secondary implementation details."
+          "Personalized, profile-specific recommendations are described as product behavior in Disney's own January 2026 article, not only as a proposal.",
+          "Bandwidth-adaptive high-definition playback is described in the 2019 investor-day post. That post does not publish quality metrics.",
+          "Thumbnail selection and viewership-informed content planning are not in the sources reviewed, so they are not claimed here."
         ]
       },
       {
@@ -470,8 +527,8 @@ export const analyses = [
         label: "Parag's interpretation",
         className: "interpretation-section",
         items: [
-          "Prioritize a small number of use cases with explicit user value, available data, and measurable evaluation criteria before expanding the program.",
-          "Treat the data-governance and experimentation plan as part of the product strategy."
+          "The open question is how Disney evaluates the behaviors these pages already describe. The pages do not provide that evaluation.",
+          "Artwork selection, content greenlights, or a named model stay outside this entry until a primary source describes them."
         ]
       }
     ]
@@ -482,71 +539,100 @@ export const analyses = [
     type: "analysis",
     plate: "plate-basecamp-pricing-strategy",
     title: "Basecamp Pricing Strategy",
-    summary: "An independent analysis of pricing structures and the tradeoff between revenue options, product simplicity, and customer value.",
-    featured: false,
+    summary: "An independent reading of two public Basecamp pricing pages that were live on the same day and do not describe the same offer.",
+    featured: true,
     publishedAt: "2025",
     publishedPrecision: "year",
-    updatedAt: null,
+    updatedAt: "2026-10-12",
     topic: "Pricing strategy",
     affiliationNote: "Independent analysis. No Basecamp affiliation, commission, or endorsement is implied.",
     whyItMatters: [
-      "Pricing changes affect who a product serves, how customers compare plans, and how the product communicates value. Those effects can conflict with a product's preference for simplicity."
+      "The price a buyer compares is the one on the page in front of them. On 12 October 2026, Basecamp's pricing page and its try page described different offers."
     ],
     method: [
-      "The case study compares tiered pricing, feature gating, add-ons, and client-facing features, and considers price-sensitivity and experimentation methods.",
-      "Limitation: the original portfolio record does not include its underlying calculations, customer research, experiment results, or source list. Recommendations are presented as analysis, not as changes implemented by Basecamp.",
-      "This entry is not featured on the home page until a source list can be restored."
+      "Compared the packages, limits, and FAQ on basecamp.com/pricing with the plans on basecamp.com/try-basecamp. Both pages were fetched on 12 October 2026. No customer research and no experiment log are included.",
+      "Limitation: the two pages were both public on that date and they disagree. This entry does not know which page a given signup shows, and it does not report a test that chose between them."
     ],
     analysis: [
-      "The central tradeoff is between capturing different willingness to pay and preserving a simple buying experience. More tiers can create clearer segmentation, but they also add comparison work and may weaken a deliberately simple pricing message."
+      "basecamp.com/pricing leads with fixed prices and no per-user fees. The packages listed that day were Free (1 project, 1 GB, 5 users), Freelancer at $25 per month (3 active projects, 5 GB, 20 users), Studio at $59 per month (10 active projects, 25 GB, unlimited users), Pro at $99 per month (25 active projects, 100 GB), and Unlimited at $299 per month billed annually (unlimited projects, 1 TB). Unlimited can add 5 TB of storage for $100 per month. The FAQ says a paid package can move down only when current usage fits the lower one, that every person added counts as a user, and that Studio and above include unlimited users. Basecamp says there that it pioneered the all-inclusive package and has offered it for over a decade.",
+      "basecamp.com/try-basecamp, the same day, described Basecamp Plus at $15 per user per month, with optional Timesheet and Admin Pro Pack upgrades, and said guests and clients are not billed. It also described Basecamp Pro Unlimited at $299 per month billed annually, or $349 per month paid monthly, with those upgrades included. The signup links on that page point at 3.basecamp.com."
     ],
     findings: [
-      "Tiering, feature packaging, and add-ons create different revenue and customer-experience tradeoffs; the repository does not provide evidence that one option was tested or adopted.",
-      "Any pricing recommendation depends on customer research and behavioral validation that are not part of the retained public record."
+      "The pricing page is a fixed-price list. What changes between packages is the project cap, storage, and — on Free and Freelancer — the user cap. A storage add-on is published for Unlimited.",
+      "A second Basecamp URL still publishes a per-user price and named add-ons, and it treats guests differently from the pricing-page FAQ.",
+      "Both pages are public offers. What they do not provide is which offer a new customer is shown, or any experiment result."
     ],
     recommendations: [
-      "Test pricing and packaging hypotheses with explicit success and guardrail metrics before treating them as a revenue plan.",
-      "Evaluate added choice against the cost it creates for product comprehension and brand consistency."
+      "Cite the page you actually opened. The two URLs above are not interchangeable.",
+      "These pages state prices and limits. They do not state conversion, churn, or willingness to pay."
     ],
-    sources: [],
-    tags: ["Pricing", "Strategy", "Experimentation"],
+    sources: [
+      {
+        title: "Basecamp pricing",
+        publisher: "Basecamp",
+        url: "https://basecamp.com/pricing",
+        accessedAt: "2026-10-12"
+      },
+      {
+        title: "Try Basecamp",
+        publisher: "Basecamp",
+        url: "https://basecamp.com/try-basecamp",
+        accessedAt: "2026-10-12"
+      }
+    ],
+    tags: ["Pricing", "Strategy", "Packaging"],
     sections: [
       {
         type: "paragraphs",
         title: "Question or thesis",
         items: [
-          "An independent analysis of pricing structures and the tradeoff between revenue options, product simplicity, and customer value."
+          "An independent reading of two public Basecamp pricing pages that were live on the same day and do not describe the same offer."
         ]
       },
       {
         type: "paragraphs",
         title: "Why it matters",
         items: [
-          "Pricing changes affect who a product serves, how customers compare plans, and how the product communicates value. Those effects can conflict with a product's preference for simplicity."
+          "The price a buyer compares is the one on the page in front of them. On 12 October 2026, Basecamp's pricing page and its try page described different offers."
         ]
       },
       {
         type: "paragraphs",
         title: "Method and sources",
         items: [
-          "The case study compares tiered pricing, feature gating, add-ons, and client-facing features, and considers price-sensitivity and experimentation methods.",
-          "Limitation: the original portfolio record does not include its underlying calculations, customer research, experiment results, or source list. Recommendations are presented as analysis, not as changes implemented by Basecamp.",
-          "This entry is not featured on the home page until a source list can be restored."
+          "Compared the packages, limits, and FAQ on basecamp.com/pricing with the plans on basecamp.com/try-basecamp. Both pages were fetched on 12 October 2026. No customer research and no experiment log are included.",
+          "Limitation: the two pages were both public on that date and they disagree. This entry does not know which page a given signup shows, and it does not report a test that chose between them."
+        ],
+        sources: [
+          {
+            title: "Basecamp pricing",
+            publisher: "Basecamp",
+            url: "https://basecamp.com/pricing",
+            accessedAt: "2026-10-12"
+          },
+          {
+            title: "Try Basecamp",
+            publisher: "Basecamp",
+            url: "https://basecamp.com/try-basecamp",
+            accessedAt: "2026-10-12"
+          }
         ]
       },
       {
         type: "paragraphs",
         title: "Analysis",
         items: [
-          "The central tradeoff is between capturing different willingness to pay and preserving a simple buying experience. More tiers can create clearer segmentation, but they also add comparison work and may weaken a deliberately simple pricing message."
+          "basecamp.com/pricing leads with fixed prices and no per-user fees. The packages listed that day were Free (1 project, 1 GB, 5 users), Freelancer at $25 per month (3 active projects, 5 GB, 20 users), Studio at $59 per month (10 active projects, 25 GB, unlimited users), Pro at $99 per month (25 active projects, 100 GB), and Unlimited at $299 per month billed annually (unlimited projects, 1 TB). Unlimited can add 5 TB of storage for $100 per month. The FAQ says a paid package can move down only when current usage fits the lower one, that every person added counts as a user, and that Studio and above include unlimited users. Basecamp says there that it pioneered the all-inclusive package and has offered it for over a decade.",
+          "basecamp.com/try-basecamp, the same day, described Basecamp Plus at $15 per user per month, with optional Timesheet and Admin Pro Pack upgrades, and said guests and clients are not billed. It also described Basecamp Pro Unlimited at $299 per month billed annually, or $349 per month paid monthly, with those upgrades included. The signup links on that page point at 3.basecamp.com."
         ]
       },
       {
         type: "list",
         title: "Key findings",
         items: [
-          "Tiering, feature packaging, and add-ons create different revenue and customer-experience tradeoffs; the repository does not provide evidence that one option was tested or adopted.",
-          "Any pricing recommendation depends on customer research and behavioral validation that are not part of the retained public record."
+          "The pricing page is a fixed-price list. What changes between packages is the project cap, storage, and — on Free and Freelancer — the user cap. A storage add-on is published for Unlimited.",
+          "A second Basecamp URL still publishes a per-user price and named add-ons, and it treats guests differently from the pricing-page FAQ.",
+          "Both pages are public offers. What they do not provide is which offer a new customer is shown, or any experiment result."
         ]
       },
       {
@@ -555,8 +641,8 @@ export const analyses = [
         label: "Parag's interpretation",
         className: "interpretation-section",
         items: [
-          "Test pricing and packaging hypotheses with explicit success and guardrail metrics before treating them as a revenue plan.",
-          "Evaluate added choice against the cost it creates for product comprehension and brand consistency."
+          "Cite the page you actually opened. The two URLs above are not interchangeable.",
+          "These pages state prices and limits. They do not state conversion, churn, or willingness to pay."
         ]
       }
     ]

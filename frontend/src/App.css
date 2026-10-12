@@ -273,57 +273,52 @@ body::after {
    --------------------------------------------------------------------------- */
 
 @keyframes rise-in {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; }
+  from { transform: translateY(14px); }
+  to { transform: none; }
 }
 
-/* `backwards` holds the from-state through the delay, so staggered children
-   do not flash at full opacity before their turn. */
-.stagger > * {
-  animation: rise-in 520ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
-}
+/* Motion is optional. Text stays at full opacity the whole time, including
+   the delay, so a slow script or a missed observer cannot blank the page. */
+@media (prefers-reduced-motion: no-preference) {
+  .stagger > * {
+    animation: rise-in 520ms cubic-bezier(0.2, 0.7, 0.3, 1) backwards;
+  }
 
-.stagger > *:nth-child(1) { animation-delay: 40ms; }
-.stagger > *:nth-child(2) { animation-delay: 110ms; }
-.stagger > *:nth-child(3) { animation-delay: 180ms; }
-.stagger > *:nth-child(4) { animation-delay: 250ms; }
-.stagger > *:nth-child(5) { animation-delay: 320ms; }
+  .stagger > *:nth-child(1) { animation-delay: 40ms; }
+  .stagger > *:nth-child(2) { animation-delay: 110ms; }
+  .stagger > *:nth-child(3) { animation-delay: 180ms; }
+  .stagger > *:nth-child(4) { animation-delay: 250ms; }
+  .stagger > *:nth-child(5) { animation-delay: 320ms; }
 
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 520ms ease, transform 520ms cubic-bezier(0.2, 0.7, 0.3, 1);
-}
+  /* `reveal-pending` is added only after elements already on screen are
+     marked revealed, and only when motion is allowed. */
+  html.reveal-pending [data-reveal]:not(.is-revealed) {
+    transform: translateY(16px);
+    transition: transform 520ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
 
-/* Hero plate: fade and a barely-there scale, no travel. */
-[data-reveal="hero-art"] {
-  transform: scale(0.98);
-  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
-}
+  html.reveal-pending [data-reveal="hero-art"]:not(.is-revealed) {
+    transform: scale(0.98);
+    transition: transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
 
-/* Footer arrives; it does not announce itself. */
-[data-reveal="fade"] {
-  transform: none;
-  transition: opacity 500ms ease;
-}
+  html.reveal-pending [data-reveal="fade"]:not(.is-revealed) {
+    transform: none;
+  }
 
-[data-reveal].is-revealed { opacity: 1; transform: none; }
+  html.reveal-pending [data-reveal].is-revealed { transform: none; }
 
-/* Card lift has to beat the revealed resting transform. The title underline
-   stays on the link's own hover rule. */
-.work-card[data-reveal].is-revealed:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 26px 44px rgba(25, 36, 33, 0.18);
-  transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out, opacity 520ms ease;
+  .work-card[data-reveal].is-revealed:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 26px 44px rgba(25, 36, 33, 0.18);
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 
-  /* The rule above zeroes durations but does not touch the from-state, so an
-     un-revealed element would stay at opacity 0 forever. These reset the
-     resting state outright rather than relying on the observer to arrive. */
   [data-reveal],
   [data-reveal].is-revealed { opacity: 1 !important; transform: none !important; }
   .stagger > * { animation: none !important; }

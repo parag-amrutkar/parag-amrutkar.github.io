@@ -54,13 +54,20 @@ export const EvidenceBlocks = ({ items }) => {
       {items.map((item, index) => {
         const isImage = item.type === "image" && item.url;
         const isLink = Boolean(item.url) && !isImage;
+        if (isImage) {
+          return (
+            <figure className="evidence-item evidence-shot" key={`${item.label}-${index}`}>
+              <figcaption>
+                <h3>{item.label}</h3>
+                {item.description && <p>{item.description}</p>}
+              </figcaption>
+              <img src={item.url} alt={item.alt || ""} />
+            </figure>
+          );
+        }
         return (
           <div className="evidence-item" key={`${item.label}-${index}`}>
-            {isImage ? (
-              <img src={item.url} alt={item.alt || ""} />
-            ) : (
-              <FileText size={22} aria-hidden="true" />
-            )}
+            <FileText size={22} aria-hidden="true" />
             <div>
               {isLink ? (
                 <h3>

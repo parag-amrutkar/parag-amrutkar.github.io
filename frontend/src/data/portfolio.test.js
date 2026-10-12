@@ -8,6 +8,7 @@ import {
   productStatuses,
   profile
 } from "./portfolio";
+import { applyRouteMeta, listStaticRoutes, routeIndexPath } from "./staticRoutes";
 
 const sectionItemText = (item) => (
   typeof item === "string" ? item : `${item.label}: ${item.text}`
@@ -82,6 +83,7 @@ describe("portfolio content contracts", () => {
     expect(beacon.summary.toLowerCase()).not.toMatch(/is meant to get/);
     expect(publicText).toMatch(/demo_simulated/);
     expect(publicText.toLowerCase()).toMatch(/does not link a public live kiosk/);
+    expect(publicText).not.toMatch(/README voice section/);
     expect(beacon.status).toBe("prototype");
   });
 
@@ -128,9 +130,44 @@ describe("portfolio content contracts", () => {
     expect(analysisTypes.has("steps")).toBe(false);
   });
 
-  test("featured analyses stay off the home page until sources are restored", () => {
-    expect(analyses.every((analysis) => analysis.featured === false)).toBe(true);
-    expect(analyses.every((analysis) => analysis.sources.length === 0)).toBe(true);
+  test("analyses cite the public pages their claims use", () => {
+    expect(analyses.map((analysis) => analysis.slug)).toEqual([
+      "disney-plus-ml",
+      "basecamp-pricing-strategy"
+    ]);
+    analyses.forEach((analysis) => {
+      expect(analysis.featured).toBe(true);
+      expect(analysis.sources.length).toBeGreaterThan(0);
+      const cited = new Set(analysis.sources.map((source) => source.url));
+      analysis.sections
+        .flatMap((section) => section.sources || [])
+        .forEach((source) => {
+          expect(cited.has(source.url)).toBe(true);
+          expect(source.title).toBeTruthy();
+          expect(source.publisher).toBeTruthy();
+          expect(source.accessedAt).toBe("2026-10-12");
+          expect(source.url).toMatch(/^https:\/\//);
+        });
+    });
+
+    const disney = analyses.find((analysis) => analysis.slug === "disney-plus-ml");
+    const disneyText = sectionBody(disney);
+    expect(disneyText).toMatch(/do not describe thumbnail selection/);
+    expect(disneyText).toMatch(/For You/);
+    expect(disney.sources.map((source) => source.url)).toEqual([
+      "https://thewaltdisneycompany.com/news/disney-spotlights-comprehensive-direct-to-consumer-strategy-at-2019-investor-day",
+      "https://www.disneyplus.com/explore/articles/disney-plus-app-redesign-new-features"
+    ]);
+
+    const basecamp = analyses.find((analysis) => analysis.slug === "basecamp-pricing-strategy");
+    const basecampText = sectionBody(basecamp);
+    expect(basecampText).toMatch(/\$299/);
+    expect(basecampText).toMatch(/\$15 per user/);
+    expect(basecampText).toMatch(/they do not provide is which offer/);
+    expect(basecamp.sources.map((source) => source.url)).toEqual([
+      "https://basecamp.com/pricing",
+      "https://basecamp.com/try-basecamp"
+    ]);
   });
 
   test("new products link only to verified GitHub repositories", () => {
@@ -161,7 +198,23 @@ describe("portfolio content contracts", () => {
       expect(product).toBeTruthy();
       expect(product.links.map((link) => link.url)).toContain(url);
       expect(product.evidence.length).toBeGreaterThan(0);
-      expect(product.evidence.every((item) => item.type !== "image")).toBe(true);
+      const images = product.evidence.filter((item) => item.type === "image");
+      if (slug === "beacon-box") {
+        expect(images.map((item) => item.url)).toEqual([
+          "/evidence/beacon-box/home-ask.webp",
+          "/evidence/beacon-box/product-ask.webp",
+          "/evidence/beacon-box/wayfinding-lumify.webp",
+          "/evidence/beacon-box/wayfinding-nyquil.webp"
+        ]);
+        images.forEach((item) => {
+          expect(item.alt).toBeTruthy();
+          expect(item.description).toMatch(/Local production build/);
+          expect(fs.existsSync(path.join(__dirname, "../../public", item.url.slice(1)))).toBe(true);
+        });
+        expect(product.evidence[0].description).toMatch(/no API key/);
+      } else {
+        expect(images).toEqual([]);
+      }
       expectedEvidence[slug].forEach((evidenceUrl) => {
         expect(product.evidence.map((item) => item.url)).toContain(evidenceUrl);
       });
@@ -255,6 +308,52 @@ describe("portfolio content contracts", () => {
     analyses.forEach((analysis) => {
       expect(sitemap).toContain(`<loc>${SITE_URL}/work/analysis/${analysis.slug}</loc>`);
     });
+  });
+
+  test("static route shells cover real paths and leave unknowns to 404.html", () => {
+    const routes = listStaticRoutes();
+    const paths = routes.map((entry) => entry.path);
+
+    expect(paths).toContain("/");
+    expect(paths).toContain("/work");
+    expect(paths).toContain("/contact");
+    expect(paths).toContain("/about");
+    expect(paths).toContain("/projects");
+    expect(paths).toContain("/terminal");
+    expect(new Set(paths).size).toBe(paths.length);
+    expect(paths).not.toContain("/missing");
+
+    products.forEach((product) => {
+      expect(paths).toContain(`/work/products/${product.slug}`);
+      expect(paths).toContain(`/work/project/${product.slug}`);
+      expect(paths).toContain(`/projects/${product.slug}`);
+    });
+    analyses.forEach((analysis) => {
+      expect(paths).toContain(`/work/analysis/${analysis.slug}`);
+      expect(paths).toContain(`/projects/${analysis.legacySlug}`);
+    });
+
+    expect(routeIndexPath("/")).toBe("index.html");
+    expect(routeIndexPath("/work/products/beacon-box")).toBe("work/products/beacon-box/index.html");
+
+    const shell = `<!doctype html><html><head>
+        <title>Old title</title>
+        <meta name="description" content="Old description" />
+        <meta property="og:url" content="https://example.com/" />
+        <meta property="og:title" content="Old title" />
+        <meta property="og:description" content="Old description" />
+        <meta name="twitter:title" content="Old title" />
+        <meta name="twitter:description" content="Old description" />
+        <link rel="alternate" type="text/markdown" href="https://example.com/index.md" />
+        <link rel="alternate" type="text/plain" href="https://example.com/llms.txt" />
+      </head><body></body></html>`;
+    const beacon = routes.find((entry) => entry.path === "/work/products/beacon-box");
+    const html = applyRouteMeta(shell, beacon, "https://parag-amrutkar.github.io");
+    expect(html).toContain("<title>Beacon Box — Parag Amrutkar</title>");
+    expect(html).toContain('property="og:url" content="https://parag-amrutkar.github.io/work/products/beacon-box"');
+    expect(html).toContain('rel="canonical" href="https://parag-amrutkar.github.io/work/products/beacon-box"');
+    expect(html).toContain("work/products/beacon-box.md");
+    expect(html).not.toContain("Old title");
   });
 
   test("legacy project slugs resolve intentionally", () => {

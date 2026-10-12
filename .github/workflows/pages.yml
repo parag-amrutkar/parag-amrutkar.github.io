@@ -39,10 +39,6 @@ jobs:
         working-directory: frontend
         run: yarn build
 
-      - name: Add SPA fallback (404 -> index)
-        working-directory: frontend
-        run: cp build/index.html build/404.html
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

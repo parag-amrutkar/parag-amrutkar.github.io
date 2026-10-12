@@ -260,6 +260,14 @@
 .evidence-item h3 a { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); }
 .evidence-item p { margin: 0; color: var(--ink-muted); font-size: 0.92rem; }
 .evidence-item img { grid-column: 1 / -1; width: 100%; height: auto; border-radius: var(--radius-sm); }
+.evidence-shot { grid-template-columns: 1fr; }
+.evidence-shot figcaption h3 { margin-bottom: 8px; }
+.evidence-shot img {
+  width: min(100%, 380px);
+  justify-self: start;
+  border: 1px solid var(--line);
+  background: #fff;
+}
 
 .source-list { padding-left: 22px; }
 .source-list li { margin-bottom: 18px; }
