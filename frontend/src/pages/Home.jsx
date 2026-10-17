@@ -1,15 +1,13 @@
 import React from "react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import WorkCard from "../components/WorkCard";
 import WorkRow from "../components/WorkRow";
-import { analyses, products, profile } from "../data/portfolio";
+import { products, profile } from "../data/portfolio";
 import "../components/Work.css";
 import "./Home.css";
 
 const Home = () => {
   const featuredProducts = products.filter((item) => item.featured).slice(0, 3);
-  const featuredAnalyses = analyses.filter((item) => item.featured).slice(0, 5);
 
   return (
     <div className="home">
@@ -63,20 +61,6 @@ const Home = () => {
               ))}
             </div>
             <Link to="/work" className="btn btn-primary section-more">Explore More Projects <ArrowRight size={17} /></Link>
-          </div>
-        </section>
-      )}
-
-      {featuredAnalyses.length > 0 && (
-        <section className="home-section selected-analysis">
-          <div className="container">
-            <div className="section-heading">
-              <div data-reveal><p className="eyebrow">How I think</p><h2>Selected analysis</h2></div>
-              <Link to="/work" className="text-link">Explore analysis <ArrowUpRight size={17} /></Link>
-            </div>
-            <div className="work-grid">
-              {featuredAnalyses.map((item) => <WorkCard key={item.slug} item={item} compact />)}
-            </div>
           </div>
         </section>
       )}
