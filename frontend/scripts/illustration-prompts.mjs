@@ -101,6 +101,17 @@ be recognisably the same drawing. Change ONLY the colours, to the palette below.
  */
 export const PLATES = [
   {
+    name: "plate-deals-tracker",
+    aspect: "1:1",
+    ref: true,
+    subject: `
+      A small stack of blank disclosure sheets feeding through a fine sieve
+      into two linked geometric forms. A few unresolved fragments remain
+      beside the sieve for inspection. Fine cross-hatching, restrained teal
+      accents, generous margins. Abstract evidence sorting, no text or data.
+    `
+  },
+  {
     name: "hero-two-modes",
     aspect: "4:3",
     ref: false,

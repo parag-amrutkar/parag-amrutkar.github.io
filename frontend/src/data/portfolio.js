@@ -415,6 +415,93 @@ export const products = [
         text: "Start from a draft listing, not a blank form."
       }
     ]
+  },
+  {
+    slug: "deals-tracker",
+    type: "product",
+    // Neutral Field Notes plate: no Gemini key or Vertex project is configured.
+    // The project-specific prompt is ready in illustration-prompts.mjs.
+    plate: "plate-product",
+    plateAlt: "Abstract nested construction squares; decorative product illustration.",
+    name: "Deals Tracker",
+    headline: "Deals Tracker makes SEC acquisition disclosures easier to inspect",
+    subheadline: "A public research desk for browsing US public-company M&A disclosures, tracing deal values to filings, and reviewing uncertain extractions.",
+    summary: "Browse US public-company M&A disclosures from SEC EDGAR, inspect deal values and their basis, and follow sources into company profiles.",
+    status: "live",
+    featured: false,
+    year: "2026",
+    problem: [
+      "Acquisition announcements and closings are scattered across unstructured SEC filings and press releases. Identifying the parties, transaction value, and status requires reading the underlying disclosures."
+    ],
+    solution: [
+      "A CLI ingestion pipeline and web research desk collect free SEC EDGAR filings, distinguish announced and closed deals, and expose a filterable deals list, filing evidence, value basis, and sourced company profiles. Uncertain filings are flagged for review."
+    ],
+    role: [
+      "Product owner and builder directing AI coding agents (Codex): Parag sets product direction and guides implementation of the ingestion pipeline and research desk."
+    ],
+    decisions: [
+      {
+        decision: "Keep deal extraction grounded in SEC disclosures and preserve uncertainty.",
+        rationale: "Best-effort extraction uses 8-K Items 1.01/2.01 and Ex-99.1 press releases, with source evidence and value basis available for inspection.",
+        tradeoff: "Coverage is partial; missing or unclear values display as —, and uncertain filings require review."
+      },
+      {
+        decision: "Allow cached browsing publicly; require an invited Supabase account for write actions.",
+        rationale: "Visitors can inspect saved research without starting polling, refresh, or provider work.",
+        tradeoff: "Research, refresh, and polling are restricted to invited accounts; free-tier Render hosting can cold-start."
+      }
+    ],
+    evidence: [
+      {
+        type: "image",
+        label: "Dashboard",
+        url: "/evidence/deals-tracker/dashboard.webp",
+        alt: "Deals Tracker dashboard with stored deal summaries and filing coverage.",
+        description: "Live public site, signed out, captured 2026-10-17. Figures describe a data snapshot, not usage or traction."
+      },
+      {
+        type: "image",
+        label: "Deals list with value and basis",
+        url: "/evidence/deals-tracker/deals-list.webp",
+        alt: "Deals Tracker transaction list showing acquirer, target, status, and deal value with its basis.",
+        description: "Live public site, signed out, captured 2026-10-17. Missing values remain —; extraction and filing coverage are partial."
+      },
+      {
+        type: "image",
+        label: "Deal detail: Repligen / BioLife Solutions",
+        url: "/evidence/deals-tracker/deal-detail.webp",
+        alt: "Repligen and BioLife Solutions deal detail with transaction evidence and sourced company profiles.",
+        description: "Live public site, signed out, captured 2026-10-17. Saved company profiles expose sources; refresh and research require an invited account."
+      }
+    ],
+    outcomes: [
+      "Public deployment verified on 2026-10-17: cached browsing returned HTTP 200 and /health reported ok at deployed commit 99c2ecd. Hosted on Render's free plan; cold starts are possible."
+    ],
+    links: [{ label: "View live site", url: "https://deals-tracker-ly4j.onrender.com" }],
+    tags: ["SEC EDGAR", "M&A research", "Python", "React"],
+    sections: [
+      { type: "paragraphs", title: "The Problem", items: [
+        "Acquisition disclosures are spread across unstructured filings and exhibits. A research desk needs to make parties, status, and value inspectable without hiding the underlying evidence."
+      ] },
+      { type: "paragraphs", title: "The Product", items: [
+        "Deals Tracker combines a CLI ingestion pipeline with a public dashboard, filterable deals list, filing review, and deal details with value basis and sourced company profiles.",
+        "Live as verified on 2026-10-17. Cached browsing is public; research, refresh, and polling require an invited Supabase account."
+      ] },
+      { type: "paragraphs", title: "My role", items: [
+        "Product owner and builder directing AI coding agents (Codex). Parag sets product direction and guides implementation of the ingestion pipeline and research desk."
+      ] },
+      { type: "paragraphs", title: "Stack", items: [
+        "Python Flask and gunicorn serve the API and compiled frontend. Storage uses SQLite locally and Postgres on Render. The frontend uses React 19, Vite, TypeScript, and Tailwind CSS; Supabase handles authentication.",
+        "Core filings come from free SEC EDGAR APIs. Optional Exa enrichment adds grounded company profiles; optional Polygon/Massive supplies filer end-of-day prices. SEC and Wikipedia provide description fallbacks when Exa is unconfigured."
+      ] },
+      { type: "paragraphs", title: "Key decisions and tradeoffs", items: [
+        "Best-effort extraction focuses on 8-K Items 1.01/2.01 and Ex-99.1 press releases. Missing or unclear values display as — rather than guessed facts. Coverage is partial, and uncertain filings are flagged for review.",
+        "Public cached reads make saved research inspectable while invited-account controls restrict write actions and provider work. Free-tier Render hosting keeps the deployment lightweight but can cold-start."
+      ] },
+      { type: "paragraphs", title: "Current status", items: [
+        "Public deployment verified on 2026-10-17: HTTP 200, with /health reporting ok at commit 99c2ecd. This establishes deployment availability, not adoption or extraction completeness."
+      ] }
+    ]
   }
 ];
 

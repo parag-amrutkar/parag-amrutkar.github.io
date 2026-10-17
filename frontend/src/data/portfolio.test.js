@@ -99,6 +99,8 @@ describe("portfolio content contracts", () => {
       const titles = product.sections.map((section) => section.title);
       if (product.slug === "beacon-box" || product.slug === "ai-shopping-assistant" || product.slug === "docnotes-rag") {
         expect(titles).toEqual([...baseSections, "Impact"]);
+      } else if (product.slug === "deals-tracker") {
+        expect(titles).toEqual(["The Problem", "The Product", "My role", "Stack", "Key decisions and tradeoffs", "Current status"]);
       } else {
         expect(titles).toEqual(baseSections);
         expect(titles).not.toContain("Impact");
@@ -221,12 +223,36 @@ describe("portfolio content contracts", () => {
     });
   });
 
+  test("Deals Tracker publishes live access and signed-out evidence without a private repository link", () => {
+    const product = products.find((item) => item.slug === "deals-tracker");
+    expect(product.status).toBe("live");
+    expect(product.links).toEqual([{ label: "View live site", url: "https://deals-tracker-ly4j.onrender.com" }]);
+    expect(product.role.join(" ")).toMatch(/directing AI coding agents \(Codex\)/);
+    expect(product.role.join(" ")).not.toMatch(/sole/i);
+    expect(product.evidence.map((item) => item.url)).toEqual([
+      "/evidence/deals-tracker/dashboard.webp",
+      "/evidence/deals-tracker/deals-list.webp",
+      "/evidence/deals-tracker/deal-detail.webp"
+    ]);
+    product.evidence.forEach((item) => {
+      expect(item.alt).toBeTruthy();
+      expect(item.description).toMatch(/signed out, captured 2026-10-17/);
+      expect(fs.existsSync(path.join(__dirname, "../../public", item.url.slice(1)))).toBe(true);
+    });
+    const markdown = renderAgentFiles(SITE_URL)["work/products/deals-tracker.md"];
+    expect(markdown).toContain("View live site");
+    expect(markdown).toContain("invited");
+    expect(markdown).not.toContain([profile.github, product.slug].join("/"));
+    expect(listStaticRoutes().map((entry) => entry.path)).toContain("/work/products/deals-tracker");
+  });
+
   test("product plates resolve to committed illustration files", () => {
     const expectedPlates = {
       "beacon-box": "plate-beacon-box",
       "ai-shopping-assistant": "shopping_assistant_transparent",
       "docnotes-rag": "plate-docnotes-rag",
-      "etsy-smartlist": "plate-etsy-smartlist"
+      "etsy-smartlist": "plate-etsy-smartlist",
+      "deals-tracker": "plate-product"
     };
     const dir = path.join(__dirname, "../../public/illustrations");
     const webpOnly = new Set([
