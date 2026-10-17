@@ -2,6 +2,7 @@ import React from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Github } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { ContentSection, DetailSections, EvidenceBlocks } from "../components/DetailBlocks";
+import StatusBadge from "../components/StatusBadge";
 import Figure from "../components/art/Figure";
 import { getProductBySlug } from "../data/portfolio";
 import "../components/Work.css";
@@ -17,6 +18,8 @@ const ProductDetail = () => {
 
   const repository = product.links?.find((link) => link.label === "GitHub repository");
 
+  const liveSite = product.links?.find((link) => link.label === "View live site");
+
   return (
     <article className="detail-page detail-product page-shell">
       <div className="container detail-container">
@@ -24,9 +27,15 @@ const ProductDetail = () => {
           <div className="detail-header-copy">
             <div className="detail-kicker-row">
               <span className="eyebrow">{product.name}</span>
+              {liveSite && <StatusBadge status={product.status} />}
             </div>
             <h1>{product.headline}</h1>
             {product.subheadline && <p className="detail-summary">{product.subheadline}</p>}
+            {liveSite && (
+              <a className="btn btn-primary" href={liveSite.url} target="_blank" rel="noreferrer">
+                {liveSite.label} <ArrowUpRight size={17} />
+              </a>
+            )}
             {repository && (
               <a
                 className="detail-repo-icon"
