@@ -252,13 +252,14 @@ describe("portfolio content contracts", () => {
       "ai-shopping-assistant": "shopping_assistant_transparent",
       "docnotes-rag": "plate-docnotes-rag",
       "etsy-smartlist": "plate-etsy-smartlist",
-      "deals-tracker": "plate-product"
+      "deals-tracker": "plate-deals-tracker"
     };
     const dir = path.join(__dirname, "../../public/illustrations");
     const webpOnly = new Set([
       "plate-beacon-box",
       "shopping_assistant_transparent",
-      "plate-docnotes-rag"
+      "plate-docnotes-rag",
+      "plate-deals-tracker"
     ]);
     Object.entries(expectedPlates).forEach(([slug, plate]) => {
       const product = products.find((item) => item.slug === slug);

@@ -419,10 +419,9 @@ export const products = [
   {
     slug: "deals-tracker",
     type: "product",
-    // Neutral Field Notes plate: no Gemini key or Vertex project is configured.
-    // The project-specific prompt is ready in illustration-prompts.mjs.
-    plate: "plate-product",
-    plateAlt: "Abstract nested construction squares; decorative product illustration.",
+    plate: "plate-deals-tracker",
+    plateRatio: "3 / 2",
+    plateAlt: "Hand-drawn explainer: SEC filings, press releases and company data flow into a parser that produces a deal card.",
     name: "Deals Tracker",
     headline: "Deals Tracker makes SEC acquisition disclosures easier to inspect",
     subheadline: "A public research desk for browsing US public-company M&A disclosures, tracing deal values to filings, and reviewing uncertain extractions.",
