@@ -69,7 +69,6 @@
 
 .home-section { padding: clamp(82px, 10vw, 120px) 0; }
 .selected-products { background: var(--paper-deep); }
-.selected-analysis { background: var(--paper); }
 
 .section-heading {
   display: flex;
