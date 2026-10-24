@@ -39,13 +39,21 @@ describe("portfolio content contracts", () => {
     });
   });
 
-  test("featured products are the three public-repo entries", () => {
+  test("homepage features Deals Tracker, Beacon Box, and AI Shopping Assistant in that order", () => {
     const featured = products.filter((product) => product.featured).map((product) => product.slug);
-    expect(featured).toEqual(["beacon-box", "ai-shopping-assistant", "docnotes-rag"]);
+    const homepage = products.filter((product) => product.featured).slice(0, 3).map((product) => product.name);
+
+    expect(featured).toEqual(["deals-tracker", "beacon-box", "ai-shopping-assistant"]);
+    expect(homepage).toEqual(["Deals Tracker", "Beacon Box", "AI Shopping Assistant"]);
 
     const etsy = products.find((product) => product.slug === "etsy-smartlist");
+    const docs = products.find((product) => product.slug === "docnotes-rag");
     expect(etsy).toBeTruthy();
     expect(etsy.featured).toBe(false);
+    expect(docs).toBeTruthy();
+    expect(docs.name).toBe("Docs Query");
+    expect(docs.featured).toBe(false);
+    expect(products.map((product) => product.slug)).toContain("docnotes-rag");
   });
 
   test("Beacon Box role is not sole-builder and names collaborators from project context", () => {
